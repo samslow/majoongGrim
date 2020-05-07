@@ -1,18 +1,15 @@
 # 🎨 마중그림 : Majoong Grimor
 
-웹툰에서 쓰이는 썸네일 에디터 마중그림을 만듭니다.🎨
-
-팀원:  @samslow · @taenykim 
+웹툰에서 쓰이는 썸네일 에디터 마중그림을 만듭니다.([@samslow](https://github.com/samslow) · [@taenykim](https://github.com/taenykim))
 
 ## 기술 스택
 
 - 라이브러리
-  - 리액트
-  - 리액트 Hooks api
+  - React
+  - React Hooks api
   - styled-components
 - 상태관리
-  - mobX
-
+  - MobX
 
 ## 설계 원칙
 
@@ -22,7 +19,20 @@
 
 3. 컴포넌트와 함수는 화살표 함수로 작성한다.
 
+## Commit Message Rules
+아래 타입을 목적에 맞게 가장 앞에 쓰고 커밋 메시지를 한글로 작성한다.
+ex. Fix 헤더 버그
+
+### Type
+  * Feat: 새로운 기능
+  * Update: 기능 및 기타 수정
+  * Fix: 버그 수정
+  * Style: 스타일 변경
+  * Refactor: 리팩토링
+
+
 ---
+
 
 ## 주제
 

@@ -4,6 +4,26 @@
 
 팀원:  @samslow · @taenykim 
 
+## 기술 스택
+
+- 라이브러리
+  - 리액트
+  - 리액트 Hooks api
+  - styled-components
+- 상태관리
+  - mobX
+
+
+## 설계 원칙
+
+1. 디렉토리 구조는 Container + Pressenter Pattern을 사용한다.
+
+2. JavaScript로 진행하되, 정적 타입 검사가 필요하다고 생각하면 TypeScript로 전환
+
+3. 컴포넌트와 함수는 화살표 함수로 작성한다.
+
+---
+
 ## 주제
 
 사용자가 컨텐츠를 선택할 때 중요하게 생각하는 요소 중 하나로 썸네일을 꼽을 수 있습니다.

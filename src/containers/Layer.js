@@ -1,7 +1,13 @@
 import React from "react";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background: orange;
+  flex: 2;
+`;
 
 const Layer = () => {
-  return <div></div>;
+  return <Container></Container>;
 };
 
 export default Layer;

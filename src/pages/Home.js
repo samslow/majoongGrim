@@ -1,10 +1,10 @@
 import React from "react";
-import Controller from "../containers/Controller";
-import Toolbox from "../containers/Toolbox";
-import Header from "../containers/Header";
-import Editor from "../containers/Editor";
-import Layer from "../containers/Layer";
 import styled from "styled-components";
+import HeaderContainer from "../containers/HeaderContainer";
+import EditorContainer from "../containers/EditorContainer";
+import ControllerContainer from "../containers/ControllerContainer";
+import ToolboxContainer from "../containers/ToolboxContainer";
+import LayerContainer from "../containers/LayerContainer";
 
 const Container = styled.div`
   width: 100vw;
@@ -32,15 +32,15 @@ const RightContent = styled.div`
 const Home = () => {
   return (
     <Container>
-      <Header />
+      <HeaderContainer />
       <Content>
         <LeftContent>
-          <Editor />
-          <Controller />
+          <EditorContainer />
+          <ControllerContainer />
         </LeftContent>
         <RightContent>
-          <Toolbox />
-          <Layer />
+          <ToolboxContainer />
+          <LayerContainer />
         </RightContent>
       </Content>
     </Container>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -33,19 +33,41 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const APP_TITLE = "마중그림";
-const VERTICAL = "세로형";
-const HORIZONTAL = "가로형";
-const DOWNLOAD = "다운로드";
+const APP_TITLE_TEXT = "마중그림";
+const VERTICAL_TEXT = "세로형";
+const HORIZONTAL_TEXT = "가로형";
+const DOWNLOAD_TEXT = "다운로드";
+
+const VERTICAL_SHAPE = "VERTICAL_SHAPE";
+const HORIZONTAL_SHAPE = "HORIZONTAL_SHAPE";
 
 const HeaderContainer = () => {
+  const [nowShape, setNowShape] = useState(HORIZONTAL_SHAPE);
+
+  useEffect(() => {
+    console.log(nowShape);
+  }, [nowShape]);
+
+  const changeShape = useCallback((shapeType) => {
+    if (shapeType === VERTICAL_SHAPE) {
+      return setNowShape(VERTICAL_SHAPE);
+    }
+    if (shapeType === HORIZONTAL_SHAPE) {
+      return setNowShape(HORIZONTAL_SHAPE);
+    }
+  }, []);
+
   return (
     <Container>
-      <Title>{APP_TITLE}</Title>
+      <Title>{APP_TITLE_TEXT}</Title>
       <ButtonContainer>
-        <button>{VERTICAL}</button>
-        <button>{HORIZONTAL}</button>
-        <button>{DOWNLOAD}</button>
+        <button onClick={() => changeShape(VERTICAL_SHAPE)}>
+          {VERTICAL_TEXT}
+        </button>
+        <button onClick={() => changeShape(HORIZONTAL_SHAPE)}>
+          {HORIZONTAL_TEXT}
+        </button>
+        <button>{DOWNLOAD_TEXT}</button>
       </ButtonContainer>
     </Container>
   );

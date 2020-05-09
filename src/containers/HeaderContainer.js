@@ -2,12 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background: purple;
-  flex: 1;
+  width: 100vw;
+  height: 60px;
+  background: red;
 `;
 
-const Controller = () => {
+const HeaderContainer = () => {
   return <Container></Container>;
 };
 
-export default Controller;
+export default HeaderContainer;

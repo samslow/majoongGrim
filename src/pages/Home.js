@@ -1,9 +1,9 @@
 import React from "react";
-import Controller from "../containers/Controller";
-import Toolbox from "../containers/Toolbox";
-import Header from "../containers/Header";
-import Editor from "../containers/Editor";
-import Layer from "../containers/Layer";
+import Controller from "containers/ControllerContainer";
+import Toolbox from "containers/ToolboxContainer";
+import Header from "containers/HeaderContainer";
+import Editor from "containers/EditorContainer";
+import Layer from "containers/LayerWindowContainer";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -26,7 +26,7 @@ const LeftContent = styled.div`
 const RightContent = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  width: 300px; /* 툴박스는 고정 크기 */
 `;
 
 const Home = () => {

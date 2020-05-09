@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background: orange;
-  flex: 2;
+  background: blue;
+  flex: 3;
 `;
 
-const Layer = () => {
+const EditorContainer = () => {
   return <Container></Container>;
 };
 
-export default Layer;
+export default EditorContainer;

@@ -20,19 +20,24 @@
 3. 컴포넌트와 함수는 화살표 함수로 작성한다.
 
 ## Commit Message Rules
+
 아래 타입을 목적에 맞게 가장 앞에 쓰고 커밋 메시지를 한글로 작성한다.
 ex. Fix 헤더 버그
 
 ### Type
-  * Feat: 새로운 기능
-  * Update: 기능 및 기타 수정
-  * Fix: 버그 수정
-  * Style: 스타일 변경
-  * Refactor: 리팩토링
 
+- Feat: 새로운 기능
+- Update: 기능 및 기타 수정
+- Fix: 버그 수정
+- Style: 스타일 변경
+- Refactor: 리팩토링
+- Chore: 빌드업무, 패키지 매니저 수정
+
+## 레이아웃 디자인
+
+![](https://user-images.githubusercontent.com/26738367/81293856-f6ef3a00-90a8-11ea-9296-f2093e779f1e.png)
 
 ---
-
 
 ## 주제
 
@@ -83,13 +88,11 @@ ex. Fix 헤더 버그
 
 - README.md
 
-   
+프로젝트 정보를 정리해주세요.
 
-  프로젝트 정보를 정리해주세요.
-
-  - 각자의 롤
-  - 프로젝트 기술스택
-  - 코드 컨벤션 등 자유롭게
+- 각자의 롤
+- 프로젝트 기술스택
+- 코드 컨벤션 등 자유롭게
 
 - 코드는 PR방식으로 진행해주세요.
 
@@ -114,4 +117,3 @@ ex. Fix 헤더 버그
 ### 팀 마중그림
 
 - https://github.com/2020-NAVER-CAMPUS-HACKDAY/majoongGrimor
-

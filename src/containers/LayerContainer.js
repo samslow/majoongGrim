@@ -6,8 +6,8 @@ const Container = styled.div`
   flex: 2;
 `;
 
-const LayerWindowContainer = () => {
+const LayerContainer = () => {
   return <Container></Container>;
 };
 
-export default LayerWindowContainer;
+export default LayerContainer;

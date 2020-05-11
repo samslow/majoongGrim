@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { AiOutlineRotateRight } from "react-icons/ai";
 import { MdMessage } from "react-icons/md";
 import { FaShapes } from "react-icons/fa";
 import { BsFillImageFill } from "react-icons/bs";
 import { IoIosColorFilter } from "react-icons/io";
+import { observer } from "mobx-react";
 
+import useStores from "hooks/useStores";
 import ToolboxContentBox from "components/Toolbox/ContentBox";
 
-const Toolbox = () => {
+const Toolbox = observer(() => {
+  const { ToolboxStore } = useStores();
+
   const handleTool = (name) => {
-    alert(name);
+    ToolboxStore.selectedTool = name;
   };
 
   return (
@@ -52,7 +56,7 @@ const Toolbox = () => {
       </ContentRow>
     </Container>
   );
-};
+});
 
 const Container = styled.aside`
   display: flex;

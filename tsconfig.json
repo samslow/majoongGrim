@@ -19,10 +19,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "paths": {
-      "*": ["src/*"]
-    }
+    "baseUrl": "./src"
   },
   "include": ["./**/*"],
   "exclude": ["node_modules"]

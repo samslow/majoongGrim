@@ -8,7 +8,7 @@ const Container = styled.div`
   padding: 0px 30px 0px 30px;
 `;
 
-const Title = ({ appTitleText }) => {
+const Title = ({ appTitleText }: { appTitleText: string }) => {
   return <Container>{appTitleText}</Container>;
 };
 

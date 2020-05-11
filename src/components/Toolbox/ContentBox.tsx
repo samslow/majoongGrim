@@ -6,6 +6,10 @@ const ToolboxContentBox = ({
   name = "",
   icon = <IoIosDocument size="60%" color={"#DDD"} />,
   onClickTool,
+}: {
+  name?: string;
+  icon?: any;
+  onClickTool?: any;
 }) => {
   return (
     <ContentBox onClick={() => name.length && onClickTool(name)}>

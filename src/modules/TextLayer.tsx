@@ -2,7 +2,7 @@ import Layer from "./Layer";
 
 export default class TextLayer extends Layer {
   fontType: string;
-  fontSize: string;
+  fontSize: number;
   color: string;
 
   constructor(
@@ -13,7 +13,7 @@ export default class TextLayer extends Layer {
     zIndex: number,
     angleDegree: number,
     fontType: string,
-    fontSize: string,
+    fontSize: number,
     color: string,
   ) {
     super(x, y, width, height, zIndex, angleDegree);

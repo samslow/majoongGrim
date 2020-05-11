@@ -20,14 +20,16 @@ const ButtonContainer = styled.div`
 const VERTICAL_SHAPE = "VERTICAL_SHAPE";
 const HORIZONTAL_SHAPE = "HORIZONTAL_SHAPE";
 
-const HeaderButtons = ({
-  verticalText,
-  horizontalText,
-  downloadText,
-}: {
+interface ComponentProps {
   verticalText: string;
   horizontalText: string;
   downloadText: string;
+}
+
+const HeaderButtons: React.FC<ComponentProps> = ({
+  verticalText,
+  horizontalText,
+  downloadText,
 }) => {
   const [nowShape, setNowShape] = useState(horizontalText);
 

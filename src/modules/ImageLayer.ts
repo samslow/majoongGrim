@@ -1,8 +1,7 @@
-import Layer from "./Layer";
+import Layer from "modules/Layer";
 
-export default class ShapeLayer extends Layer {
-  shapeStyle: string;
-  color: string;
+export default class ImageLayer extends Layer {
+  image: HTMLImageElement;
 
   constructor(
     x: number,
@@ -11,12 +10,10 @@ export default class ShapeLayer extends Layer {
     height: number,
     zIndex: number,
     angleDegree: number,
-    shapeStyle: string,
-    color: string,
+    image: HTMLImageElement,
   ) {
     super(x, y, width, height, zIndex, angleDegree);
-    this.shapeStyle = shapeStyle;
-    this.color = color;
+    this.image = image;
   }
 
   move() {

@@ -1,8 +1,7 @@
-import Layer from "./Layer";
+import Layer from "modules/Layer";
 
-export default class TextLayer extends Layer {
-  fontType: string;
-  fontSize: number;
+export default class ShapeLayer extends Layer {
+  shapeStyle: string;
   color: string;
 
   constructor(
@@ -12,13 +11,11 @@ export default class TextLayer extends Layer {
     height: number,
     zIndex: number,
     angleDegree: number,
-    fontType: string,
-    fontSize: number,
+    shapeStyle: string,
     color: string,
   ) {
     super(x, y, width, height, zIndex, angleDegree);
-    this.fontType = fontType;
-    this.fontSize = fontSize;
+    this.shapeStyle = shapeStyle;
     this.color = color;
   }
 

@@ -2,14 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { IoIosDocument } from "react-icons/io";
 
-const ToolboxContentBox = ({
-  name = "",
-  icon = <IoIosDocument size="60%" color={"#DDD"} />,
-  onClickTool,
-}: {
+interface ComponentProps {
   name?: string;
   icon?: any;
   onClickTool?: any;
+}
+
+const ToolboxContentBox: React.FC<ComponentProps> = ({
+  name = "",
+  icon = <IoIosDocument size="60%" color={"#DDD"} />,
+  onClickTool,
 }) => {
   return (
     <ContentBox onClick={() => name.length && onClickTool(name)}>

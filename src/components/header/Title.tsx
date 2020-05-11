@@ -8,7 +8,11 @@ const Container = styled.div`
   padding: 0px 30px 0px 30px;
 `;
 
-const Title = ({ appTitleText }: { appTitleText: string }) => {
+interface ComponentProps {
+  appTitleText: string;
+}
+
+const Title: React.FC<ComponentProps> = ({ appTitleText }) => {
   return <Container>{appTitleText}</Container>;
 };
 

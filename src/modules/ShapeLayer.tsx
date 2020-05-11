@@ -1,0 +1,29 @@
+import Layer from "./Layer";
+
+export default class ShapeLayer extends Layer {
+  shapeStyle: string;
+  color: string;
+
+  constructor(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    zIndex: number,
+    angleDegree: number,
+    shapeStyle: string,
+    color: string,
+  ) {
+    super(x, y, width, height, zIndex, angleDegree);
+    this.shapeStyle = shapeStyle;
+    this.color = color;
+  }
+
+  move() {
+    // 기능 구현
+  }
+
+  rotate() {
+    // 기능 구현
+  }
+}

@@ -9,7 +9,7 @@ import { IoIosColorFilter } from "react-icons/io";
 import ToolboxContentBox from "components/Toolbox/ContentBox";
 
 const Toolbox = () => {
-  const handleTool = (name) => {
+  const handleTool = (name: string) => {
     alert(name);
   };
 
@@ -19,29 +19,29 @@ const Toolbox = () => {
         <ToolboxContentBox
           name={"화면 회전"}
           icon={<AiOutlineRotateRight size="60%" color={"#888"} />}
-          onClickTool={(name) => handleTool(name)}
+          onClickTool={(name: string) => handleTool(name)}
         />
         <ToolboxContentBox
           name={"텍스트 삽입"}
           icon={<MdMessage size="60%" color={"#888"} />}
-          onClickTool={(name) => handleTool(name)}
+          onClickTool={(name: string) => handleTool(name)}
         />
         <ToolboxContentBox
           name={"도형 삽입"}
           icon={<FaShapes size="60%" color={"#888"} />}
-          onClickTool={(name) => handleTool(name)}
+          onClickTool={(name: string) => handleTool(name)}
         />
       </ContentRow>
       <ContentRow>
         <ToolboxContentBox
           name={"이미지 삽입"}
           icon={<BsFillImageFill size="60%" color={"#888"} />}
-          onClickTool={(name) => handleTool(name)}
+          onClickTool={(name: string) => handleTool(name)}
         />
         <ToolboxContentBox
           name={"필터"}
           icon={<IoIosColorFilter size="60%" color={"#888"} />}
-          onClickTool={(name) => handleTool(name)}
+          onClickTool={(name: string) => handleTool(name)}
         />
         <ToolboxContentBox />
       </ContentRow>

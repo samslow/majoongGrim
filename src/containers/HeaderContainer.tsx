@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Title from "../components/header/Title";
-import HeaderButtons from "../components/header/HeaderButtons";
+import Title from "components/header/Title";
+import HeaderButtons from "components/header/HeaderButtons";
 
 const Container = styled.div`
   position: relative;

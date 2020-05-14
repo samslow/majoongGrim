@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
+interface ShapeProps {
+  shapeType: string;
+}
+
 const Container = styled.div`
   position: absolute;
   top: 50%;
@@ -14,10 +18,6 @@ const Container = styled.div`
   }};
   background: white;
 `;
-
-interface ShapeProps {
-  shapeType: string;
-}
 
 interface ComponentProps {
   nowShape: string;

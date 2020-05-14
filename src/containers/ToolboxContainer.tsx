@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { AiOutlineRotateRight } from "react-icons/ai";
 import { MdMessage } from "react-icons/md";
-import { FaShapes } from "react-icons/fa";
 import { BsFillImageFill } from "react-icons/bs";
-import { IoIosColorFilter } from "react-icons/io";
 import { observer } from "mobx-react";
 
 import useStores from "hooks/useStores";
-import ToolboxContentBox from "components/Toolbox/ContentBox";
+import ToolboxContentBox from "components/Toolbox/ToolboxContentBox";
+
+export enum ToolboxType {
+  IMAGE = "이미지 삽입",
+  TEXT = "텍스트 삽입",
+}
 
 const Toolbox = observer(() => {
   const { ToolboxStore } = useStores();
@@ -17,36 +19,34 @@ const Toolbox = observer(() => {
     ToolboxStore.selectedTool = name;
   };
 
+  const handleActive = (type: string) => {
+    if (ToolboxStore.selectedTool == type) {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <Container>
       <ContentRow>
         <ToolboxContentBox
-          name={"화면 회전"}
-          icon={<AiOutlineRotateRight size="60%" color={"#888"} />}
+          name={ToolboxType.IMAGE}
+          icon={<BsFillImageFill size="60%" color={"#888"} />}
           onClickTool={(name: string) => handleTool(name)}
+          isActive={handleActive(ToolboxType.IMAGE)}
         />
         <ToolboxContentBox
           name={"텍스트 삽입"}
           icon={<MdMessage size="60%" color={"#888"} />}
           onClickTool={(name: string) => handleTool(name)}
+          isActive={handleActive(ToolboxType.TEXT)}
         />
-        <ToolboxContentBox
-          name={"도형 삽입"}
-          icon={<FaShapes size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
-        />
+        <ToolboxContentBox />
       </ContentRow>
       <ContentRow>
-        <ToolboxContentBox
-          name={"이미지 삽입"}
-          icon={<BsFillImageFill size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
-        />
-        <ToolboxContentBox
-          name={"필터"}
-          icon={<IoIosColorFilter size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
-        />
+        <ToolboxContentBox />
+        <ToolboxContentBox />
         <ToolboxContentBox />
       </ContentRow>
       <ContentRow>

@@ -24,33 +24,21 @@ interface ComponentProps {
   verticalText: string;
   horizontalText: string;
   downloadText: string;
+  onClickShape: Function;
 }
 
 const HeaderButtons: React.FC<ComponentProps> = ({
   verticalText,
   horizontalText,
   downloadText,
+  onClickShape,
 }) => {
-  const [nowShape, setNowShape] = useState(horizontalText);
-
-  useEffect(() => {
-    console.log(nowShape);
-  }, [nowShape]);
-
-  const changeShape = useCallback((shapeType) => {
-    if (shapeType === VERTICAL_SHAPE) {
-      return setNowShape(VERTICAL_SHAPE);
-    }
-    if (shapeType === HORIZONTAL_SHAPE) {
-      return setNowShape(HORIZONTAL_SHAPE);
-    }
-  }, []);
   return (
     <ButtonContainer>
-      <button onClick={() => changeShape(VERTICAL_SHAPE)}>
+      <button onClick={() => onClickShape(VERTICAL_SHAPE)}>
         {verticalText}
       </button>
-      <button onClick={() => changeShape(HORIZONTAL_SHAPE)}>
+      <button onClick={() => onClickShape(HORIZONTAL_SHAPE)}>
         {horizontalText}
       </button>
       <button>{downloadText}</button>

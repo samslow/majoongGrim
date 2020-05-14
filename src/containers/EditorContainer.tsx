@@ -4,13 +4,19 @@ import Layer from "modules/Layer";
 import ImageLayer from "modules/ImageLayer";
 import TextLayer from "modules/TextLayer";
 import ShapeLayer from "modules/ShapeLayer";
+import ArtBoard from "components/editor/ArtBoard";
+import useStores from "hooks/useStores";
+import { observer } from "mobx-react";
 
 const Container = styled.div`
-  background: blue;
+  position: relative;
+  background: grey;
   flex: 3;
 `;
 
-const EditorContainer = () => {
+const EditorContainer = observer(() => {
+  const { HeaderStore } = useStores();
+
   useEffect(() => {
     const img = <img />;
     console.log("레이어", new Layer(1, 1, 5, 5, 0, 1));
@@ -24,7 +30,11 @@ const EditorContainer = () => {
       new ShapeLayer(1, 1, 5, 5, 0, 1, "circle", "red"),
     );
   }, []);
-  return <Container></Container>;
-};
+  return (
+    <Container>
+      <ArtBoard nowShape={HeaderStore.nowShape}></ArtBoard>
+    </Container>
+  );
+});
 
 export default EditorContainer;

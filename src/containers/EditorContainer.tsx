@@ -7,6 +7,7 @@ import ShapeLayer from "modules/ShapeLayer";
 import ArtBoard from "components/editor/ArtBoard";
 import useStores from "hooks/useStores";
 import { observer } from "mobx-react";
+import DraggableImage from "modules/DraggableImage";
 
 const Container = styled.div`
   position: relative;
@@ -15,7 +16,7 @@ const Container = styled.div`
 `;
 
 const EditorContainer = observer(() => {
-  const { HeaderStore } = useStores();
+  const { HeaderStore, LayerStore } = useStores();
 
   useEffect(() => {
     const img = <img />;
@@ -32,6 +33,10 @@ const EditorContainer = observer(() => {
   }, []);
   return (
     <Container>
+      {LayerStore.layers.length &&
+        LayerStore.layers.map((item: any) => {
+          return <DraggableImage src={item.image.src} />;
+        })}
       <ArtBoard nowShape={HeaderStore.nowShape}></ArtBoard>
     </Container>
   );

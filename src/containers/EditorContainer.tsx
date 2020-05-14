@@ -34,12 +34,16 @@ const EditorContainer = observer(() => {
   return (
     <Container>
       {LayerStore.layers.length
-        ? LayerStore.layers.map((item: any) => {
+        ? LayerStore.layers.map((layer: any) => {
+            console.log(layer);
             return (
               <DraggableImage
-                src={item.image.src}
-                width={item.width}
-                height={item.height}
+                src={layer.image.src}
+                width={layer.width}
+                height={layer.height}
+                x={layer.x}
+                y={layer.y}
+                zIndex={layer.zIndex}
               />
             );
           })

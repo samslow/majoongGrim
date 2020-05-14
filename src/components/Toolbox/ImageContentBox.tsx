@@ -4,6 +4,7 @@ import { IoIosDocument } from "react-icons/io";
 import ImageLayer from "modules/ImageLayer";
 import useStores from "hooks/useStores";
 import { resizeImage } from "modules/resizeImage";
+import { getArtboardCenterPosition } from "modules/getArtboardCenterPosition";
 
 interface ComponentProps {
   name?: string;
@@ -26,7 +27,8 @@ const ImageContentBox: React.FC<ComponentProps> = ({
       img.src = event.target.result;
       img.onload = () => {
         const [width, height] = resizeImage(img, HeaderStore.nowShape);
-        const imgLayer = new ImageLayer(0, 0, width, height, 10, 0, img);
+        const [x, y] = getArtboardCenterPosition(width, height);
+        const imgLayer = new ImageLayer(x, y, width, height, 0, 10, img);
         LayerStore.layers.push(imgLayer);
       };
     };

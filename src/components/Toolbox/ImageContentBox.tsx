@@ -45,6 +45,7 @@ const ImageContentBox: React.FC<ComponentProps> = ({
         type="file"
         id="imageLoader"
         name="imageLoader"
+        accept="image/png,image/jpg,image/jpeg"
         hidden
         onChange={handleImage}
       />

@@ -5,7 +5,7 @@ import { IoIosDocument } from "react-icons/io";
 interface ComponentProps {
   name?: string;
   icon?: any;
-  onClickTool?: any;
+  onClickTool?: Function;
 }
 
 const ToolboxContentBox: React.FC<ComponentProps> = ({
@@ -14,7 +14,7 @@ const ToolboxContentBox: React.FC<ComponentProps> = ({
   onClickTool,
 }) => {
   return (
-    <ContentBox onClick={() => name.length && onClickTool(name)}>
+    <ContentBox onClick={() => name.length && onClickTool && onClickTool(name)}>
       <ContentIcon>{icon}</ContentIcon>
       {name.length > 0 && <ContentName>{name}</ContentName>}
     </ContentBox>

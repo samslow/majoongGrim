@@ -33,10 +33,11 @@ const EditorContainer = observer(() => {
   }, []);
   return (
     <Container>
-      {LayerStore.layers.length &&
-        LayerStore.layers.map((item: any) => {
-          return <DraggableImage src={item.image.src} />;
-        })}
+      {LayerStore.layers.length
+        ? LayerStore.layers.map((item: any) => {
+            return <DraggableImage src={item.image.src} />;
+          })
+        : null}
       <ArtBoard nowShape={HeaderStore.nowShape}></ArtBoard>
     </Container>
   );

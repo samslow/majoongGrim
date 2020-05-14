@@ -9,12 +9,16 @@ import { observer } from "mobx-react";
 
 import useStores from "hooks/useStores";
 import ToolboxContentBox from "components/Toolbox/ContentBox";
+import ImageContentBox from "components/Toolbox/ImageContentBox";
 
 const Toolbox = observer(() => {
   const { ToolboxStore } = useStores();
 
   const handleTool = (name: string) => {
     ToolboxStore.selectedTool = name;
+    if (name === "이미지 삽입") {
+      console.log("dd");
+    }
   };
 
   return (
@@ -37,7 +41,7 @@ const Toolbox = observer(() => {
         />
       </ContentRow>
       <ContentRow>
-        <ToolboxContentBox
+        <ImageContentBox
           name={"이미지 삽입"}
           icon={<BsFillImageFill size="60%" color={"#888"} />}
           onClickTool={(name: string) => handleTool(name)}

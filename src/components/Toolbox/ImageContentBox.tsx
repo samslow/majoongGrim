@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { IoIosDocument } from "react-icons/io";
 import ImageLayer from "modules/ImageLayer";
 import useStores from "hooks/useStores";
+import { resizeImage } from "modules/resizeImage";
 
 interface ComponentProps {
   name?: string;
@@ -15,7 +16,7 @@ const ImageContentBox: React.FC<ComponentProps> = ({
   icon = <IoIosDocument size="60%" color={"#DDD"} />,
   onClickTool,
 }) => {
-  const { LayerStore } = useStores();
+  const { LayerStore, HeaderStore } = useStores();
 
   const handleImage = (e: any) => {
     const reader = new FileReader();
@@ -23,8 +24,11 @@ const ImageContentBox: React.FC<ComponentProps> = ({
     reader.onload = (event: any) => {
       const img = new Image();
       img.src = event.target.result;
-      const imgLayer = new ImageLayer(0, 0, 100, 100, 10, 0, img);
-      LayerStore.layers.push(imgLayer);
+      img.onload = () => {
+        const [width, height] = resizeImage(img, HeaderStore.nowShape);
+        const imgLayer = new ImageLayer(0, 0, width, height, 10, 0, img);
+        LayerStore.layers.push(imgLayer);
+      };
     };
     reader.readAsDataURL(e.target.files[0]);
   };

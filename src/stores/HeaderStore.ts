@@ -1,4 +1,4 @@
-import { observable, action } from "mobx";
+import { observable } from "mobx";
 
 export default class HeaderStore {
   @observable nowShape = "HORIZONTAL_SHAPE";

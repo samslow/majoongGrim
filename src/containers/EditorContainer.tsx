@@ -7,7 +7,7 @@ import ShapeLayer from "modules/ShapeLayer";
 import ArtBoard from "components/editor/ArtBoard";
 import useStores from "hooks/useStores";
 import { observer } from "mobx-react";
-import DraggableImage from "modules/DraggableImage";
+import DraggableImage from "components/editor/DraggableImage";
 
 const Container = styled.div`
   position: relative;

@@ -33,10 +33,10 @@ const ControllerContainer = observer(() => {
 });
 
 const Container = styled.div`
-  background: #555;
+  background: #666;
   flex: 1;
   display: flex;
-  padding: 2em;
+  padding: 1em;
 `;
 
 export default ControllerContainer;

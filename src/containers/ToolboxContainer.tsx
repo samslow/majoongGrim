@@ -17,6 +17,7 @@ const Toolbox = observer(() => {
 
   const handleTool = (name: string) => {
     ToolboxStore.selectedTool = name;
+    //TODO:  EditorContainer에 {name} Layer가 추가되는 기능
   };
 
   const handleActive = (type: string) => {
@@ -37,7 +38,7 @@ const Toolbox = observer(() => {
           isActive={handleActive(ToolboxType.IMAGE)}
         />
         <ToolboxContentBox
-          name={"텍스트 삽입"}
+          name={ToolboxType.TEXT}
           icon={<MdMessage size="60%" color={"#888"} />}
           onClickTool={(name: string) => handleTool(name)}
           isActive={handleActive(ToolboxType.TEXT)}

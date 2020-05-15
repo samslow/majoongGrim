@@ -22,7 +22,7 @@ const ImageContentBox: React.FC<ComponentProps> = ({
         htmlFor="imageLoader"
       ></FileLabel>
       <ContentIcon>{icon}</ContentIcon>
-      {name.length > 0 && <ContentName>{name}</ContentName>}
+      <ContentName>{name}</ContentName>
       <input
         type="file"
         id="imageLoader"

@@ -14,6 +14,8 @@ export const resizeImage = (image: HTMLImageElement, nowShape: string) => {
     MAX_WIDTH = 280;
     MAX_HEIGHT = 280;
   }
+
+  // 이미지 가로가 세로보다 클 때,
   if (width > height) {
     if (width > MAX_WIDTH) {
       height *= MAX_WIDTH / width;
@@ -22,7 +24,9 @@ export const resizeImage = (image: HTMLImageElement, nowShape: string) => {
       width *= MAX_HEIGHT / height;
       height = MAX_HEIGHT;
     }
-  } else {
+  }
+  // 이미지 세로가 가로보다 클 때,
+  else {
     if (height > MAX_HEIGHT) {
       width *= MAX_HEIGHT / height;
       height = MAX_HEIGHT;

@@ -10,9 +10,9 @@ import { observer } from "mobx-react";
 import useStores from "hooks/useStores";
 import ToolboxContentBox from "components/Toolbox/ContentBox";
 import ImageContentBox from "components/Toolbox/ImageContentBox";
-import { resizeImage } from "modules/layers/resizeImage";
+import { resizeImage } from "modules/functions/resizeImage";
 import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
-import ImageLayer from "modules/functions/ImageLayer";
+import ImageLayer from "modules/layers/ImageLayer";
 
 const Toolbox = observer(() => {
   const { ToolboxStore, LayerStore, HeaderStore } = useStores();
@@ -27,9 +27,12 @@ const Toolbox = observer(() => {
   const handleImage = (e: any) => {
     const reader = new FileReader();
 
+    // FileReader load 이벤트핸들러 등록 (성공시에만 트리거됨)
     reader.onload = (event: any) => {
       const img = new Image();
       img.src = event.target.result;
+
+      // Image load 이벤트핸들러 등록
       img.onload = () => {
         const [width, height] = resizeImage(img, HeaderStore.nowShape);
         const [x, y] = getArtboardCenterPosition(width, height);
@@ -37,6 +40,8 @@ const Toolbox = observer(() => {
         LayerStore.layers.push(imgLayer);
       };
     };
+
+    // FileReader가 데이터 읽기 시작 -> 데이터 다 읽으면 load이벤트 발생
     reader.readAsDataURL(e.target.files[0]);
   };
 

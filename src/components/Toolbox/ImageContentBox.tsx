@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { IoIosDocument } from "react-icons/io";
-import ImageLayer from "modules/ImageLayer";
+import ImageLayer from "modules/functions/ImageLayer";
 import useStores from "hooks/useStores";
-import { resizeImage } from "modules/resizeImage";
-import { getArtboardCenterPosition } from "modules/getArtboardCenterPosition";
+import { resizeImage } from "modules/layers/resizeImage";
+import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
 
 interface ComponentProps {
   name?: string;

@@ -34,7 +34,7 @@ const EditorContainer = observer(() => {
   return (
     <Container>
       {LayerStore.layers.length
-        ? LayerStore.layers.map((layer: any) => {
+        ? LayerStore.layers.map((layer: ImageLayer) => {
             console.log(layer);
             return (
               <DraggableImage

@@ -9,8 +9,8 @@ const ListContent: React.FC<ComponentProps> = ({ items }) => {
   const Fonts: React.FC = () => {
     return (
       <>
-        {items.map((item) => {
-          return <ListItem>{item}</ListItem>;
+        {items.map((item, index) => {
+          return <ListItem key={index}>{item}</ListItem>;
         })}
       </>
     );

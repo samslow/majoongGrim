@@ -1,40 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import { IoIosDocument } from "react-icons/io";
-import ImageLayer from "modules/functions/ImageLayer";
-import useStores from "hooks/useStores";
-import { resizeImage } from "modules/layers/resizeImage";
-import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
 
 interface ComponentProps {
   name?: string;
   icon?: any;
-  onClickTool?: Function;
+  onClickTool: Function;
+  onChangeTool: Function;
 }
 
 const ImageContentBox: React.FC<ComponentProps> = ({
   name = "",
   icon = <IoIosDocument size="60%" color={"#DDD"} />,
   onClickTool,
+  onChangeTool,
 }) => {
-  const { LayerStore, HeaderStore } = useStores();
-
-  const handleImage = (e: any) => {
-    const reader = new FileReader();
-
-    reader.onload = (event: any) => {
-      const img = new Image();
-      img.src = event.target.result;
-      img.onload = () => {
-        const [width, height] = resizeImage(img, HeaderStore.nowShape);
-        const [x, y] = getArtboardCenterPosition(width, height);
-        const imgLayer = new ImageLayer(x, y, width, height, 0, 10, img);
-        LayerStore.layers.push(imgLayer);
-      };
-    };
-    reader.readAsDataURL(e.target.files[0]);
-  };
-
   return (
     <ContentBox onClick={() => name.length && onClickTool && onClickTool(name)}>
       <FileLabel
@@ -49,7 +29,7 @@ const ImageContentBox: React.FC<ComponentProps> = ({
         name="imageLoader"
         accept="image/png,image/jpg,image/jpeg"
         hidden
-        onChange={handleImage}
+        onChange={(e: any) => onChangeTool(e)}
       />
     </ContentBox>
   );

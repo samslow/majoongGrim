@@ -49,7 +49,7 @@ const EditorContainer = observer(() => {
             );
           })
         : null}
-      <ArtBoard nowShape={HeaderStore.nowShape}></ArtBoard>
+      <ArtBoard nowShape={HeaderStore.nowShape} />
     </Container>
   );
 });

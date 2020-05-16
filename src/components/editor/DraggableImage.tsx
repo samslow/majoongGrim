@@ -8,7 +8,7 @@ interface ComponentProps {
 
 const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
   const { LayerStore } = useStores();
-  const { x, y, width, height, zIndex, image } = layer;
+  const { id, x, y, width, height, zIndex, image } = layer;
   const [imgX, setImgX] = useState(x);
   const [imgY, setImgY] = useState(y);
   const [firstImgX, setFirstImgX] = useState(0);
@@ -46,7 +46,15 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
     [],
   );
 
-  const onDragEndImageHandler = useCallback(() => {}, []);
+  const onDragEndImageHandler = useCallback(() => {
+    LayerStore.layers.forEach((layer: ImageLayer) => {
+      if (layer.id === id) {
+        layer.x = imgX;
+        layer.y = imgY;
+        return;
+      }
+    });
+  }, [imgX, imgY, id]);
 
   return (
     <img

@@ -9,10 +9,13 @@ interface ComponentProps {
 const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
   const { LayerStore } = useStores();
   const { id, x, y, width, height, zIndex, image } = layer;
+  // 이미지 좌표
   const [imgX, setImgX] = useState(x);
   const [imgY, setImgY] = useState(y);
+  // 드래그 시작시, 이미지 좌표
   const [firstImgX, setFirstImgX] = useState(0);
   const [firstImgY, setFirstImgY] = useState(0);
+  // 드래그 시작시, e.client 좌표
   const [firstEventClientX, setFirstEventClientX] = useState(0);
   const [firstEventClientY, setFirstEventClientY] = useState(0);
 
@@ -46,6 +49,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
     [],
   );
 
+  // 드래그 종료 (mobX layers 상태변경)
   const onDragEndImageHandler = useCallback(() => {
     LayerStore.layers.forEach((layer: ImageLayer) => {
       if (layer.id === id) {

@@ -36,17 +36,7 @@ const EditorContainer = observer(() => {
       {LayerStore.layers.length
         ? LayerStore.layers.map((layer: ImageLayer, i: number) => {
             console.log(layer);
-            return (
-              <DraggableImage
-                key={i}
-                src={layer.image.src}
-                width={layer.width}
-                height={layer.height}
-                x={layer.x}
-                y={layer.y}
-                zIndex={layer.zIndex}
-              />
-            );
+            return <DraggableImage key={i} layer={layer} />;
           })
         : null}
       <ArtBoard nowShape={HeaderStore.nowShape} />

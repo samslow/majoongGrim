@@ -1,22 +1,12 @@
 import React, { useCallback, useState } from "react";
+import ImageLayer from "modules/layers/ImageLayer";
 
 interface ComponentProps {
-  src: string;
-  width: number;
-  height: number;
-  x: number;
-  y: number;
-  zIndex: number;
+  layer: ImageLayer;
 }
 
-const DraggableImage: React.FC<ComponentProps> = ({
-  src,
-  width,
-  height,
-  x,
-  y,
-  zIndex,
-}) => {
+const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
+  const { x, y, width, height, zIndex, image } = layer;
   const [imgX, setImgX] = useState(x);
   const [imgY, setImgY] = useState(y);
   const [firstImgX, setFirstImgX] = useState(0);
@@ -71,7 +61,7 @@ const DraggableImage: React.FC<ComponentProps> = ({
         top: imgY,
         zIndex: zIndex,
       }}
-      src={src}
+      src={image.src}
     ></img>
   );
 };

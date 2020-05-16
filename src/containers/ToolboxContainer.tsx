@@ -8,7 +8,20 @@ import { IoIosColorFilter } from "react-icons/io";
 import { observer } from "mobx-react";
 
 import useStores from "hooks/useStores";
+<<<<<<< Updated upstream
 import ToolboxContentBox from "components/Toolbox/ContentBox";
+=======
+import ToolboxContentBox from "components/Toolbox/ToolboxContentBox";
+import ImageContentBox from "components/Toolbox/ImageContentBox";
+import { resizeImage } from "modules/functions/resizeImage";
+import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
+import ImageLayer from "modules/layers/ImageLayer";
+
+export enum ToolboxType {
+  IMAGE = "이미지 삽입",
+  TEXT = "텍스트 삽입",
+}
+>>>>>>> Stashed changes
 
 const Toolbox = observer(() => {
   const { ToolboxStore } = useStores();

@@ -24,7 +24,7 @@ interface ComponentProps {
 }
 
 const ArtBoard: React.FC<ComponentProps> = ({ nowShape }) => {
-  return <Container shapeType={nowShape}></Container>;
+  return <Container id="artboard" shapeType={nowShape} />;
 };
 
 export default ArtBoard;

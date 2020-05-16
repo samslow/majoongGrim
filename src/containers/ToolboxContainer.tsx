@@ -9,12 +9,40 @@ import { observer } from "mobx-react";
 
 import useStores from "hooks/useStores";
 import ToolboxContentBox from "components/Toolbox/ContentBox";
+import ImageContentBox from "components/Toolbox/ImageContentBox";
+import { resizeImage } from "modules/functions/resizeImage";
+import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
+import ImageLayer from "modules/layers/ImageLayer";
 
 const Toolbox = observer(() => {
-  const { ToolboxStore } = useStores();
+  const { ToolboxStore, LayerStore, HeaderStore } = useStores();
 
   const handleTool = (name: string) => {
     ToolboxStore.selectedTool = name;
+    if (name === "이미지 삽입") {
+      console.log("dd");
+    }
+  };
+
+  const handleImage = (e: any) => {
+    const reader = new FileReader();
+
+    // FileReader load 이벤트핸들러 등록 (성공시에만 트리거됨)
+    reader.onload = (event: any) => {
+      const img = new Image();
+      img.src = event.target.result;
+
+      // Image load 이벤트핸들러 등록
+      img.onload = () => {
+        const [width, height] = resizeImage(img, HeaderStore.nowShape);
+        const [x, y] = getArtboardCenterPosition(width, height);
+        const imgLayer = new ImageLayer(x, y, width, height, 0, 10, img);
+        LayerStore.layers.push(imgLayer);
+      };
+    };
+
+    // FileReader가 데이터 읽기 시작 -> 데이터 다 읽으면 load이벤트 발생
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   return (
@@ -37,10 +65,11 @@ const Toolbox = observer(() => {
         />
       </ContentRow>
       <ContentRow>
-        <ToolboxContentBox
+        <ImageContentBox
           name={"이미지 삽입"}
           icon={<BsFillImageFill size="60%" color={"#888"} />}
           onClickTool={(name: string) => handleTool(name)}
+          onChangeTool={(e: Event) => handleImage(e)}
         />
         <ToolboxContentBox
           name={"필터"}

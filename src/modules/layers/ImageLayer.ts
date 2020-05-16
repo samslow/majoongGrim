@@ -1,4 +1,4 @@
-import Layer from "modules/Layer";
+import Layer from "modules/layers/Layer";
 
 export default class ImageLayer extends Layer {
   image: HTMLImageElement;

@@ -10,7 +10,6 @@ const Container = styled.div`
   height: 60px;
   display: flex;
   align-items: center;
-  background: #2db400;
 `;
 
 const APP_TITLE_TEXT = "마중그림";

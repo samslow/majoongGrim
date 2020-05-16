@@ -1,11 +1,13 @@
 import React, { useCallback, useState } from "react";
 import ImageLayer from "modules/layers/ImageLayer";
+import useStores from "hooks/useStores";
 
 interface ComponentProps {
   layer: ImageLayer;
 }
 
 const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
+  const { LayerStore } = useStores();
   const { x, y, width, height, zIndex, image } = layer;
   const [imgX, setImgX] = useState(x);
   const [imgY, setImgY] = useState(y);

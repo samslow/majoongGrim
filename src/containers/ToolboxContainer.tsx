@@ -47,7 +47,16 @@ const Toolbox = observer(() => {
       img.onload = () => {
         const [width, height] = resizeImage(img, HeaderStore.nowShape);
         const [x, y] = getArtboardCenterPosition(width, height);
-        const imgLayer = new ImageLayer(1, x, y, width, height, 0, 10, img);
+        const imgLayer = new ImageLayer(
+          LayerStore.layers.length,
+          x,
+          y,
+          width,
+          height,
+          0,
+          10,
+          img,
+        );
         LayerStore.layers.push(imgLayer);
       };
     };

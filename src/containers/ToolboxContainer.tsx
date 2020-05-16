@@ -1,27 +1,41 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { AiOutlineRotateRight } from "react-icons/ai";
 import { MdMessage } from "react-icons/md";
-import { FaShapes } from "react-icons/fa";
 import { BsFillImageFill } from "react-icons/bs";
-import { IoIosColorFilter } from "react-icons/io";
 import { observer } from "mobx-react";
 
 import useStores from "hooks/useStores";
-import ToolboxContentBox from "components/Toolbox/ContentBox";
+import ToolboxContentBox from "components/Toolbox/ToolboxContentBox";
+<<<<<<< HEAD
 import ImageContentBox from "components/Toolbox/ImageContentBox";
 import { resizeImage } from "modules/functions/resizeImage";
 import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
 import ImageLayer from "modules/layers/ImageLayer";
+=======
+>>>>>>> e0ae38c095924c3d206db06b236e431bdc5a5ea1
+
+export enum ToolboxType {
+  IMAGE = "이미지 삽입",
+  TEXT = "텍스트 삽입",
+}
 
 const Toolbox = observer(() => {
   const { ToolboxStore, LayerStore, HeaderStore } = useStores();
 
   const handleTool = (name: string) => {
     ToolboxStore.selectedTool = name;
+    //TODO:  EditorContainer에 {name} Layer가 추가되는 기능
+  };
+
+  const handleActive = (type: string) => {
     if (name === "이미지 삽입") {
       console.log("dd");
     }
+    if (ToolboxStore.selectedTool == type) {
+      return true;
+    }
+
+    return false;
   };
 
   const handleImage = (e: any) => {
@@ -48,34 +62,24 @@ const Toolbox = observer(() => {
   return (
     <Container>
       <ContentRow>
-        <ToolboxContentBox
-          name={"화면 회전"}
-          icon={<AiOutlineRotateRight size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
-        />
-        <ToolboxContentBox
-          name={"텍스트 삽입"}
-          icon={<MdMessage size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
-        />
-        <ToolboxContentBox
-          name={"도형 삽입"}
-          icon={<FaShapes size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
-        />
-      </ContentRow>
-      <ContentRow>
         <ImageContentBox
-          name={"이미지 삽입"}
+          name={ToolboxType.IMAGE}
           icon={<BsFillImageFill size="60%" color={"#888"} />}
           onClickTool={(name: string) => handleTool(name)}
           onChangeTool={(e: Event) => handleImage(e)}
+          isActive={handleActive(ToolboxType.IMAGE)}
         />
         <ToolboxContentBox
-          name={"필터"}
-          icon={<IoIosColorFilter size="60%" color={"#888"} />}
+          name={ToolboxType.TEXT}
+          icon={<MdMessage size="60%" color={"#888"} />}
           onClickTool={(name: string) => handleTool(name)}
+          isActive={handleActive(ToolboxType.TEXT)}
         />
+        <ToolboxContentBox />
+      </ContentRow>
+      <ContentRow>
+        <ToolboxContentBox />
+        <ToolboxContentBox />
         <ToolboxContentBox />
       </ContentRow>
       <ContentRow>

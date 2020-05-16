@@ -54,12 +54,15 @@ const DraggableImage: React.FC<ComponentProps> = ({
     [],
   );
 
+  const onDragEndImageHandler = useCallback(() => {}, []);
+
   return (
     <img
       draggable="true"
       onDrag={onDragImageHandler}
       onDragStart={onDragStartImageHandler}
       onDragOver={onDragOverImageHandler}
+      onDragEnd={onDragEndImageHandler}
       style={{
         position: "fixed",
         width: width,

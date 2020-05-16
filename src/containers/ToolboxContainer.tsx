@@ -6,10 +6,13 @@ import { observer } from "mobx-react";
 
 import useStores from "hooks/useStores";
 import ToolboxContentBox from "components/Toolbox/ToolboxContentBox";
+<<<<<<< HEAD
 import ImageContentBox from "components/Toolbox/ImageContentBox";
 import { resizeImage } from "modules/functions/resizeImage";
 import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
 import ImageLayer from "modules/layers/ImageLayer";
+=======
+>>>>>>> e0ae38c095924c3d206db06b236e431bdc5a5ea1
 
 export enum ToolboxType {
   IMAGE = "이미지 삽입",

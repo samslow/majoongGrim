@@ -1,16 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { AiOutlineRotateRight } from "react-icons/ai";
 import { MdMessage } from "react-icons/md";
-import { FaShapes } from "react-icons/fa";
 import { BsFillImageFill } from "react-icons/bs";
-import { IoIosColorFilter } from "react-icons/io";
 import { observer } from "mobx-react";
 
 import useStores from "hooks/useStores";
-<<<<<<< Updated upstream
-import ToolboxContentBox from "components/Toolbox/ContentBox";
-=======
 import ToolboxContentBox from "components/Toolbox/ToolboxContentBox";
 import ImageContentBox from "components/Toolbox/ImageContentBox";
 import { resizeImage } from "modules/functions/resizeImage";
@@ -21,45 +15,68 @@ export enum ToolboxType {
   IMAGE = "이미지 삽입",
   TEXT = "텍스트 삽입",
 }
->>>>>>> Stashed changes
 
 const Toolbox = observer(() => {
-  const { ToolboxStore } = useStores();
+  const { ToolboxStore, LayerStore, HeaderStore } = useStores();
 
   const handleTool = (name: string) => {
     ToolboxStore.selectedTool = name;
+    //TODO:  EditorContainer에 {name} Layer가 추가되는 기능
+  };
+
+  const handleActive = (type: string) => {
+    if (name === "이미지 삽입") {
+      console.log("dd");
+    }
+    if (ToolboxStore.selectedTool == type) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const handleImage = (e: any) => {
+    const reader = new FileReader();
+
+    // FileReader load 이벤트핸들러 등록 (성공시에만 트리거됨)
+    reader.onload = (event: any) => {
+      const img = new Image();
+      img.src = event.target.result;
+
+      // Image load 이벤트핸들러 등록
+      img.onload = () => {
+        const [width, height] = resizeImage(img, HeaderStore.nowShape);
+        const [x, y] = getArtboardCenterPosition(width, height);
+        const imgLayer = new ImageLayer(x, y, width, height, 0, 10, img);
+        LayerStore.layers.push(imgLayer);
+      };
+    };
+
+    // FileReader가 데이터 읽기 시작 -> 데이터 다 읽으면 load이벤트 발생
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   return (
     <Container>
       <ContentRow>
-        <ToolboxContentBox
-          name={"화면 회전"}
-          icon={<AiOutlineRotateRight size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
-        />
-        <ToolboxContentBox
-          name={"텍스트 삽입"}
-          icon={<MdMessage size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
-        />
-        <ToolboxContentBox
-          name={"도형 삽입"}
-          icon={<FaShapes size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
-        />
-      </ContentRow>
-      <ContentRow>
-        <ToolboxContentBox
-          name={"이미지 삽입"}
+        <ImageContentBox
+          name={ToolboxType.IMAGE}
           icon={<BsFillImageFill size="60%" color={"#888"} />}
           onClickTool={(name: string) => handleTool(name)}
+          onChangeTool={(e: Event) => handleImage(e)}
+          isActive={handleActive(ToolboxType.IMAGE)}
         />
         <ToolboxContentBox
-          name={"필터"}
-          icon={<IoIosColorFilter size="60%" color={"#888"} />}
+          name={ToolboxType.TEXT}
+          icon={<MdMessage size="60%" color={"#888"} />}
           onClickTool={(name: string) => handleTool(name)}
+          isActive={handleActive(ToolboxType.TEXT)}
         />
+        <ToolboxContentBox />
+      </ContentRow>
+      <ContentRow>
+        <ToolboxContentBox />
+        <ToolboxContentBox />
         <ToolboxContentBox />
       </ContentRow>
       <ContentRow>

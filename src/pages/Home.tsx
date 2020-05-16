@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import HeaderContainer from "../containers/HeaderContainer";
-import EditorContainer from "../containers/EditorContainer";
-import ControllerContainer from "../containers/ControllerContainer";
-import ToolboxContainer from "../containers/ToolboxContainer";
-import LayerContainer from "../containers/LayerContainer";
+import HeaderContainer from "containers/HeaderContainer";
+import EditorContainer from "containers/EditorContainer";
+import ControllerContainer from "containers/ControllerContainer";
+import ToolboxContainer from "containers/ToolboxContainer";
+import LayerContainer from "containers/LayerContainer";
 
 const Container = styled.div`
   width: 100vw;
@@ -26,7 +26,7 @@ const LeftContent = styled.div`
 const RightContent = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  width: 300px; /* 툴박스는 고정 크기 */
 `;
 
 const Home = () => {

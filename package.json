@@ -6,16 +6,26 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.5",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@types/styled-components": "^5.1.0",
+    "cross-env": "^7.0.2",
+    "mobx": "^5.15.4",
+    "mobx-react": "^6.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-icons": "^3.10.0",
     "react-scripts": "3.4.1",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "typescript": "^3.8.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "cross-env NODE_PATH=src/ react-app-rewired start",
+    "build": "cross-env NODE_PATH=src/ react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -31,5 +41,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "customize-cra": "^0.9.1",
+    "react-app-rewired": "^2.1.6"
   }
 }

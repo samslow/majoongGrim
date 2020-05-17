@@ -18,35 +18,12 @@ const Container = styled.div`
 const EditorContainer = observer(() => {
   const { HeaderStore, LayerStore } = useStores();
 
-  useEffect(() => {
-    const img = <img />;
-    console.log("레이어", new Layer(1, 1, 5, 5, 0, 1));
-    console.log("이미지레이어", new ImageLayer(1, 1, 5, 5, 1, 1, new Image()));
-    console.log(
-      "텍스트레이어",
-      new TextLayer(1, 1, 5, 5, 0, 1, "serif", 20, "blue"),
-    );
-    console.log(
-      "도형레이어",
-      new ShapeLayer(1, 1, 5, 5, 0, 1, "circle", "red"),
-    );
-  }, []);
   return (
     <Container>
       {LayerStore.layers.length
         ? LayerStore.layers.map((layer: ImageLayer, i: number) => {
             console.log(layer);
-            return (
-              <DraggableImage
-                key={i}
-                src={layer.image.src}
-                width={layer.width}
-                height={layer.height}
-                x={layer.x}
-                y={layer.y}
-                zIndex={layer.zIndex}
-              />
-            );
+            return <DraggableImage key={i} layer={layer} />;
           })
         : null}
       <ArtBoard nowShape={HeaderStore.nowShape} />

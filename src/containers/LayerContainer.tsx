@@ -4,6 +4,7 @@ import Layer from "components/layers/Layer";
 
 const Container = styled.div`
   flex: 2;
+  z-index: 1000;
 `;
 
 const LayerContainer = () => {

@@ -5,6 +5,7 @@ export default class ShapeLayer extends Layer {
   color: string;
 
   constructor(
+    id: number,
     x: number,
     y: number,
     width: number,
@@ -14,7 +15,7 @@ export default class ShapeLayer extends Layer {
     shapeStyle: string,
     color: string,
   ) {
-    super(x, y, width, height, zIndex, angleDegree);
+    super(id, x, y, width, height, zIndex, angleDegree);
     this.shapeStyle = shapeStyle;
     this.color = color;
   }

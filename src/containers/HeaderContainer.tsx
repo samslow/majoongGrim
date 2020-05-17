@@ -11,6 +11,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   background: #2db400;
+  z-index: 1000;
 `;
 
 const APP_TITLE_TEXT = "마중그림";

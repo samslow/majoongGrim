@@ -101,6 +101,7 @@ const Container = styled.aside`
   display: flex;
   flex-direction: column;
   background: #eee;
+  z-index: 1000;
 `;
 
 const ContentRow = styled.div`

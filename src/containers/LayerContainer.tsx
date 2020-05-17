@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import Layer from "components/layers/Layer";
 
 const Container = styled.div`
-  background: orange;
   flex: 2;
 `;
 

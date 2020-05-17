@@ -41,7 +41,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
     [firstEventClientX, firstEventClientY, firstImgX, firstImgY],
   );
 
-  // drop을 사용하려면 e.preventDefault()로 dragover 이벤트의 전파를 막아야함.
+  // drop을 사용하려면 dragover 이벤트핸들러를 만들고 e.preventDefault()로 전파를 막아야주어야함.
   const onDragOverImageHandler = useCallback(
     (e: React.DragEvent<HTMLImageElement>) => {
       e.preventDefault();

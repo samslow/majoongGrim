@@ -15,26 +15,19 @@ export const resizeImage = (image: HTMLImageElement, nowShape: string) => {
     MAX_HEIGHT = 280;
   }
 
-  // 이미지 가로가 세로보다 클 때,
-  if (width > height) {
-    if (width > MAX_WIDTH) {
-      height *= MAX_WIDTH / width;
-      width = MAX_WIDTH;
-    } else {
-      width *= MAX_HEIGHT / height;
-      height = MAX_HEIGHT;
-    }
-  }
-  // 이미지 세로가 가로보다 클 때,
-  else {
-    if (height > MAX_HEIGHT) {
-      width *= MAX_HEIGHT / height;
-      height = MAX_HEIGHT;
-    } else {
-      height *= MAX_WIDTH / width;
-      width = MAX_WIDTH;
-    }
+  if (width < MAX_WIDTH && height < MAX_HEIGHT) {
+    return [width, height];
   }
 
+  const artboardRatio = MAX_WIDTH / MAX_HEIGHT;
+  const imageRatio = width / height;
+
+  if (artboardRatio > imageRatio) {
+    width *= MAX_HEIGHT / height;
+    height = MAX_HEIGHT;
+  } else {
+    height *= MAX_WIDTH / width;
+    width = MAX_WIDTH;
+  }
   return [width, height];
 };

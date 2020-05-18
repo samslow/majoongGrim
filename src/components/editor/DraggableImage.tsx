@@ -1,6 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useRef } from "react";
 import ImageLayer from "modules/layers/ImageLayer";
 import useStores from "hooks/useStores";
+
+const DISTANCE_BORDER = 10;
 
 interface ComponentProps {
   layer: ImageLayer;
@@ -18,6 +20,8 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
   // 드래그 시작시, e.client 좌표
   const [firstEventClientX, setFirstEventClientX] = useState(0);
   const [firstEventClientY, setFirstEventClientY] = useState(0);
+
+  const borderRef = useRef<HTMLImageElement>(null);
 
   // 드래그 스타트 (기존의 이미지좌표와 e.client좌표 저장)
   const onDragStartImageHandler = useCallback(
@@ -60,23 +64,44 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
     });
   }, [imgX, imgY, id]);
 
+  const onClickImageHandler = useCallback(() => {
+    if (borderRef.current) {
+      borderRef.current.style.border = "4px dashed red";
+      borderRef.current.style.boxSizing = "border-box";
+    }
+  }, []);
+
   return (
-    <img
-      draggable="true"
-      onDrag={onDragImageHandler}
-      onDragStart={onDragStartImageHandler}
-      onDragOver={onDragOverImageHandler}
-      onDragEnd={onDragEndImageHandler}
-      style={{
-        position: "fixed",
-        width: width,
-        height: height,
-        left: imgX,
-        top: imgY,
-        zIndex: zIndex,
-      }}
-      src={image.src}
-    ></img>
+    <>
+      <div
+        ref={borderRef}
+        style={{
+          position: "fixed",
+          width: width + DISTANCE_BORDER * 2,
+          height: height + DISTANCE_BORDER * 2,
+          left: imgX - DISTANCE_BORDER,
+          top: imgY - DISTANCE_BORDER,
+          zIndex: zIndex,
+        }}
+      ></div>
+      <img
+        draggable="true"
+        onDrag={onDragImageHandler}
+        onDragStart={onDragStartImageHandler}
+        onDragOver={onDragOverImageHandler}
+        onDragEnd={onDragEndImageHandler}
+        onClick={onClickImageHandler}
+        style={{
+          position: "fixed",
+          width: width,
+          height: height,
+          left: imgX,
+          top: imgY,
+          zIndex: zIndex,
+        }}
+        src={image.src}
+      ></img>
+    </>
   );
 };
 

@@ -56,7 +56,7 @@ const Toolbox = observer(() => {
           10,
           img,
         );
-        LayerStore.layers.push(imgLayer);
+        LayerStore.layers = [...LayerStore.layers, imgLayer];
       };
     };
 

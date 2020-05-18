@@ -19,7 +19,6 @@ const ContentsGroupContainer = styled.section`
   margin: auto 0;
   padding: 0 1em;
   flex: 1;
-  flex-direction: column;
 `;
 
 const ContentsRow = styled.div`

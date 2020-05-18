@@ -21,7 +21,6 @@ const Toolbox = observer(() => {
 
   const handleTool = (name: string) => {
     ToolboxStore.selectedTool = name;
-    //TODO:  EditorContainer에 {name} Layer가 추가되는 기능
   };
 
   const handleActive = (type: string) => {
@@ -57,7 +56,7 @@ const Toolbox = observer(() => {
           10,
           img,
         );
-        LayerStore.layers.push(imgLayer);
+        LayerStore.layers = [...LayerStore.layers, imgLayer];
       };
     };
 

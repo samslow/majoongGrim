@@ -4,8 +4,8 @@ export default class Layer {
   y: number;
   width: number;
   height: number;
-  zIndex: number;
   angleDegree: number;
+  zIndex: number;
 
   constructor(
     id: number,
@@ -21,8 +21,8 @@ export default class Layer {
     this.y = y;
     this.width = width;
     this.height = height;
-    this.zIndex = zIndex;
     this.angleDegree = angleDegree;
+    this.zIndex = zIndex;
   }
 
   move() {

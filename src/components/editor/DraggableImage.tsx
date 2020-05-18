@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef } from "react";
+import React, { useCallback, useState } from "react";
 import ImageLayer from "modules/layers/ImageLayer";
 import useStores from "hooks/useStores";
 
@@ -20,8 +20,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
   // 드래그 시작시, e.client 좌표
   const [firstEventClientX, setFirstEventClientX] = useState(0);
   const [firstEventClientY, setFirstEventClientY] = useState(0);
-
-  const borderRef = useRef<HTMLImageElement>(null);
+  const [selected, SetSelected] = useState(false);
 
   // 드래그 스타트 (기존의 이미지좌표와 e.client좌표 저장)
   const onDragStartImageHandler = useCallback(
@@ -65,18 +64,16 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
   }, [imgX, imgY, id]);
 
   const onClickImageHandler = useCallback(() => {
-    if (borderRef.current) {
-      borderRef.current.style.border = "4px dashed red";
-      borderRef.current.style.boxSizing = "border-box";
-    }
+    SetSelected(true);
   }, []);
 
   return (
     <>
       <div
-        ref={borderRef}
         style={{
           position: "fixed",
+          border: selected ? "4px dashed red" : "",
+          boxSizing: "border-box",
           width: width + DISTANCE_BORDER * 2,
           height: height + DISTANCE_BORDER * 2,
           left: imgX - DISTANCE_BORDER,

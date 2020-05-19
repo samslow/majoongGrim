@@ -63,42 +63,47 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
     });
   }, [imgX, imgY, id]);
 
-  const onClickImageHandler = useCallback(() => {
-    SetSelected(true);
-  }, []);
+  const onClickImageHandler = useCallback(
+    (e: any) => {
+      e.stopPropagation();
+      SetSelected(!selected);
+    },
+    [selected],
+  );
 
   return (
-    <>
-      <div
-        style={{
-          position: "fixed",
-          border: selected ? "4px dashed red" : "",
-          boxSizing: "border-box",
-          width: width + DISTANCE_BORDER * 2,
-          height: height + DISTANCE_BORDER * 2,
-          left: imgX - DISTANCE_BORDER,
-          top: imgY - DISTANCE_BORDER,
-          zIndex: zIndex,
-        }}
-      ></div>
-      <img
-        draggable="true"
-        onDrag={onDragImageHandler}
-        onDragStart={onDragStartImageHandler}
-        onDragOver={onDragOverImageHandler}
-        onDragEnd={onDragEndImageHandler}
-        onClick={onClickImageHandler}
-        style={{
-          position: "fixed",
-          width: width,
-          height: height,
-          left: imgX,
-          top: imgY,
-          zIndex: zIndex,
-        }}
-        src={image.src}
-      ></img>
-    </>
+    <div
+      draggable="true"
+      onDrag={onDragImageHandler}
+      onDragStart={onDragStartImageHandler}
+      onDragOver={onDragOverImageHandler}
+      onDragEnd={onDragEndImageHandler}
+      onClick={onClickImageHandler}
+      style={{
+        position: "fixed",
+        width: width,
+        height: height,
+        left: imgX,
+        top: imgY,
+        zIndex: zIndex,
+      }}
+    >
+      <img width={"100%"} height={"100%"} src={image.src} />
+      {selected && (
+        <div
+          style={{
+            position: "fixed",
+            border: "4px dashed red",
+            boxSizing: "border-box",
+            width: width + DISTANCE_BORDER * 2,
+            height: height + DISTANCE_BORDER * 2,
+            left: imgX - DISTANCE_BORDER,
+            top: imgY - DISTANCE_BORDER,
+            zIndex: zIndex,
+          }}
+        ></div>
+      )}
+    </div>
   );
 };
 

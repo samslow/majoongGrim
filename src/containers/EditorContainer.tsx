@@ -61,7 +61,7 @@ const EditorContainer = observer(() => {
       };
       setSelectedLayerInfo(newSelectedBox);
     },
-    [selected],
+    [],
   );
 
   const onClickEditorHandler = useCallback(() => {

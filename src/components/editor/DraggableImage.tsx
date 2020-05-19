@@ -2,13 +2,12 @@ import React, { useCallback, useState } from "react";
 import ImageLayer from "modules/layers/ImageLayer";
 import useStores from "hooks/useStores";
 
-const DISTANCE_BORDER = 10;
-
 interface ComponentProps {
   layer: ImageLayer;
+  onClickImg: Function;
 }
 
-const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
+const DraggableImage: React.FC<ComponentProps> = ({ layer, onClickImg }) => {
   const { LayerStore } = useStores();
   const { id, x, y, width, height, zIndex, image } = layer;
   // 이미지 좌표
@@ -20,11 +19,11 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
   // 드래그 시작시, e.client 좌표
   const [firstEventClientX, setFirstEventClientX] = useState(0);
   const [firstEventClientY, setFirstEventClientY] = useState(0);
-  const [selected, SetSelected] = useState(false);
 
   // 드래그 스타트 (기존의 이미지좌표와 e.client좌표 저장)
   const onDragStartImageHandler = useCallback(
     (e: React.DragEvent<HTMLImageElement>) => {
+      onClickImg(imgX, imgY, width, height, false);
       setFirstEventClientX(e.clientX);
       setFirstEventClientY(e.clientY);
       setFirstImgX(imgX);
@@ -63,14 +62,6 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
     });
   }, [imgX, imgY, id]);
 
-  const onClickImageHandler = useCallback(
-    (e: any) => {
-      e.stopPropagation();
-      SetSelected(!selected);
-    },
-    [selected],
-  );
-
   return (
     <div
       draggable="true"
@@ -78,7 +69,10 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
       onDragStart={onDragStartImageHandler}
       onDragOver={onDragOverImageHandler}
       onDragEnd={onDragEndImageHandler}
-      onClick={onClickImageHandler}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClickImg(imgX, imgY, width, height, true);
+      }}
       style={{
         position: "fixed",
         width: width,
@@ -89,20 +83,6 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer }) => {
       }}
     >
       <img width={"100%"} height={"100%"} src={image.src} />
-      {selected && (
-        <div
-          style={{
-            position: "fixed",
-            border: "4px dashed red",
-            boxSizing: "border-box",
-            width: width + DISTANCE_BORDER * 2,
-            height: height + DISTANCE_BORDER * 2,
-            left: imgX - DISTANCE_BORDER,
-            top: imgY - DISTANCE_BORDER,
-            zIndex: zIndex,
-          }}
-        ></div>
-      )}
     </div>
   );
 };

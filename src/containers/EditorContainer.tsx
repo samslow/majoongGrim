@@ -1,14 +1,12 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import Layer from "modules/layers/Layer";
 import ImageLayer from "modules/layers/ImageLayer";
-import TextLayer from "modules/layers/TextLayer";
-import ShapeLayer from "modules/layers/ShapeLayer";
 import ArtBoard from "components/editor/ArtBoard";
 import useStores from "hooks/useStores";
 import { observer } from "mobx-react";
 import DraggableImage from "components/editor/DraggableImage";
 
+// 레이어와 선택박스 거리
 const DISTANCE_BORDER = 10;
 
 const Container = styled.div`

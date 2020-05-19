@@ -48,11 +48,7 @@ const EditorContainer = observer(() => {
       height: number,
       isSelected: boolean,
     ) => {
-      if (isSelected === true) {
-        setSelected(true);
-      } else {
-        setSelected(false);
-      }
+      setSelected(isSelected === true ? true : false);
       const newSelectedBox = {
         x: imgX,
         y: imgY,

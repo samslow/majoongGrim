@@ -46,9 +46,9 @@ const EditorContainer = observer(() => {
       imgY: number,
       width: number,
       height: number,
-      type: boolean,
+      isSelected: boolean,
     ) => {
-      if (type === true) {
+      if (isSelected === true) {
         setSelected(true);
       } else {
         setSelected(false);
@@ -82,8 +82,8 @@ const EditorContainer = observer(() => {
                   imgY: number,
                   width: number,
                   height: number,
-                  type: boolean,
-                ) => onClickImageHandler(imgX, imgY, width, height, type)}
+                  isSelected: boolean,
+                ) => onClickImageHandler(imgX, imgY, width, height, isSelected)}
               />
             );
           })

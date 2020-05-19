@@ -9,6 +9,22 @@ import DraggableImage from "components/editor/DraggableImage";
 // 레이어와 선택박스 거리
 const DISTANCE_BORDER = 10;
 
+// 선택박스 정보
+interface SelectedBox {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+// 초기 선택박스 정보
+const initialSelectedBox = {
+  x: 0,
+  y: 0,
+  width: 0,
+  height: 0,
+};
+
 const Container = styled.div`
   position: relative;
   background: grey;
@@ -17,14 +33,12 @@ const Container = styled.div`
 
 const EditorContainer = observer(() => {
   const { HeaderStore, LayerStore } = useStores();
+  // 선택여부
   const [selected, setSelected] = useState(false);
-
-  const [selectedLayerInfo, setSelectedLayerInfo] = useState({
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
-  });
+  // 선택박스 정보
+  const [selectedLayerInfo, setSelectedLayerInfo] = useState<SelectedBox>(
+    initialSelectedBox,
+  );
 
   const onClickImageHandler = useCallback(
     (
@@ -39,7 +53,13 @@ const EditorContainer = observer(() => {
       } else {
         setSelected(false);
       }
-      setSelectedLayerInfo({ x: imgX, y: imgY, width: width, height: height });
+      const newSelectedBox = {
+        x: imgX,
+        y: imgY,
+        width: width,
+        height: height,
+      };
+      setSelectedLayerInfo(newSelectedBox);
     },
     [selected],
   );

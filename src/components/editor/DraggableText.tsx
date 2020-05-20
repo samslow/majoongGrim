@@ -94,6 +94,8 @@ const DraggableText: React.FC<ComponentProps> = observer(
           left: imgX,
           top: imgY,
           zIndex: zIndex,
+          display: "flex",
+          alignItems: "center",
         }}
       >
         <Text fontType={fontType} fontSize={fontSize} color={color}>
@@ -106,8 +108,10 @@ const DraggableText: React.FC<ComponentProps> = observer(
 
 const Text = styled.p<TextProps>`
   font-style: ${(props) => (props.fontType == "italic" ? "italic" : "normal")};
+  font-weight: ${(props) => (props.fontType == "bold" ? "bold" : "normal")};
   font-size: ${(props) => props.fontSize};
   color: ${(props) => props.color};
+  margin: 0;
 `;
 
 interface TextProps {

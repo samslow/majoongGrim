@@ -1,10 +1,12 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import ImageLayer from "modules/layers/ImageLayer";
+import TextLayer from "modules/layers/TextLayer";
 import ArtBoard from "components/editor/ArtBoard";
 import useStores from "hooks/useStores";
 import { observer } from "mobx-react";
 import DraggableImage from "components/editor/DraggableImage";
+import DraggableText from "components/editor/DraggableText";
 
 // 레이어와 선택박스 거리
 const DISTANCE_BORDER = 10;
@@ -66,14 +68,14 @@ const EditorContainer = observer(() => {
 
   return (
     <Container onClick={onClickEditorHandler}>
-      {LayerStore.layers.length
-        ? LayerStore.layers.map((layer: ImageLayer, i: number) => {
-            console.log(layer);
+      {LayerStore.layers.length > 0 &&
+        LayerStore.layers.map((layer: ImageLayer | TextLayer, i: number) => {
+          if (layer instanceof ImageLayer) {
             return (
               <DraggableImage
                 key={i}
                 layer={layer}
-                onClickImg={(
+                onClick={(
                   imgX: number,
                   imgY: number,
                   width: number,
@@ -82,8 +84,24 @@ const EditorContainer = observer(() => {
                 ) => onClickImageHandler(imgX, imgY, width, height, isSelected)}
               />
             );
-          })
-        : null}
+          } else if (layer instanceof TextLayer) {
+            return (
+              <DraggableText
+                key={i}
+                layer={layer}
+                onClick={(
+                  imgX: number,
+                  imgY: number,
+                  width: number,
+                  height: number,
+                  isSelected: boolean,
+                ) => onClickImageHandler(imgX, imgY, width, height, isSelected)}
+              />
+            );
+          } else {
+            return null;
+          }
+        })}
       {selected && (
         <div
           style={{
@@ -96,7 +114,7 @@ const EditorContainer = observer(() => {
             top: selectedLayerInfo.y - DISTANCE_BORDER,
             zIndex: 9,
           }}
-        ></div>
+        />
       )}
       <ArtBoard nowShape={HeaderStore.nowShape} />
     </Container>

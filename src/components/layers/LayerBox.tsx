@@ -1,19 +1,25 @@
 import React from "react";
 import styled from "styled-components";
+import { FaTrashAlt } from "react-icons/fa";
 
 interface ComponentProps {
   name: string;
+  onMove: (type: string) => void;
+  onRemove: VoidFunction;
 }
 
-const LayerBox: React.FC<ComponentProps> = ({ name }) => {
+const LayerBox: React.FC<ComponentProps> = ({ name, onMove, onRemove }) => {
   return (
     <Container>
       <LayerContent>
         <LayerName>{name}</LayerName>
+        <RemoveButton onClick={() => onRemove()}>
+          <FaTrashAlt size={15} color={"#aaa"} />
+        </RemoveButton>
       </LayerContent>
       <UpDownContainer>
-        <Button>⬆</Button>
-        <Button>⬇</Button>
+        <Button onClick={() => onMove("up")}>⬆</Button>
+        <Button onClick={() => onMove("down")}>⬇</Button>
       </UpDownContainer>
     </Container>
   );
@@ -32,12 +38,26 @@ const Container = styled.div`
 `;
 const LayerContent = styled.div`
   flex: 9;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0 1em;
 `;
 
 const LayerName = styled.p`
   margin: 0;
-  padding-left: 1em;
   font-size: 20px;
+`;
+
+const RemoveButton = styled.button`
+  background-color: transparent;
+  border: 0;
+  visibility: hidden;
+  outline: none;
+
+  ${LayerContent}:hover & {
+    visibility: visible;
+  }
 `;
 
 const UpDownContainer = styled.div`

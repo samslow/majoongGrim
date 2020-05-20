@@ -1,36 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { toJS } from "mobx";
 import { observer } from "mobx-react";
-import { MdInbox } from "react-icons/md";
 
-import LayerBox from "components/layers/LayerBox";
+import LayerBoxes from "components/layers/LayerBoxes";
 import useStores from "hooks/useStores";
-
-interface LayerBoxesProps {
-  layers: string[];
-}
 
 const LayerContainer = observer(() => {
   const { LayerStore } = useStores();
-
-  console.log("LayerStore", toJS(LayerStore.layers));
-
-  const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
-    const layerList =
-      layers.length > 0 ? (
-        layers.map((_, index) => (
-          <LayerBox key={index} name={"Layer " + index} />
-        ))
-      ) : (
-        <DefaultLayers>
-          <MdInbox size={"50%"} color={"#ccc"} />
-          위에서 레이어를 추가 해 보세요
-        </DefaultLayers>
-      );
-
-    return <>{layerList}</>;
-  };
 
   return (
     <Container>
@@ -63,16 +39,6 @@ const LayerGroup = styled.div`
   background-color: #eee;
   border: 1px solid #999;
   width: 100%;
-  height: 100%;
-`;
-
-const DefaultLayers = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: #999;
   height: 100%;
 `;
 

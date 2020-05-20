@@ -83,7 +83,7 @@ const Toolbox = observer(() => {
       "여기에 텍스트를 입력하세요",
     );
     console.log("newTextLayer", newTextLayer);
-    LayerStore.layers = [newTextLayer, ...LayerStore.layers];
+    LayerStore.layers = [...LayerStore.layers, newTextLayer];
   };
 
   return (

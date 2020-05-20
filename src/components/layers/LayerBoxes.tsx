@@ -7,6 +7,7 @@ import { toJS } from "mobx";
 import useStores from "hooks/useStores";
 import LayerBox from "components/layers/LayerBox";
 import ImageLayer from "modules/layers/ImageLayer";
+import TextLayer from "modules/layers/TextLayer";
 
 interface LayerBoxesProps {
   layers: ImageLayer[];
@@ -38,14 +39,19 @@ const LayerBoxes: React.FC<LayerBoxesProps> = observer(({ layers }) => {
 
   const layerList =
     LayerStore.layers.length > 0 ? (
-      LayerStore.layers.map((layer: ImageLayer) => (
-        <LayerBox
-          key={layer.id}
-          name={"image " + layer.id}
-          onMove={(type) => handleVerticalMove(layer.id, type)}
-          onRemove={() => handleRemoveLayer(layer.id)}
-        />
-      ))
+      LayerStore.layers.map((layer: ImageLayer | TextLayer) => {
+        const layerType =
+          layer instanceof ImageLayer === true ? "Image " : "Text ";
+
+        return (
+          <LayerBox
+            key={layer.id}
+            name={layerType + layer.id}
+            onMove={(type) => handleVerticalMove(layer.id, type)}
+            onRemove={() => handleRemoveLayer(layer.id)}
+          />
+        );
+      })
     ) : (
       <DefaultLayers>
         <MdInbox size={"50%"} color={"#ccc"} />

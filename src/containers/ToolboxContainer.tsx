@@ -20,12 +20,12 @@ export enum ToolboxType {
 const Toolbox = observer(() => {
   const { ToolboxStore, LayerStore, HeaderStore } = useStores();
 
-  const handleTool = useCallback((name: string) => {
+  const handleTool = (name: string) => {
     ToolboxStore.selectedTool = name;
     if (name == ToolboxType.TEXT) {
       handleText();
     }
-  }, []);
+  };
 
   const handleActive = useCallback((type: string) => {
     if (ToolboxStore.selectedTool == type) {
@@ -65,9 +65,10 @@ const Toolbox = observer(() => {
     reader.readAsDataURL(e.target.files[0]);
   }, []);
 
-  const handleText = useCallback(() => {
-    const [width, height] = [200, 50];
+  const handleText = () => {
+    const [width, height] = [200, 30];
     const [x, y] = getArtboardCenterPosition(width, height);
+    console.log("x, y", x, y);
     const newTextLayer = new TextLayer(
       LayerStore.layers.length,
       x,
@@ -81,8 +82,9 @@ const Toolbox = observer(() => {
       "#000",
       "여기에 텍스트를 입력하세요",
     );
+    console.log("newTextLayer", newTextLayer);
     LayerStore.layers = [newTextLayer, ...LayerStore.layers];
-  }, []);
+  };
 
   return (
     <Container>

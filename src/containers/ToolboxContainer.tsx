@@ -57,7 +57,7 @@ const Toolbox = observer(() => {
           LayerStore.layers.length + 10, // 0부터 레이어 번호를 매기면서 10부터 zIndex를 부여함
           img,
         );
-        LayerStore.layers = [imgLayer, ...LayerStore.layers];
+        LayerStore.layers = [...LayerStore.layers, imgLayer];
       };
     };
 

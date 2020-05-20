@@ -4,10 +4,10 @@ import useStores from "hooks/useStores";
 
 interface ComponentProps {
   layer: ImageLayer;
-  onClickImg: Function;
+  onClick: Function;
 }
 
-const DraggableImage: React.FC<ComponentProps> = ({ layer, onClickImg }) => {
+const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
   const { LayerStore } = useStores();
   const { id, x, y, width, height, zIndex, image } = layer;
   // 이미지 좌표
@@ -23,7 +23,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClickImg }) => {
   // 드래그 스타트 (기존의 이미지좌표와 e.client좌표 저장)
   const onDragStartImageHandler = useCallback(
     (e: React.DragEvent<HTMLImageElement>) => {
-      onClickImg(imgX, imgY, width, height, false);
+      onClick(imgX, imgY, width, height, false);
       setFirstEventClientX(e.clientX);
       setFirstEventClientY(e.clientY);
       setFirstImgX(imgX);
@@ -71,7 +71,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClickImg }) => {
       onDragEnd={onDragEndImageHandler}
       onClick={(e) => {
         e.stopPropagation();
-        onClickImg(imgX, imgY, width, height, true);
+        onClick(imgX, imgY, width, height, true);
       }}
       style={{
         position: "fixed",

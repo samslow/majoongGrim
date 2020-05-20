@@ -4,6 +4,7 @@ export default class TextLayer extends Layer {
   fontType: string;
   fontSize: number;
   color: string;
+  content: string;
 
   constructor(
     id: number,
@@ -13,14 +14,16 @@ export default class TextLayer extends Layer {
     height: number,
     zIndex: number,
     angleDegree: number,
-    fontType: string,
+    fontType: string, // bold, italic ...
     fontSize: number,
     color: string,
+    content: string,
   ) {
     super(id, x, y, width, height, zIndex, angleDegree);
     this.fontType = fontType;
     this.fontSize = fontSize;
     this.color = color;
+    this.content = content;
   }
 
   move() {

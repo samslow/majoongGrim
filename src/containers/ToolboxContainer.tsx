@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import { MdMessage } from "react-icons/md";
 import { BsFillImageFill } from "react-icons/bs";
@@ -10,6 +10,7 @@ import ImageContentBox from "components/Toolbox/ImageContentBox";
 import { resizeImage } from "modules/functions/resizeImage";
 import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
 import ImageLayer from "modules/layers/ImageLayer";
+import TextLayer from "modules/layers/TextLayer";
 
 export enum ToolboxType {
   IMAGE = "이미지 삽입",
@@ -19,22 +20,22 @@ export enum ToolboxType {
 const Toolbox = observer(() => {
   const { ToolboxStore, LayerStore, HeaderStore } = useStores();
 
-  const handleTool = (name: string) => {
+  const handleTool = useCallback((name: string) => {
     ToolboxStore.selectedTool = name;
-  };
-
-  const handleActive = (type: string) => {
-    if (name === "이미지 삽입") {
-      console.log("dd");
+    if (name == ToolboxType.TEXT) {
+      handleText();
     }
+  }, []);
+
+  const handleActive = useCallback((type: string) => {
     if (ToolboxStore.selectedTool == type) {
       return true;
     }
 
     return false;
-  };
+  }, []);
 
-  const handleImage = (e: any) => {
+  const handleImage = useCallback((e: any) => {
     const reader = new FileReader();
 
     // FileReader load 이벤트핸들러 등록 (성공시에만 트리거됨)
@@ -53,16 +54,35 @@ const Toolbox = observer(() => {
           width,
           height,
           0,
-          10,
+          LayerStore.layers.length + 10, // 0부터 레이어 번호를 매기면서 10부터 zIndex를 부여함
           img,
         );
-        LayerStore.layers = [...LayerStore.layers, imgLayer];
+        LayerStore.layers = [imgLayer, ...LayerStore.layers];
       };
     };
 
     // FileReader가 데이터 읽기 시작 -> 데이터 다 읽으면 load이벤트 발생
     reader.readAsDataURL(e.target.files[0]);
-  };
+  }, []);
+
+  const handleText = useCallback(() => {
+    const [width, height] = [200, 50];
+    const [x, y] = getArtboardCenterPosition(width, height);
+    const newTextLayer = new TextLayer(
+      LayerStore.layers.length,
+      x,
+      y,
+      width,
+      height,
+      0,
+      LayerStore.layers.length + 10,
+      "normal",
+      12,
+      "#000",
+      "여기에 텍스트를 입력하세요",
+    );
+    LayerStore.layers = [newTextLayer, ...LayerStore.layers];
+  }, []);
 
   return (
     <Container>
@@ -70,14 +90,14 @@ const Toolbox = observer(() => {
         <ImageContentBox
           name={ToolboxType.IMAGE}
           icon={<BsFillImageFill size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
-          onChangeTool={(e: Event) => handleImage(e)}
+          onClickTool={handleTool}
+          onChangeTool={handleImage}
           isActive={handleActive(ToolboxType.IMAGE)}
         />
         <ToolboxContentBox
           name={ToolboxType.TEXT}
           icon={<MdMessage size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
+          onClickTool={handleTool}
           isActive={handleActive(ToolboxType.TEXT)}
         />
         <ToolboxContentBox />

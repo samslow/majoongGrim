@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import ImageLayer from "modules/layers/ImageLayer";
 import { useDispatch } from "react-redux";
 import { CHANGE_LAYER_LOCATION } from "store/layerReducer";

@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import TextLayer from "modules/layers/TextLayer";
-import useStores from "hooks/useStores";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { CHANGE_LAYER_LOCATION } from "store/layerReducer";

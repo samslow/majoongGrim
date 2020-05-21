@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "store";
 import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
 import { ADD_LAYER } from "store/layerReducer";
+import Layer from "modules/layers/Layer";
 
 export enum ToolboxType {
   IMAGE = "이미지 삽입",
@@ -24,7 +25,7 @@ const Toolbox = () => {
   const selectedTool: string = useSelector(
     (state: RootState) => state.toolboxReducer.selectedTool,
   );
-  const layers: ImageLayer[] = useSelector(
+  const layers: Layer[] = useSelector(
     (state: RootState) => state.layerReducer.layers,
   );
   const nowShape: string = useSelector(
@@ -44,11 +45,10 @@ const Toolbox = () => {
     if (selectedTool == type) {
       return true;
     }
-
     return false;
   }, []);
 
-  const handleImage = useCallback((e: any) => {
+  const handleImage = (e: any) => {
     const reader = new FileReader();
 
     // FileReader load 이벤트핸들러 등록 (성공시에만 트리거됨)
@@ -60,6 +60,7 @@ const Toolbox = () => {
       img.onload = () => {
         const [width, height] = resizeImage(img, nowShape);
         const [x, y] = getArtboardCenterPosition(width, height);
+        console.log(layers, "렝스");
         const imgLayer = new ImageLayer(
           layers.length,
           x,
@@ -79,7 +80,7 @@ const Toolbox = () => {
 
     // FileReader가 데이터 읽기 시작 -> 데이터 다 읽으면 load이벤트 발생
     reader.readAsDataURL(e.target.files[0]);
-  }, []);
+  };
 
   const handleText = () => {
     const [width, height] = [200, 30];

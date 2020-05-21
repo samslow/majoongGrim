@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { observer } from "mobx-react";
 
-import useStores from "hooks/useStores";
 import { ToolboxType } from "containers/ToolboxContainer";
 import TextController from "components/controllers/TextController";
 import DefaultController from "components/controllers/DefaultController";
@@ -13,7 +11,7 @@ interface SwitchProps {
   type: string;
 }
 
-const ControllerContainer = observer(() => {
+const ControllerContainer = () => {
   const selectedTool: string = useSelector(
     (state: RootState) => state.toolboxReducer.selectedTool,
   );
@@ -38,7 +36,7 @@ const ControllerContainer = observer(() => {
       <SwitchController type={selectedTool} />
     </Container>
   );
-});
+};
 
 const Container = styled.div`
   background: #666;

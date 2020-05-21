@@ -5,6 +5,14 @@ interface ShapeProps {
   shapeType: string;
 }
 
+interface ComponentProps {
+  nowShape: string;
+}
+
+const ArtBoard: React.FC<ComponentProps> = ({ nowShape }) => {
+  return <Container id="artboard" shapeType={nowShape} />;
+};
+
 const Container = styled.div`
   position: absolute;
   top: 50%;
@@ -18,13 +26,5 @@ const Container = styled.div`
   }};
   background: white;
 `;
-
-interface ComponentProps {
-  nowShape: string;
-}
-
-const ArtBoard: React.FC<ComponentProps> = ({ nowShape }) => {
-  return <Container id="artboard" shapeType={nowShape} />;
-};
 
 export default ArtBoard;

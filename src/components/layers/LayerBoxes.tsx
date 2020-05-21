@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdInbox } from "react-icons/md";
 
@@ -15,6 +15,16 @@ interface LayerBoxesProps {
 
 const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
   const dispatch = useDispatch();
+  const [ordered, setOrdered] = useState<Layer[]>([]);
+
+  useEffect(() => {
+    if (layers.length > 0) {
+      let orderedLayers = layers.slice().sort((a, b) => {
+        return b.zIndex - a.zIndex;
+      });
+      setOrdered(orderedLayers);
+    }
+  }, [layers]);
 
   const handleVerticalMove = (id: number, type: string) => {
     dispatch({
@@ -33,8 +43,8 @@ const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
   };
 
   const layerList =
-    layers.length > 0 ? (
-      layers.map((layer: Layer) => {
+    ordered.length > 0 ? (
+      ordered.map((layer: Layer) => {
         const layerType =
           layer instanceof ImageLayer === true ? "Image " : "Text ";
 

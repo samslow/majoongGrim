@@ -8,13 +8,15 @@ import useStores from "hooks/useStores";
 import LayerBox from "components/layers/LayerBox";
 import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
+import { useDispatch } from "react-redux";
+import { SET_ZINDEX, REMOVE_LAYER } from "store/layerReducer";
 
 interface LayerBoxesProps {
   layers: ImageLayer[];
 }
 
-const LayerBoxes: React.FC<LayerBoxesProps> = observer(({ layers }) => {
-  const { LayerStore } = useStores();
+const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
+  const dispatch = useDispatch();
   // const [layerStack, setLayerStack] = useState<ImageLayer[]>([]);
   useEffect(() => {
     // let orderedLayers: ImageLayer[] = [];
@@ -29,17 +31,24 @@ const LayerBoxes: React.FC<LayerBoxesProps> = observer(({ layers }) => {
   }, [layers]);
 
   const handleVerticalMove = (id: number, type: string) => {
-    LayerStore.setZindex(id, type);
+    dispatch({
+      type: SET_ZINDEX,
+      id: id,
+      _type: type,
+    });
   };
 
   const handleRemoveLayer = (id: number) => {
     console.log(`${id} layer removed!`);
-    LayerStore.removeLayer(id);
+    dispatch({
+      type: REMOVE_LAYER,
+      id: id,
+    });
   };
 
   const layerList =
-    LayerStore.layers.length > 0 ? (
-      LayerStore.layers.map((layer: ImageLayer | TextLayer) => {
+    layers.length > 0 ? (
+      layers.map((layer: ImageLayer | TextLayer) => {
         const layerType =
           layer instanceof ImageLayer === true ? "Image " : "Text ";
 
@@ -60,7 +69,7 @@ const LayerBoxes: React.FC<LayerBoxesProps> = observer(({ layers }) => {
     );
 
   return <>{layerList}</>;
-});
+};
 
 const DefaultLayers = styled.div`
   flex: 1;

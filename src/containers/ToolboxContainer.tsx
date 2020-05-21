@@ -11,24 +11,39 @@ import { resizeImage } from "modules/functions/resizeImage";
 import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
 import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "store";
+import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
+import { ADD_LAYER } from "store/layerReducer";
 
 export enum ToolboxType {
   IMAGE = "이미지 삽입",
   TEXT = "텍스트 삽입",
 }
 
-const Toolbox = observer(() => {
-  const { ToolboxStore, LayerStore, HeaderStore } = useStores();
-
+const Toolbox = () => {
+  const dispatch = useDispatch();
+  const selectedTool: string = useSelector(
+    (state: RootState) => state.toolboxReducer.selectedTool,
+  );
+  const layers: ImageLayer[] = useSelector(
+    (state: RootState) => state.layerReducer.layers,
+  );
+  const nowShape: string = useSelector(
+    (state: RootState) => state.headerReducer.nowShape,
+  );
   const handleTool = (name: string) => {
-    ToolboxStore.selectedTool = name;
+    dispatch({
+      type: CHANGE_SELECTED_TOOL,
+      name: name,
+    });
     if (name == ToolboxType.TEXT) {
       handleText();
     }
   };
 
   const handleActive = useCallback((type: string) => {
-    if (ToolboxStore.selectedTool == type) {
+    if (selectedTool == type) {
       return true;
     }
 
@@ -45,19 +60,22 @@ const Toolbox = observer(() => {
 
       // Image load 이벤트핸들러 등록
       img.onload = () => {
-        const [width, height] = resizeImage(img, HeaderStore.nowShape);
+        const [width, height] = resizeImage(img, nowShape);
         const [x, y] = getArtboardCenterPosition(width, height);
         const imgLayer = new ImageLayer(
-          LayerStore.layers.length,
+          layers.length,
           x,
           y,
           width,
           height,
           0,
-          LayerStore.layers.length + 10, // 0부터 레이어 번호를 매기면서 10부터 zIndex를 부여함
+          layers.length + 10, // 0부터 레이어 번호를 매기면서 10부터 zIndex를 부여함
           img,
         );
-        LayerStore.layers = [...LayerStore.layers, imgLayer];
+        dispatch({
+          type: ADD_LAYER,
+          layer: imgLayer,
+        });
       };
     };
 
@@ -70,20 +88,23 @@ const Toolbox = observer(() => {
     const [x, y] = getArtboardCenterPosition(width, height);
     console.log("x, y", x, y);
     const newTextLayer = new TextLayer(
-      LayerStore.layers.length,
+      layers.length,
       x,
       y,
       width,
       height,
       0,
-      LayerStore.layers.length + 10,
+      layers.length + 10,
       "normal",
       12,
       "#000",
       "여기에 텍스트를 입력하세요",
     );
     console.log("newTextLayer", newTextLayer);
-    LayerStore.layers = [...LayerStore.layers, newTextLayer];
+    dispatch({
+      type: ADD_LAYER,
+      layer: newTextLayer,
+    });
   };
 
   return (
@@ -116,7 +137,7 @@ const Toolbox = observer(() => {
       </ContentRow>
     </Container>
   );
-});
+};
 
 const Container = styled.aside`
   display: flex;

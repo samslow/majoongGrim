@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 
 import useStores from "hooks/useStores";
 import { ToolboxType } from "containers/ToolboxContainer";
-import InsertText from "components/controllers/InsertText";
+import TextController from "components/controllers/TextController";
 import DefaultController from "components/controllers/DefaultController";
 
 interface SwitchProps {
@@ -19,7 +19,7 @@ const ControllerContainer = observer(() => {
 
     switch (type) {
       case ToolboxType.TEXT:
-        result = <InsertText />;
+        result = <TextController />;
         break;
       case ToolboxType.IMAGE:
       default:

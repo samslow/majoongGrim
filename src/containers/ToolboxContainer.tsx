@@ -68,7 +68,7 @@ const Toolbox = observer(() => {
   const handleText = () => {
     const [width, height] = [200, 30];
     const [x, y] = getArtboardCenterPosition(width, height);
-    console.log("x, y", x, y);
+
     const newTextLayer = new TextLayer(
       LayerStore.layers.length,
       x,
@@ -80,9 +80,8 @@ const Toolbox = observer(() => {
       "normal",
       12,
       "#000",
-      "여기에 텍스트를 입력하세요",
+      "Lorem Ipsum",
     );
-    console.log("newTextLayer", newTextLayer);
     LayerStore.layers = [...LayerStore.layers, newTextLayer];
   };
 
@@ -102,16 +101,6 @@ const Toolbox = observer(() => {
           onClickTool={handleTool}
           isActive={handleActive(ToolboxType.TEXT)}
         />
-        <ToolboxContentBox />
-      </ContentRow>
-      <ContentRow>
-        <ToolboxContentBox />
-        <ToolboxContentBox />
-        <ToolboxContentBox />
-      </ContentRow>
-      <ContentRow>
-        <ToolboxContentBox />
-        <ToolboxContentBox />
         <ToolboxContentBox />
       </ContentRow>
     </Container>

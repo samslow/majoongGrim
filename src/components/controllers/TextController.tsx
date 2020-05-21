@@ -5,16 +5,12 @@ import {
   MdFormatItalic,
   MdFormatBold,
   MdFormatUnderlined,
-  MdFormatAlignLeft,
-  MdFormatAlignCenter,
-  MdFormatAlignRight,
 } from "react-icons/md";
 
-import useStores from "hooks/useStores";
 import ButtonContent from "components/controllers/ButtonContent";
 import ListContent from "components/controllers/ListContent";
 import ContentsGroup from "components/controllers/ContentsGroup";
-import SizeSlider from "components/controllers/SizeSlider";
+import InputContent from "components/controllers/InputContent";
 
 const insertImage: React.FC = observer(() => {
   return (
@@ -34,27 +30,12 @@ const insertImage: React.FC = observer(() => {
         />
       </ContentsGroup>
       <Devider />
-      <ContentsGroup subject={"Align"}>
-        <ButtonContent
-          icon={<MdFormatAlignLeft size={"90%"} />}
-          label={"Left"}
+      <ContentsGroup subject={"Content"}>
+        <InputContent
+          input={"Hello"}
+          fontSize={12}
+          fonts={["Option1", "Option2", "Option3"]}
         />
-        <ButtonContent
-          icon={<MdFormatAlignCenter size={"90%"} />}
-          label={"Center"}
-        />
-        <ButtonContent
-          icon={<MdFormatAlignRight size={"90%"} />}
-          label={"Right"}
-        />
-      </ContentsGroup>
-      <Devider />
-      <ContentsGroup subject={"Size"}>
-        <SizeSlider />
-      </ContentsGroup>
-      <Devider />
-      <ContentsGroup subject={"Font"}>
-        <ListContent items={["Option1", "Option2", "Option3"]} />
       </ContentsGroup>
     </Container>
   );

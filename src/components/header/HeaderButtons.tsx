@@ -79,7 +79,7 @@ const HeaderButtons: React.FC<ComponentProps> = ({
       }
     }
     // 3. 그린 canvas정보를 URL 형태로 href 속성으로 전달
-    // onClick 이벤트 핸들러가 return false를 하지않는이상 click event -> href 순서로 진행됨.
+    // click event handler -> href 순서로 진행됨.
     e.target.href = canvas.toDataURL();
   };
 

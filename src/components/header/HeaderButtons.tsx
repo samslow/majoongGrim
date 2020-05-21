@@ -1,21 +1,5 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-
-const ButtonContainer = styled.div`
-  position: absolute;
-  right: 0;
-  display: flex;
-  padding: 0px 30px 0px 30px;
-
-  & > button {
-    cursor: pointer;
-    width: 70px;
-    height: 30px;
-    font-size: 12px;
-    margin: 0px 5px 0px 5px;
-    border-radius: 3px;
-  }
-`;
 
 const VERTICAL_SHAPE = "VERTICAL_SHAPE";
 const HORIZONTAL_SHAPE = "HORIZONTAL_SHAPE";
@@ -45,5 +29,21 @@ const HeaderButtons: React.FC<ComponentProps> = ({
     </ButtonContainer>
   );
 };
+
+const ButtonContainer = styled.div`
+  position: absolute;
+  right: 0;
+  display: flex;
+  padding: 0px 30px 0px 30px;
+
+  & > button {
+    cursor: pointer;
+    width: 70px;
+    height: 30px;
+    font-size: 12px;
+    margin: 0px 5px 0px 5px;
+    border-radius: 3px;
+  }
+`;
 
 export default HeaderButtons;

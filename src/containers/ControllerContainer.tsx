@@ -1,18 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { observer } from "mobx-react";
 
-import useStores from "hooks/useStores";
 import { ToolboxType } from "containers/ToolboxContainer";
 import InsertText from "components/controllers/InsertText";
 import DefaultController from "components/controllers/DefaultController";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 
 interface SwitchProps {
   type: string;
 }
 
-const ControllerContainer = observer(() => {
-  const { ToolboxStore } = useStores();
+const ControllerContainer = () => {
+  const selectedTool: string = useSelector(
+    (state: RootState) => state.toolboxReducer.selectedTool,
+  );
 
   const SwitchController: React.FC<SwitchProps> = ({ type }) => {
     let result;
@@ -31,10 +33,10 @@ const ControllerContainer = observer(() => {
 
   return (
     <Container>
-      <SwitchController type={ToolboxStore.selectedTool} />
+      <SwitchController type={selectedTool} />
     </Container>
   );
-});
+};
 
 const Container = styled.div`
   background: #666;

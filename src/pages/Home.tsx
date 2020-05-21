@@ -6,6 +6,24 @@ import ControllerContainer from "containers/ControllerContainer";
 import ToolboxContainer from "containers/ToolboxContainer";
 import LayerContainer from "containers/LayerContainer";
 
+const Home = () => {
+  return (
+    <Container>
+      <HeaderContainer />
+      <Content>
+        <LeftContent>
+          <EditorContainer />
+          <ControllerContainer />
+        </LeftContent>
+        <RightContent>
+          <ToolboxContainer />
+          <LayerContainer />
+        </RightContent>
+      </Content>
+    </Container>
+  );
+};
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -28,23 +46,5 @@ const RightContent = styled.div`
   flex-direction: column;
   width: 300px; /* 툴박스는 고정 크기 */
 `;
-
-const Home = () => {
-  return (
-    <Container>
-      <HeaderContainer />
-      <Content>
-        <LeftContent>
-          <EditorContainer />
-          <ControllerContainer />
-        </LeftContent>
-        <RightContent>
-          <ToolboxContainer />
-          <LayerContainer />
-        </RightContent>
-      </Content>
-    </Container>
-  );
-};
 
 export default Home;

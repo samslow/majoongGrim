@@ -1,14 +1,14 @@
 import React from "react";
-import { Provider } from "mobx-react";
+import { Provider } from "react-redux";
 
 import Home from "pages/Home";
-import RootStore from "stores/RootStore";
+import configureStore from "store/configureStore";
 
-const rootStore = new RootStore();
+const store = configureStore();
 
 const App = () => {
   return (
-    <Provider {...rootStore}>
+    <Provider store={store}>
       <Home />
     </Provider>
   );

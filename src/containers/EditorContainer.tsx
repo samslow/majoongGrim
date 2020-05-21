@@ -3,10 +3,11 @@ import styled from "styled-components";
 import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
 import ArtBoard from "components/editor/ArtBoard";
-import useStores from "hooks/useStores";
-import { observer } from "mobx-react";
 import DraggableImage from "components/editor/DraggableImage";
 import DraggableText from "components/editor/DraggableText";
+import { RootState } from "store";
+import { useSelector } from "react-redux";
+import Layer from "modules/layers/Layer";
 
 // 레이어와 선택박스 거리
 const DISTANCE_BORDER = 10;
@@ -27,14 +28,15 @@ const initialSelectedBox = {
   height: 0,
 };
 
-const Container = styled.div`
-  position: relative;
-  background: grey;
-  flex: 3;
-`;
+const EditorContainer = () => {
+  const nowShape: string = useSelector(
+    (state: RootState) => state.headerReducer.nowShape,
+  );
+  const layers: ImageLayer[] = useSelector(
+    (state: RootState) => state.layerReducer.layers,
+  );
+  console.log(layers);
 
-const EditorContainer = observer(() => {
-  const { HeaderStore, LayerStore } = useStores();
   // 선택여부
   const [selected, setSelected] = useState(false);
   // 선택박스 정보
@@ -68,8 +70,8 @@ const EditorContainer = observer(() => {
 
   return (
     <Container onClick={onClickEditorHandler}>
-      {LayerStore.layers.length > 0 &&
-        LayerStore.layers.map((layer: ImageLayer | TextLayer, i: number) => {
+      {layers.length > 0 &&
+        layers.map((layer: Layer, i: number) => {
           if (layer instanceof ImageLayer) {
             return (
               <DraggableImage
@@ -116,9 +118,15 @@ const EditorContainer = observer(() => {
           }}
         />
       )}
-      <ArtBoard nowShape={HeaderStore.nowShape} />
+      <ArtBoard nowShape={nowShape} />
     </Container>
   );
-});
+};
+
+const Container = styled.div`
+  position: relative;
+  background: grey;
+  flex: 3;
+`;
 
 export default EditorContainer;

@@ -1,22 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-import { observer } from "mobx-react";
 
 import LayerBoxes from "components/layers/LayerBoxes";
-import useStores from "hooks/useStores";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
+import Layer from "modules/layers/Layer";
 
-const LayerContainer = observer(() => {
-  const { LayerStore } = useStores();
-
+const LayerContainer = () => {
+  const layers: Layer[] = useSelector(
+    (state: RootState) => state.layerReducer.layers,
+  );
   return (
     <Container>
       <Title>Layers</Title>
       <LayerGroup>
-        <LayerBoxes layers={LayerStore.layers} />
+        <LayerBoxes layers={layers} />
       </LayerGroup>
     </Container>
   );
-});
+};
 
 const Container = styled.div`
   flex: 2;

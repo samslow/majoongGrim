@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import ImageLayer from "modules/layers/ImageLayer";
-import useStores from "hooks/useStores";
+import { useDispatch } from "react-redux";
+import { CHANGE_LAYER_LOCATION } from "store/layerReducer";
 
 interface ComponentProps {
   layer: ImageLayer;
@@ -8,7 +9,8 @@ interface ComponentProps {
 }
 
 const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
-  const { LayerStore } = useStores();
+  const dispatch = useDispatch();
+  // action추가
   const { id, x, y, width, height, zIndex, image } = layer;
   // 이미지 좌표
   const [imgX, setImgX] = useState(x);
@@ -53,14 +55,13 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
 
   // 드래그 종료 (mobX layers 상태변경)
   const onDragEndImageHandler = useCallback(() => {
-    LayerStore.layers.forEach((layer: ImageLayer) => {
-      if (layer.id === id) {
-        layer.x = imgX;
-        layer.y = imgY;
-        return;
-      }
+    dispatch({
+      type: CHANGE_LAYER_LOCATION,
+      id: id,
+      x: imgX,
+      y: imgY,
     });
-  }, [imgX, imgY, id]);
+  }, [imgX, imgY]);
 
   return (
     <div

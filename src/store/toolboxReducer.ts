@@ -11,8 +11,7 @@ export const initialState: reduxState = {
 export default (state = initialState, action: any) => {
   switch (action.type) {
     case "CHANGE_SELECTED_TOOL": {
-      console.log(action.name);
-      return { ...state };
+      return { selectedTool: action.name };
     }
     default: {
       return {

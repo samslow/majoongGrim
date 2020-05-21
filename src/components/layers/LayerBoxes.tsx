@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdInbox } from "react-icons/md";
-import { observer } from "mobx-react";
-import { toJS } from "mobx";
 
-import useStores from "hooks/useStores";
 import LayerBox from "components/layers/LayerBox";
 import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
@@ -17,18 +14,6 @@ interface LayerBoxesProps {
 
 const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
   const dispatch = useDispatch();
-  // const [layerStack, setLayerStack] = useState<ImageLayer[]>([]);
-  useEffect(() => {
-    // let orderedLayers: ImageLayer[] = [];
-    // if (layers.length > 0) {
-    //   orderedLayers = layers.slice().sort((a, b) => {
-    //     return b.zIndex - a.zIndex;
-    //   });
-    // }
-    // setLayerStack(orderedLayers);
-    // console.log("orderedLayers", orderedLayers);
-    console.log("render LayerBoxes");
-  }, [layers]);
 
   const handleVerticalMove = (id: number, type: string) => {
     dispatch({

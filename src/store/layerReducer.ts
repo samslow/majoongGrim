@@ -1,7 +1,9 @@
 import Layer from "modules/layers/Layer";
+import ImageLayer from "modules/layers/ImageLayer";
+import TextLayer from "modules/layers/TextLayer";
 
 type reduxState = {
-  layers: Layer[];
+  layers: (TextLayer & ImageLayer)[];
   selectedId: number | null;
 };
 
@@ -11,6 +13,9 @@ export const REMOVE_LAYER = "REMOVE_LAYER" as const;
 export const ADD_LAYER = "ADD_LAYER" as const;
 export const GET_SORTED_LAYERS = "GET_SORTED_LAYERS" as const;
 export const SET_SELECTED = "SET_SELECTED" as const;
+export const ADJUST_FONTTYPE = "ADJUST_FONTTYPE" as const;
+export const ADJUST_FONTSIZE = "ADJUST_FONTSIZE" as const;
+export const ADJUST_FONTCONTENT = "ADJUST_FONTCONTENT" as const;
 
 export const initialState: reduxState = {
   layers: [],
@@ -91,6 +96,47 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         selectedId: actionId,
+      };
+    }
+    case "ADJUST_FONTTYPE": {
+      const layerIndex = state.layers
+        .map((layer) => layer.id)
+        .indexOf(action.id);
+      const fontType = state.layers[layerIndex].fontType;
+      const actionFontType = action.fontType;
+      if (actionFontType == "Bold") {
+        state.layers[layerIndex].fontType.isBold = !fontType.isBold;
+      } else if (actionFontType == "Italic") {
+        state.layers[layerIndex].fontType.isItalic = !fontType.isItalic;
+      } else if (actionFontType == "Underline") {
+        state.layers[layerIndex].fontType.isUnderline = !fontType.isUnderline;
+      }
+
+      return {
+        ...state,
+        layers: [...state.layers],
+      };
+    }
+    case "ADJUST_FONTSIZE": {
+      const layerIndex = state.layers
+        .map((layer) => layer.id)
+        .indexOf(action.id);
+      state.layers[layerIndex].fontSize = action.fontSize;
+
+      return {
+        ...state,
+        layers: [...state.layers],
+      };
+    }
+    case "ADJUST_FONTCONTENT": {
+      const layerIndex = state.layers
+        .map((layer) => layer.id)
+        .indexOf(action.id);
+      state.layers[layerIndex].content = action.content;
+
+      return {
+        ...state,
+        layers: [...state.layers],
       };
     }
     default: {

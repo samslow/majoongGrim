@@ -6,17 +6,16 @@ interface ComponentProps {
   name?: string;
   icon?: any;
   onClickTool: Function;
-  onChangeTool: Function;
 }
 
 const ImageContentBox: React.FC<ComponentProps> = ({
   name = "",
   icon = <IoIosDocument size="60%" color={"#DDD"} />,
   onClickTool,
-  onChangeTool,
 }) => {
   return (
-    <ContentBox onClick={() => name.length && onClickTool && onClickTool(name)}>
+    // <ContentBox onClick={() => name.length && onClickTool && onClickTool(name)}>
+    <ContentBox>
       <FileLabel
         style={{ width: "100%", height: "100%" }}
         htmlFor="imageLoader"
@@ -30,7 +29,7 @@ const ImageContentBox: React.FC<ComponentProps> = ({
         accept="image/png,image/jpg,image/jpeg"
         hidden
         onChange={(e: any) => {
-          onChangeTool(e);
+          onClickTool(name, e);
           e.target.value = ``;
         }}
       />

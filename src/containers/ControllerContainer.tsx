@@ -6,13 +6,17 @@ import useStores from "hooks/useStores";
 import { ToolboxType } from "containers/ToolboxContainer";
 import TextController from "components/controllers/TextController";
 import DefaultController from "components/controllers/DefaultController";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 
 interface SwitchProps {
   type: string;
 }
 
 const ControllerContainer = observer(() => {
-  const { ToolboxStore } = useStores();
+  const selectedTool: string = useSelector(
+    (state: RootState) => state.toolboxReducer.selectedTool,
+  );
 
   const SwitchController: React.FC<SwitchProps> = ({ type }) => {
     let result;
@@ -31,7 +35,7 @@ const ControllerContainer = observer(() => {
 
   return (
     <Container>
-      <SwitchController type={ToolboxStore.selectedTool} />
+      <SwitchController type={selectedTool} />
     </Container>
   );
 });

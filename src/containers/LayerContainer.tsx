@@ -4,15 +4,20 @@ import { observer } from "mobx-react";
 
 import LayerBoxes from "components/layers/LayerBoxes";
 import useStores from "hooks/useStores";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
+import Layer from "modules/layers/Layer";
+import ImageLayer from "modules/layers/ImageLayer";
 
 const LayerContainer = observer(() => {
-  const { LayerStore } = useStores();
-
+  const layers: ImageLayer[] = useSelector(
+    (state: RootState) => state.layerReducer.layers,
+  );
   return (
     <Container>
       <Title>Layers</Title>
       <LayerGroup>
-        <LayerBoxes layers={LayerStore.layers} />
+        <LayerBoxes layers={layers} />
       </LayerGroup>
     </Container>
   );

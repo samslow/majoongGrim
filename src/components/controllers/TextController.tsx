@@ -1,5 +1,4 @@
 import React from "react";
-import { observer } from "mobx-react";
 import styled from "styled-components";
 import {
   MdFormatItalic,
@@ -12,7 +11,7 @@ import ListContent from "components/controllers/ListContent";
 import ContentsGroup from "components/controllers/ContentsGroup";
 import InputContent from "components/controllers/InputContent";
 
-const insertImage: React.FC = observer(() => {
+const insertImage: React.FC = () => {
   return (
     <Container>
       <ContentsGroup subject={"Style"}>
@@ -39,7 +38,7 @@ const insertImage: React.FC = observer(() => {
       </ContentsGroup>
     </Container>
   );
-});
+};
 
 const Container = styled.div`
   padding: 0 1em;

@@ -5,42 +5,52 @@ interface ComponentProps {
   input: string;
   fontSize: number;
   fonts: string[];
+  onChangeSize: Function;
+  onChangeContent: Function;
 }
 
-const InputContent: React.FC<ComponentProps> = ({ input, fontSize, fonts }) => {
+const InputContent: React.FC<ComponentProps> = ({
+  input,
+  fontSize,
+  fonts,
+  onChangeSize,
+  onChangeContent,
+}) => {
   const [size, setSize] = useState(fontSize);
   const [text, setContent] = useState(input);
-  const [items, _] = useState(fonts);
 
   const Options = () => {
-    const fontList = items.map((item, index) => {
+    const fontList = fonts.map((item, index) => {
       return (
         <Option key={index} value={item}>
           {item}
         </Option>
       );
     });
-    console.log("fontList", fontList);
 
     return <>{fontList}</>;
+  };
+
+  const handleSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const size = parseInt(e.target.value);
+    setSize(size);
+    onChangeSize(size);
+  };
+
+  const handleContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(e.target.value);
+    onChangeContent(e.target.value);
   };
 
   return (
     <Container>
       <InputBox>
         <Label>Size</Label>
-        <InputText
-          type={"number"}
-          value={size}
-          onChange={(event) => setSize(parseInt(event.target.value))}
-        />
+        <InputText type={"number"} value={size} onChange={handleSize} />
       </InputBox>
       <InputBox>
         <Label>Text</Label>
-        <InputText
-          value={text}
-          onChange={(event) => setContent(event.target.value)}
-        />
+        <InputText value={text} onChange={handleContent} />
       </InputBox>
       <InputBox>
         <Label>Font</Label>

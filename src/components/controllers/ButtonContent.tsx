@@ -4,11 +4,16 @@ import styled from "styled-components";
 interface ButtonContentProps {
   icon: JSX.Element;
   label: string;
+  onClick: Function;
 }
 
-const ButtonContent: React.FC<ButtonContentProps> = ({ icon, label }) => {
+const ButtonContent: React.FC<ButtonContentProps> = ({
+  icon,
+  label,
+  onClick,
+}) => {
   return (
-    <Button>
+    <Button onClick={() => onClick(label)}>
       <IconContainer>{icon}</IconContainer>
       <Label>{label}</Label>
     </Button>

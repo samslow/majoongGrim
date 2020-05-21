@@ -25,7 +25,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
   // 드래그 스타트 (기존의 이미지좌표와 e.client좌표 저장)
   const onDragStartImageHandler = useCallback(
     (e: React.DragEvent<HTMLImageElement>) => {
-      onClick(imgX, imgY, width, height, false);
+      onClick(id, imgX, imgY, width, height, false);
       setFirstEventClientX(e.clientX);
       setFirstEventClientY(e.clientY);
       setFirstImgX(imgX);
@@ -72,7 +72,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
       onDragEnd={onDragEndImageHandler}
       onClick={(e) => {
         e.stopPropagation();
-        onClick(imgX, imgY, width, height, true);
+        onClick(id, imgX, imgY, width, height, true);
       }}
       style={{
         position: "fixed",

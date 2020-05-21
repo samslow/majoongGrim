@@ -2,6 +2,7 @@ import Layer from "modules/layers/Layer";
 
 type reduxState = {
   layers: Layer[];
+  selectedId: number | null;
 };
 
 export const CHANGE_LAYER_LOCATION = "CHANGE_LAYER_LOCATION" as const;
@@ -9,9 +10,11 @@ export const SET_ZINDEX = "SET_ZINDEX" as const;
 export const REMOVE_LAYER = "REMOVE_LAYER" as const;
 export const ADD_LAYER = "ADD_LAYER" as const;
 export const GET_SORTED_LAYERS = "GET_SORTED_LAYERS" as const;
+export const SET_SELECTED = "SET_SELECTED" as const;
 
 export const initialState: reduxState = {
   layers: [],
+  selectedId: null,
 };
 
 export default (state = initialState, action: any) => {
@@ -77,6 +80,17 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         layers: [...state.layers, action.layer],
+      };
+    }
+    case "SET_SELECTED": {
+      const actionId =
+        action.id != null
+          ? action.id
+          : state.layers[state.layers.length - 1].id;
+      console.log("actionId", actionId);
+      return {
+        ...state,
+        selectedId: actionId,
       };
     }
     default: {

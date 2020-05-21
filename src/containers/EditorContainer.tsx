@@ -1,12 +1,13 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+
 import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
 import ArtBoard from "components/editor/ArtBoard";
 import DraggableImage from "components/editor/DraggableImage";
 import DraggableText from "components/editor/DraggableText";
 import { RootState } from "store";
-import { useSelector } from "react-redux";
 import Layer from "modules/layers/Layer";
 
 // 레이어와 선택박스 거리
@@ -29,13 +30,31 @@ const initialSelectedBox = {
 };
 
 const EditorContainer = () => {
+  const dispatch = useDispatch();
+  const selectedLayerId: number = useSelector(
+    (state: RootState) => state.layerReducer.selectedId,
+  );
   const nowShape: string = useSelector(
     (state: RootState) => state.headerReducer.nowShape,
   );
-  const layers: ImageLayer[] = useSelector(
+  const layers: Layer[] = useSelector(
     (state: RootState) => state.layerReducer.layers,
   );
-  console.log(layers);
+
+  useEffect(() => {
+    console.log("editor layers: ", layers);
+    if (selectedLayerId != null) {
+      const layerInfo = layers[selectedLayerId];
+      const newSelectedBox = {
+        x: layerInfo.x,
+        y: layerInfo.y,
+        width: layerInfo.width,
+        height: layerInfo.height,
+      };
+      setSelected(true);
+      setSelectedLayerInfo(newSelectedBox);
+    }
+  }, [selectedLayerId]);
 
   // 선택여부
   const [selected, setSelected] = useState(false);
@@ -46,6 +65,7 @@ const EditorContainer = () => {
 
   const onClickImageHandler = useCallback(
     (
+      id: number,
       imgX: number,
       imgY: number,
       width: number,
@@ -60,8 +80,15 @@ const EditorContainer = () => {
         height: height,
       };
       setSelectedLayerInfo(newSelectedBox);
+
+      if (selectedLayerId != id) {
+        dispatch({
+          type: "SET_SELECTED",
+          id: id,
+        });
+      }
     },
-    [],
+    [selectedLayerId],
   );
 
   const onClickEditorHandler = useCallback(() => {
@@ -77,13 +104,7 @@ const EditorContainer = () => {
               <DraggableImage
                 key={i}
                 layer={layer}
-                onClick={(
-                  imgX: number,
-                  imgY: number,
-                  width: number,
-                  height: number,
-                  isSelected: boolean,
-                ) => onClickImageHandler(imgX, imgY, width, height, isSelected)}
+                onClick={onClickImageHandler}
               />
             );
           } else if (layer instanceof TextLayer) {
@@ -91,13 +112,7 @@ const EditorContainer = () => {
               <DraggableText
                 key={i}
                 layer={layer}
-                onClick={(
-                  imgX: number,
-                  imgY: number,
-                  width: number,
-                  height: number,
-                  isSelected: boolean,
-                ) => onClickImageHandler(imgX, imgY, width, height, isSelected)}
+                onClick={onClickImageHandler}
               />
             );
           } else {

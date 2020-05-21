@@ -41,13 +41,6 @@ const Toolbox = () => {
     }
   };
 
-  const handleActive = useCallback((type: string) => {
-    if (selectedTool == type) {
-      return true;
-    }
-    return false;
-  }, []);
-
   const handleImage = (e: any) => {
     const reader = new FileReader();
 
@@ -114,13 +107,11 @@ const Toolbox = () => {
           icon={<BsFillImageFill size="60%" color={"#888"} />}
           onClickTool={handleTool}
           onChangeTool={handleImage}
-          isActive={handleActive(ToolboxType.IMAGE)}
         />
         <ToolboxContentBox
           name={ToolboxType.TEXT}
           icon={<MdMessage size="60%" color={"#888"} />}
           onClickTool={handleTool}
-          isActive={handleActive(ToolboxType.TEXT)}
         />
         <ToolboxContentBox />
       </ContentRow>

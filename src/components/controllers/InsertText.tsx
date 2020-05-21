@@ -9,7 +9,6 @@ import {
   MdFormatAlignRight,
 } from "react-icons/md";
 
-import useStores from "hooks/useStores";
 import ButtonContent from "components/controllers/ButtonContent";
 import ListContent from "components/controllers/ListContent";
 import ContentsGroup from "components/controllers/ContentsGroup";

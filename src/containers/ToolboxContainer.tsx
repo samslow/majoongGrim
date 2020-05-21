@@ -2,9 +2,7 @@ import React, { useCallback } from "react";
 import styled from "styled-components";
 import { MdMessage } from "react-icons/md";
 import { BsFillImageFill } from "react-icons/bs";
-import { observer } from "mobx-react";
 
-import useStores from "hooks/useStores";
 import ToolboxContentBox from "components/Toolbox/ToolboxContentBox";
 import ImageContentBox from "components/Toolbox/ImageContentBox";
 import { resizeImage } from "modules/functions/resizeImage";

@@ -3,8 +3,6 @@ import styled from "styled-components";
 import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
 import ArtBoard from "components/editor/ArtBoard";
-import useStores from "hooks/useStores";
-import { observer } from "mobx-react";
 import DraggableImage from "components/editor/DraggableImage";
 import DraggableText from "components/editor/DraggableText";
 import { RootState } from "store";
@@ -28,12 +26,6 @@ const initialSelectedBox = {
   width: 0,
   height: 0,
 };
-
-const Container = styled.div`
-  position: relative;
-  background: grey;
-  flex: 3;
-`;
 
 const EditorContainer = () => {
   const nowShape: string = useSelector(
@@ -128,5 +120,11 @@ const EditorContainer = () => {
     </Container>
   );
 };
+
+const Container = styled.div`
+  position: relative;
+  background: grey;
+  flex: 3;
+`;
 
 export default EditorContainer;

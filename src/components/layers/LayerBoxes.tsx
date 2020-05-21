@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { MdInbox } from "react-icons/md";
-import { observer } from "mobx-react";
-import { toJS } from "mobx";
 
-import useStores from "hooks/useStores";
 import LayerBox from "components/layers/LayerBox";
 import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";

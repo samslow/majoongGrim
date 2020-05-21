@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const DefaultController = () => {
-  return <Container>툴을 선택하세요</Container>;
+  return <Container>Select tool from top right corner</Container>;
 };
 
 const Container = styled.div`
@@ -11,6 +11,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #888;
 `;
 
 export default DefaultController;

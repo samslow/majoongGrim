@@ -88,7 +88,7 @@ const Toolbox = () => {
       height,
       0,
       layers.length + 10,
-      "normal",
+      { isBold: false, isItalic: false, isUnderline: false },
       12,
       "#000",
       "Lorem Ipsum",

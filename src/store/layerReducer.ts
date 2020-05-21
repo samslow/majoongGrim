@@ -1,13 +1,14 @@
-import ImageLayer from "modules/layers/ImageLayer";
+import Layer from "modules/layers/Layer";
 
 type reduxState = {
-  layers: ImageLayer[];
+  layers: Layer[];
 };
 
 export const CHANGE_LAYER_LOCATION = "CHANGE_LAYER_LOCATION" as const;
 export const SET_ZINDEX = "SET_ZINDEX" as const;
 export const REMOVE_LAYER = "REMOVE_LAYER" as const;
 export const ADD_LAYER = "ADD_LAYER" as const;
+export const GET_SORTED_LAYERS = "GET_SORTED_LAYERS" as const;
 
 export const initialState: reduxState = {
   layers: [],
@@ -29,40 +30,25 @@ export default (state = initialState, action: any) => {
     }
     case "SET_ZINDEX": {
       console.log(action.id, action._type);
-      const layerIndex = state.layers
-        .map((layer) => layer.id)
-        .indexOf(action.id);
+      const layerIndex = state.layers.filter(
+        (layer) => layer.id === action.id,
+      )[0].id;
+      const upLayer = state.layers.filter(
+        (layer) => layer.zIndex === state.layers[layerIndex].zIndex + 1,
+      )[0];
+      const downLayer = state.layers.filter(
+        (layer) => layer.zIndex === state.layers[layerIndex].zIndex - 1,
+      )[0];
 
-      if (
-        action._type == "up" &&
-        state.layers[layerIndex].zIndex < state.layers[0].zIndex
-      ) {
-        [
-          state.layers[layerIndex].zIndex,
-          state.layers[layerIndex - 1].zIndex,
-        ] = [
-          state.layers[layerIndex - 1].zIndex,
+      if (action._type == "up" && upLayer) {
+        [state.layers[layerIndex].zIndex, state.layers[upLayer.id].zIndex] = [
+          state.layers[upLayer.id].zIndex,
           state.layers[layerIndex].zIndex,
         ];
-        [state.layers[layerIndex], state.layers[layerIndex - 1]] = [
-          state.layers[layerIndex - 1],
-          state.layers[layerIndex],
-        ];
-      } else if (
-        action._type == "down" &&
-        state.layers[layerIndex].zIndex >
-          state.layers[state.layers.length - 1].zIndex
-      ) {
-        [
+      } else if (action._type == "down" && downLayer) {
+        [state.layers[layerIndex].zIndex, state.layers[downLayer.id].zIndex] = [
+          state.layers[downLayer.id].zIndex,
           state.layers[layerIndex].zIndex,
-          state.layers[layerIndex + 1].zIndex,
-        ] = [
-          state.layers[layerIndex + 1].zIndex,
-          state.layers[layerIndex].zIndex,
-        ];
-        [state.layers[layerIndex], state.layers[layerIndex + 1]] = [
-          state.layers[layerIndex + 1],
-          state.layers[layerIndex],
         ];
       } else {
         console.log(

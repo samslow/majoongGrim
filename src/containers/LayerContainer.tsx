@@ -4,10 +4,10 @@ import styled from "styled-components";
 import LayerBoxes from "components/layers/LayerBoxes";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
-import ImageLayer from "modules/layers/ImageLayer";
+import Layer from "modules/layers/Layer";
 
 const LayerContainer = () => {
-  const layers: ImageLayer[] = useSelector(
+  const layers: Layer[] = useSelector(
     (state: RootState) => state.layerReducer.layers,
   );
   return (

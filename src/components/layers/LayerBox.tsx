@@ -4,15 +4,23 @@ import { FaTrashAlt } from "react-icons/fa";
 
 interface ComponentProps {
   name: string;
+  zIndex: number;
   onMove: (type: string) => void;
   onRemove: VoidFunction;
 }
 
-const LayerBox: React.FC<ComponentProps> = ({ name, onMove, onRemove }) => {
+const LayerBox: React.FC<ComponentProps> = ({
+  name,
+  zIndex,
+  onMove,
+  onRemove,
+}) => {
   return (
     <Container>
       <LayerContent>
-        <LayerName>{name}</LayerName>
+        <LayerName>
+          {name} zindex:{zIndex}
+        </LayerName>
         <RemoveButton onClick={() => onRemove()}>
           <FaTrashAlt size={15} color={"#aaa"} />
         </RemoveButton>

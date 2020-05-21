@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { MdInbox } from "react-icons/md";
 
 import LayerBox from "components/layers/LayerBox";
-import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
 import { useDispatch } from "react-redux";
 import { SET_ZINDEX, REMOVE_LAYER } from "store/layerReducer";
+import Layer from "modules/layers/Layer";
+import ImageLayer from "modules/layers/ImageLayer";
 
 interface LayerBoxesProps {
-  layers: ImageLayer[];
+  layers: Layer[];
 }
 
 const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
@@ -45,7 +46,7 @@ const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
 
   const layerList =
     layers.length > 0 ? (
-      layers.map((layer: ImageLayer | TextLayer) => {
+      layers.map((layer: Layer) => {
         const layerType =
           layer instanceof ImageLayer === true ? "Image " : "Text ";
 
@@ -53,6 +54,7 @@ const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
           <LayerBox
             key={layer.id}
             name={layerType + layer.id}
+            zIndex={layer.zIndex}
             onMove={(type) => handleVerticalMove(layer.id, type)}
             onRemove={() => handleRemoveLayer(layer.id)}
           />

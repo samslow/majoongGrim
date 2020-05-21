@@ -7,6 +7,7 @@ import DraggableImage from "components/editor/DraggableImage";
 import DraggableText from "components/editor/DraggableText";
 import { RootState } from "store";
 import { useSelector } from "react-redux";
+import Layer from "modules/layers/Layer";
 
 // 레이어와 선택박스 거리
 const DISTANCE_BORDER = 10;
@@ -34,6 +35,7 @@ const EditorContainer = () => {
   const layers: ImageLayer[] = useSelector(
     (state: RootState) => state.layerReducer.layers,
   );
+  console.log(layers);
 
   // 선택여부
   const [selected, setSelected] = useState(false);
@@ -69,7 +71,7 @@ const EditorContainer = () => {
   return (
     <Container onClick={onClickEditorHandler}>
       {layers.length > 0 &&
-        layers.map((layer: ImageLayer | TextLayer, i: number) => {
+        layers.map((layer: Layer, i: number) => {
           if (layer instanceof ImageLayer) {
             return (
               <DraggableImage

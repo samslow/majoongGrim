@@ -34,7 +34,10 @@ const ImageContentBox: React.FC<ComponentProps> = ({
         name="imageLoader"
         accept="image/png,image/jpg,image/jpeg"
         hidden
-        onChange={(e: any) => onChangeTool(e)}
+        onChange={(e: any) => {
+          onChangeTool(e);
+          e.target.value = ``;
+        }}
       />
     </ContentBox>
   );

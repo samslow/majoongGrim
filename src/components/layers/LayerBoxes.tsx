@@ -23,6 +23,8 @@ const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
         return b.zIndex - a.zIndex;
       });
       setOrdered(orderedLayers);
+    } else {
+      setOrdered([]);
     }
   }, [layers]);
 

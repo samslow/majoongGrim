@@ -36,7 +36,7 @@ const InputContent: React.FC<ComponentProps> = ({
   };
 
   const handleSize = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const size = parseInt(e.target.value);
+    const size = parseInt(e.target.value) ? parseInt(e.target.value) : 5;
     setSize(size);
     onChangeSize(size);
   };
@@ -50,7 +50,7 @@ const InputContent: React.FC<ComponentProps> = ({
     <Container>
       <InputBox>
         <Label>Size</Label>
-        <InputText type={"number"} value={size} onChange={handleSize} />
+        <InputText type={"number"} value={size} onChange={handleSize} min={5} />
       </InputBox>
       <InputBox>
         <Label>Text</Label>

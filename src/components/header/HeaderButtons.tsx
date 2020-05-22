@@ -73,6 +73,7 @@ const HeaderButtons: React.FC<ComponentProps> = ({
         const target = sortedLayers[i] as TextLayer;
         ctx.font = `${target.fontSize}px ${target.fontFamily}`;
         ctx.fillStyle = "black";
+        ctx.textBaseline = "top";
         // 2. 텍스트 그리기
         ctx.fillText(
           target.content,

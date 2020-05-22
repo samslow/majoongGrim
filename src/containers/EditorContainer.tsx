@@ -70,7 +70,7 @@ const EditorContainer = () => {
     initialSelectedBox,
   );
 
-  const onClickImageHandler = useCallback(
+  const onClickLayerHandler = useCallback(
     (
       id: number,
       imgX: number,
@@ -126,7 +126,7 @@ const EditorContainer = () => {
               <DraggableImage
                 key={i}
                 layer={layer}
-                onClick={onClickImageHandler}
+                onClick={onClickLayerHandler}
               />
             );
           } else if (layer instanceof TextLayer) {
@@ -134,7 +134,7 @@ const EditorContainer = () => {
               <DraggableText
                 key={i}
                 layer={layer}
-                onClick={onClickImageHandler}
+                onClick={onClickLayerHandler}
               />
             );
           } else {

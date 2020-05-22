@@ -1,9 +1,9 @@
 import Layer from "modules/layers/Layer";
-import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
+import { swapZindex } from "modules/functions/util";
 
 type reduxState = {
-  layers: (TextLayer & ImageLayer)[];
+  layers: Layer[];
   selectedId: number | null;
 };
 
@@ -30,35 +30,32 @@ export default (state = initialState, action: any) => {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
-      state.layers[layerIndex].x = action.x;
-      state.layers[layerIndex].y = action.y;
+      const target = state.layers[layerIndex];
+      target.x = action.x;
+      target.y = action.y;
+
+      state.layers[layerIndex] = target;
+
       return {
         ...state,
         layers: [...state.layers],
       };
     }
     case "SET_ZINDEX": {
-      console.log(action.id, action._type);
-      const layerIndex = state.layers.filter(
+      const targetLayer = state.layers.filter(
         (layer) => layer.id === action.id,
-      )[0].id;
+      )[0];
       const upLayer = state.layers.filter(
-        (layer) => layer.zIndex === state.layers[layerIndex].zIndex + 1,
+        (layer) => layer.zIndex === state.layers[targetLayer.id].zIndex + 1,
       )[0];
       const downLayer = state.layers.filter(
-        (layer) => layer.zIndex === state.layers[layerIndex].zIndex - 1,
+        (layer) => layer.zIndex === state.layers[targetLayer.id].zIndex - 1,
       )[0];
 
       if (action._type == "up" && upLayer) {
-        [state.layers[layerIndex].zIndex, state.layers[upLayer.id].zIndex] = [
-          state.layers[upLayer.id].zIndex,
-          state.layers[layerIndex].zIndex,
-        ];
+        state.layers = swapZindex(state.layers, targetLayer.id, upLayer.id);
       } else if (action._type == "down" && downLayer) {
-        [state.layers[layerIndex].zIndex, state.layers[downLayer.id].zIndex] = [
-          state.layers[downLayer.id].zIndex,
-          state.layers[layerIndex].zIndex,
-        ];
+        state.layers = swapZindex(state.layers, targetLayer.id, downLayer.id);
       } else {
         console.log(
           `${action.id} layer have reach ${action._type} zIndex limit`,
@@ -112,16 +109,17 @@ export default (state = initialState, action: any) => {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
-      const fontType = state.layers[layerIndex].fontType;
+      const target = state.layers[layerIndex] as TextLayer;
+      const fontType = target.fontType;
       const actionFontType = action.fontType;
       if (actionFontType == "Bold") {
-        state.layers[layerIndex].fontType.isBold = !fontType.isBold;
+        target.fontType.isBold = !fontType.isBold;
       } else if (actionFontType == "Italic") {
-        state.layers[layerIndex].fontType.isItalic = !fontType.isItalic;
+        target.fontType.isItalic = !fontType.isItalic;
       } else if (actionFontType == "Underline") {
-        state.layers[layerIndex].fontType.isUnderline = !fontType.isUnderline;
+        target.fontType.isUnderline = !fontType.isUnderline;
       }
-
+      state.layers[layerIndex] = target;
       return {
         ...state,
         layers: [...state.layers],
@@ -131,7 +129,8 @@ export default (state = initialState, action: any) => {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
-      state.layers[layerIndex].fontSize = action.fontSize;
+      const target = state.layers[layerIndex] as TextLayer;
+      target.fontSize = action.fontSize;
 
       return {
         ...state,
@@ -142,7 +141,8 @@ export default (state = initialState, action: any) => {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
-      state.layers[layerIndex].content = action.content;
+      const target = state.layers[layerIndex] as TextLayer;
+      target.content = action.content;
 
       return {
         ...state,

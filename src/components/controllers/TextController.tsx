@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   MdFormatItalic,
@@ -25,6 +25,10 @@ const TextController = () => {
   );
   const layers = useSelector((state: RootState) => state.layerReducer.layers);
   const targetLayer: TextLayer = layers[selectedId];
+
+  useEffect(() => {
+    console.log("targetLayer", targetLayer);
+  }, [targetLayer]);
 
   const handleStyle = (style: string) => {
     dispatch({

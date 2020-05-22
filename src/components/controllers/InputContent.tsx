@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 interface ComponentProps {
@@ -18,6 +18,10 @@ const InputContent: React.FC<ComponentProps> = ({
 }) => {
   const [size, setSize] = useState(fontSize);
   const [text, setContent] = useState(input);
+  useEffect(() => {
+    setSize(fontSize);
+    setContent(input);
+  }, [fontSize, input]);
 
   const Options = () => {
     const fontList = fonts.map((item, index) => {

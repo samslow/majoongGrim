@@ -92,7 +92,6 @@ export default (state = initialState, action: any) => {
         action.id != null
           ? action.id
           : state.layers[state.layers.length - 1].id;
-      console.log("actionId", actionId);
       return {
         ...state,
         selectedId: actionId,

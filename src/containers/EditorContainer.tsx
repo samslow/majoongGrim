@@ -72,7 +72,7 @@ const EditorContainer = () => {
       height: number,
       isSelected: boolean,
     ) => {
-      setSelected(isSelected === true ? true : false);
+      setSelected(isSelected);
       const newSelectedBox = {
         x: imgX,
         y: imgY,

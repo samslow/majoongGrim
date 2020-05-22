@@ -16,6 +16,7 @@ export const SET_SELECTED = "SET_SELECTED" as const;
 export const ADJUST_FONTTYPE = "ADJUST_FONTTYPE" as const;
 export const ADJUST_FONTSIZE = "ADJUST_FONTSIZE" as const;
 export const ADJUST_FONTCONTENT = "ADJUST_FONTCONTENT" as const;
+export const DESELECT = -1 as const;
 
 export const initialState: reduxState = {
   layers: [],
@@ -88,19 +89,23 @@ export default (state = initialState, action: any) => {
       };
     }
     case "SET_SELECTED": {
-      let actionId;
-      if (action.id != null) {
-        actionId = action.id;
+      let id;
+      if (action.id == DESELECT) {
+        // 레이어 지정 취소 커맨드(-1)의 경우
+        id = null;
+      } else if (action.id != null) {
+        id = action.id;
       } else {
         if (state.layers.length > 0) {
-          actionId = state.layers[state.layers.length - 1].id;
+          // 아이디가 지정되지는 않았지만, 레이어 스택에 레이어가 남은 경우
+          id = state.layers[state.layers.length - 1].id;
         } else {
-          actionId = null;
+          id = null;
         }
       }
       return {
         ...state,
-        selectedId: actionId,
+        selectedId: id,
       };
     }
     case "ADJUST_FONTTYPE": {

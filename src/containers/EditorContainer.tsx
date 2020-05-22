@@ -9,7 +9,7 @@ import DraggableImage from "components/editor/DraggableImage";
 import DraggableText from "components/editor/DraggableText";
 import { RootState } from "store";
 import Layer from "modules/layers/Layer";
-import { SET_SELECTED } from "store/layerReducer";
+import { SET_SELECTED, DESELECT } from "store/layerReducer";
 import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
 
 // 레이어와 선택박스 거리
@@ -110,6 +110,7 @@ const EditorContainer = () => {
     setSelected(false);
     dispatch({
       type: SET_SELECTED,
+      id: DESELECT,
     });
     dispatch({
       type: CHANGE_SELECTED_TOOL,

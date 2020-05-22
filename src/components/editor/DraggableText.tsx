@@ -74,6 +74,11 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
     });
   }, [imgX, imgY]);
 
+  const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    onClick(id, imgX, imgY, width, height, true);
+  };
+
   return (
     <div
       draggable="true"
@@ -81,10 +86,7 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
       onDragStart={onDragStartImageHandler}
       onDragOver={onDragOverImageHandler}
       onDragEnd={onDragEndImageHandler}
-      onClick={(e) => {
-        e.stopPropagation();
-        onClick(id, imgX, imgY, width, height, true);
-      }}
+      onClick={onClickHandler}
       style={{
         position: "fixed",
         width: width,

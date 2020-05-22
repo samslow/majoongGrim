@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { ToolboxType } from "containers/ToolboxContainer";
 import TextController from "components/controllers/TextController";
+import ImageController from "components/controllers/ImageController";
 import DefaultController from "components/controllers/DefaultController";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
@@ -22,15 +23,17 @@ const ControllerContainer = () => {
   const SwitchController: React.FC<SwitchProps> = ({ type }) => {
     let result;
 
+    if (layersLength < 1) {
+      result = <DefaultController />;
+      return result;
+    }
     switch (type) {
       case ToolboxType.TEXT:
-        if (layersLength < 1) {
-          result = <DefaultController />;
-          break;
-        }
         result = <TextController />;
         break;
       case ToolboxType.IMAGE:
+        result = <ImageController />;
+        break;
       default:
         result = <DefaultController />;
         break;

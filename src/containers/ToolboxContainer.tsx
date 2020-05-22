@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import styled from "styled-components";
 import { MdMessage } from "react-icons/md";
 import { BsFillImageFill } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
 
 import ToolboxContentBox from "components/Toolbox/ToolboxContentBox";
 import ImageContentBox from "components/Toolbox/ImageContentBox";
@@ -9,10 +10,9 @@ import { resizeImage } from "modules/functions/resizeImage";
 import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
 import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
-import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "store";
 import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
-import { ADD_LAYER } from "store/layerReducer";
+import { SET_SELECTED, ADD_LAYER } from "store/layerReducer";
 import Layer from "modules/layers/Layer";
 
 export enum ToolboxType {
@@ -22,31 +22,23 @@ export enum ToolboxType {
 
 const Toolbox = () => {
   const dispatch = useDispatch();
-  const selectedTool: string = useSelector(
-    (state: RootState) => state.toolboxReducer.selectedTool,
-  );
   const layers: Layer[] = useSelector(
     (state: RootState) => state.layerReducer.layers,
   );
   const nowShape: string = useSelector(
     (state: RootState) => state.headerReducer.nowShape,
   );
-  const handleTool = (name: string) => {
+  const handleTool = (name: string, e: any = null) => {
     dispatch({
       type: CHANGE_SELECTED_TOOL,
       name: name,
     });
     if (name == ToolboxType.TEXT) {
       handleText();
+    } else if (name == ToolboxType.IMAGE) {
+      handleImage(e);
     }
   };
-
-  const handleActive = useCallback((type: string) => {
-    if (selectedTool == type) {
-      return true;
-    }
-    return false;
-  }, []);
 
   const handleImage = (e: any) => {
     const reader = new FileReader();
@@ -60,7 +52,6 @@ const Toolbox = () => {
       img.onload = () => {
         const [width, height] = resizeImage(img, nowShape);
         const [x, y] = getArtboardCenterPosition(width, height);
-        console.log(layers, "렝스");
         const imgLayer = new ImageLayer(
           layers.length,
           x,
@@ -75,6 +66,9 @@ const Toolbox = () => {
           type: ADD_LAYER,
           layer: imgLayer,
         });
+        dispatch({
+          type: SET_SELECTED,
+        });
       };
     };
 
@@ -85,7 +79,7 @@ const Toolbox = () => {
   const handleText = () => {
     const [width, height] = [200, 30];
     const [x, y] = getArtboardCenterPosition(width, height);
-    console.log("x, y", x, y);
+
     const newTextLayer = new TextLayer(
       layers.length,
       x,
@@ -94,15 +88,18 @@ const Toolbox = () => {
       height,
       0,
       layers.length + 10,
-      "normal",
+      { isBold: false, isItalic: false, isUnderline: false },
       12,
       "#000",
-      "여기에 텍스트를 입력하세요",
+      "Lorem Ipsum",
     );
     console.log("newTextLayer", newTextLayer);
     dispatch({
       type: ADD_LAYER,
       layer: newTextLayer,
+    });
+    dispatch({
+      type: SET_SELECTED,
     });
   };
 
@@ -113,25 +110,12 @@ const Toolbox = () => {
           name={ToolboxType.IMAGE}
           icon={<BsFillImageFill size="60%" color={"#888"} />}
           onClickTool={handleTool}
-          onChangeTool={handleImage}
-          isActive={handleActive(ToolboxType.IMAGE)}
         />
         <ToolboxContentBox
           name={ToolboxType.TEXT}
           icon={<MdMessage size="60%" color={"#888"} />}
           onClickTool={handleTool}
-          isActive={handleActive(ToolboxType.TEXT)}
         />
-        <ToolboxContentBox />
-      </ContentRow>
-      <ContentRow>
-        <ToolboxContentBox />
-        <ToolboxContentBox />
-        <ToolboxContentBox />
-      </ContentRow>
-      <ContentRow>
-        <ToolboxContentBox />
-        <ToolboxContentBox />
         <ToolboxContentBox />
       </ContentRow>
     </Container>

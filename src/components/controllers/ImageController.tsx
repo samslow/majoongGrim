@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const DefaultController = () => {
-  return <Container>Select tool from top right corner</Container>;
+const ImageController = () => {
+  return <Container>You can change selected image</Container>;
 };
 
 const Container = styled.div`
@@ -14,4 +14,4 @@ const Container = styled.div`
   color: #888;
 `;
 
-export default DefaultController;
+export default ImageController;

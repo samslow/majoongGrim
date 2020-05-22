@@ -36,7 +36,7 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
   // 드래그 스타트 (기존의 텍스트좌표와 e.client좌표 저장)
   const onDragStartImageHandler = useCallback(
     (e: React.DragEvent<HTMLImageElement>) => {
-      onClick(imgX, imgY, width, height, false);
+      onClick(id, imgX, imgY, width, height, false);
       setFirstEventClientX(e.clientX);
       setFirstEventClientY(e.clientY);
       setFirstImgX(imgX);
@@ -64,7 +64,7 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
     [],
   );
 
-  // 드래그 종료 (mobX layers 상태변경)
+  // 드래그 종료 (redux layers 상태변경)
   const onDragEndImageHandler = useCallback(() => {
     dispatch({
       type: CHANGE_LAYER_LOCATION,
@@ -74,6 +74,11 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
     });
   }, [imgX, imgY]);
 
+  const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    onClick(id, imgX, imgY, width, height, true, "text");
+  };
+
   return (
     <div
       draggable="true"
@@ -81,10 +86,7 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
       onDragStart={onDragStartImageHandler}
       onDragOver={onDragOverImageHandler}
       onDragEnd={onDragEndImageHandler}
-      onClick={(e) => {
-        e.stopPropagation();
-        onClick(imgX, imgY, width, height, true);
-      }}
+      onClick={onClickHandler}
       style={{
         position: "fixed",
         width: width,
@@ -103,15 +105,17 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
   );
 };
 const Text = styled.p<TextProps>`
-  font-style: ${(props) => (props.fontType == "italic" ? "italic" : "normal")};
-  font-weight: ${(props) => (props.fontType == "bold" ? "bold" : "normal")};
-  font-size: ${(props) => props.fontSize};
+  font-style: ${(props) => (props.fontType.isItalic ? "italic" : "normal")};
+  font-weight: ${(props) => (props.fontType.isBold ? "bold" : "normal")};
+  text-decoration: ${(props) =>
+    props.fontType.isUnderline ? "underline" : "none"};
+  font-size: ${(props) => props.fontSize}px;
   color: ${(props) => props.color};
   margin: 0;
 `;
 
 interface TextProps {
-  fontType: string;
+  fontType: { isBold: boolean; isItalic: boolean; isUnderline: boolean };
   fontSize: number;
   color: string;
 }

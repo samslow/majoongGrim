@@ -15,12 +15,19 @@ const ControllerContainer = () => {
   const selectedTool: string = useSelector(
     (state: RootState) => state.toolboxReducer.selectedTool,
   );
+  const layersLength: number = useSelector(
+    (state: RootState) => state.layerReducer.layers.length,
+  );
 
   const SwitchController: React.FC<SwitchProps> = ({ type }) => {
     let result;
 
     switch (type) {
       case ToolboxType.TEXT:
+        if (layersLength < 1) {
+          result = <DefaultController />;
+          break;
+        }
         result = <TextController />;
         break;
       case ToolboxType.IMAGE:

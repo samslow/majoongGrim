@@ -5,6 +5,7 @@ import { RootState } from "store";
 import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
 import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
+import Layer from "modules/layers/Layer";
 
 const VERTICAL_SHAPE = "VERTICAL_SHAPE";
 const HORIZONTAL_SHAPE = "HORIZONTAL_SHAPE";
@@ -22,7 +23,7 @@ const HeaderButtons: React.FC<ComponentProps> = ({
   downloadText,
   onClickShape,
 }) => {
-  const layers: any[] = useSelector(
+  const layers: Layer[] = useSelector(
     (state: RootState) => state.layerReducer.layers,
   );
   const nowShape: string = useSelector(
@@ -55,26 +56,28 @@ const HeaderButtons: React.FC<ComponentProps> = ({
     });
     for (let i = 0; i < sortedLayers.length; i++) {
       if (sortedLayers[i] instanceof ImageLayer) {
+        const target = sortedLayers[i] as ImageLayer;
         // 2. 이미지 그리기
         ctx.drawImage(
-          sortedLayers[i].image,
+          target.image,
           0,
           0,
-          sortedLayers[i].image.width,
-          sortedLayers[i].image.height,
-          sortedLayers[i].x - ARTBOARD_X,
-          sortedLayers[i].y - ARTBOARD_Y,
-          sortedLayers[i].width,
-          sortedLayers[i].height,
+          target.image.width,
+          target.image.height,
+          target.x - ARTBOARD_X,
+          target.y - ARTBOARD_Y,
+          target.width,
+          target.height,
         );
       } else if (sortedLayers[i] instanceof TextLayer) {
-        ctx.font = `${sortedLayers[i].fontSize}px ${sortedLayers[i].fontFamily}`;
+        const target = sortedLayers[i] as TextLayer;
+        ctx.font = `${target.fontSize}px ${target.fontFamily}`;
         ctx.fillStyle = "black";
         // 2. 텍스트 그리기
         ctx.fillText(
-          sortedLayers[i].content,
-          sortedLayers[i].x - ARTBOARD_X,
-          sortedLayers[i].y - ARTBOARD_Y,
+          target.content,
+          target.x - ARTBOARD_X,
+          target.y - ARTBOARD_Y,
         );
       }
     }

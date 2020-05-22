@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdInbox } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 
 import LayerBox from "components/layers/LayerBox";
-import TextLayer from "modules/layers/TextLayer";
-import { useDispatch } from "react-redux";
-import { SET_ZINDEX, REMOVE_LAYER } from "store/layerReducer";
+import { SET_ZINDEX, REMOVE_LAYER, SET_SELECTED } from "store/layerReducer";
 import Layer from "modules/layers/Layer";
 import ImageLayer from "modules/layers/ImageLayer";
+import { RootState } from "store";
 
 interface LayerBoxesProps {
   layers: Layer[];
@@ -16,6 +16,9 @@ interface LayerBoxesProps {
 const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
   const dispatch = useDispatch();
   const [ordered, setOrdered] = useState<Layer[]>([]);
+  const selectedId = useSelector(
+    (state: RootState) => state.layerReducer.selectedId,
+  );
 
   useEffect(() => {
     if (layers.length > 0) {
@@ -42,6 +45,11 @@ const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
       type: REMOVE_LAYER,
       id: id,
     });
+    if (selectedId == id) {
+      dispatch({
+        type: SET_SELECTED,
+      });
+    }
   };
 
   const layerList =

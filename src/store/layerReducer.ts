@@ -88,10 +88,16 @@ export default (state = initialState, action: any) => {
       };
     }
     case "SET_SELECTED": {
-      const actionId =
-        action.id != null
-          ? action.id
-          : state.layers[state.layers.length - 1].id;
+      let actionId;
+      if (action.id != null) {
+        actionId = action.id;
+      } else {
+        if (state.layers.length > 0) {
+          actionId = state.layers[state.layers.length - 1].id;
+        } else {
+          actionId = null;
+        }
+      }
       return {
         ...state,
         selectedId: actionId,

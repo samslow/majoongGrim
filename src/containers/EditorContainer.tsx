@@ -42,7 +42,6 @@ const EditorContainer = () => {
   );
 
   useEffect(() => {
-    console.log("editor layers: ", layers);
     if (selectedLayerId != null) {
       const layerInfo = layers[selectedLayerId];
       const newSelectedBox = {
@@ -53,8 +52,11 @@ const EditorContainer = () => {
       };
       setSelected(true);
       setSelectedLayerInfo(newSelectedBox);
+    } else {
+      setSelected(false);
+      setSelectedLayerInfo(initialSelectedBox);
     }
-  }, [selectedLayerId]);
+  }, [selectedLayerId, layers]);
 
   // 선택여부
   const [selected, setSelected] = useState(false);

@@ -65,7 +65,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
 
   const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    onClick(id, imgX, imgY, width, height, true);
+    onClick(id, imgX, imgY, width, height, true, "image");
   };
 
   return (

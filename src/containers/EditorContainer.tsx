@@ -9,6 +9,8 @@ import DraggableImage from "components/editor/DraggableImage";
 import DraggableText from "components/editor/DraggableText";
 import { RootState } from "store";
 import Layer from "modules/layers/Layer";
+import { SET_SELECTED } from "store/layerReducer";
+import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
 
 // 레이어와 선택박스 거리
 const DISTANCE_BORDER = 10;
@@ -31,7 +33,7 @@ const initialSelectedBox = {
 
 const EditorContainer = () => {
   const dispatch = useDispatch();
-  const selectedLayerId: number = useSelector(
+  const selectedId: number = useSelector(
     (state: RootState) => state.layerReducer.selectedId,
   );
   const nowShape: string = useSelector(
@@ -40,10 +42,13 @@ const EditorContainer = () => {
   const layers: Layer[] = useSelector(
     (state: RootState) => state.layerReducer.layers,
   );
+  const controllerType: string = useSelector(
+    (state: RootState) => state.toolboxReducer.selectedTool,
+  );
 
   useEffect(() => {
-    if (selectedLayerId != null) {
-      const layerInfo = layers[selectedLayerId];
+    if (selectedId != null) {
+      const layerInfo = layers[selectedId];
       const newSelectedBox = {
         x: layerInfo.x,
         y: layerInfo.y,
@@ -56,7 +61,7 @@ const EditorContainer = () => {
       setSelected(false);
       setSelectedLayerInfo(initialSelectedBox);
     }
-  }, [selectedLayerId, layers]);
+  }, [selectedId, layers]);
 
   // 선택여부
   const [selected, setSelected] = useState(false);
@@ -73,6 +78,7 @@ const EditorContainer = () => {
       width: number,
       height: number,
       isSelected: boolean,
+      type?: string,
     ) => {
       setSelected(isSelected);
       const newSelectedBox = {
@@ -83,18 +89,32 @@ const EditorContainer = () => {
       };
       setSelectedLayerInfo(newSelectedBox);
 
-      if (selectedLayerId != id) {
+      if (selectedId != id) {
         dispatch({
-          type: "SET_SELECTED",
+          type: SET_SELECTED,
           id: id,
         });
       }
+      if (type && controllerType != type) {
+        const typeName = type == "text" ? "텍스트 삽입" : "이미지 삽입";
+        dispatch({
+          type: CHANGE_SELECTED_TOOL,
+          name: typeName,
+        });
+      }
     },
-    [selectedLayerId],
+    [selectedId],
   );
 
   const onClickEditorHandler = useCallback(() => {
     setSelected(false);
+    dispatch({
+      type: SET_SELECTED,
+    });
+    dispatch({
+      type: CHANGE_SELECTED_TOOL,
+      name: "",
+    });
   }, []);
 
   return (

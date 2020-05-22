@@ -1,41 +1,43 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import { MdMessage } from "react-icons/md";
 import { BsFillImageFill } from "react-icons/bs";
-import { observer } from "mobx-react";
+import { useSelector, useDispatch } from "react-redux";
 
-import useStores from "hooks/useStores";
 import ToolboxContentBox from "components/Toolbox/ToolboxContentBox";
-<<<<<<< HEAD
 import ImageContentBox from "components/Toolbox/ImageContentBox";
 import { resizeImage } from "modules/functions/resizeImage";
 import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
 import ImageLayer from "modules/layers/ImageLayer";
-=======
->>>>>>> e0ae38c095924c3d206db06b236e431bdc5a5ea1
+import TextLayer from "modules/layers/TextLayer";
+import { RootState } from "store";
+import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
+import { SET_SELECTED, ADD_LAYER } from "store/layerReducer";
+import Layer from "modules/layers/Layer";
 
 export enum ToolboxType {
   IMAGE = "이미지 삽입",
   TEXT = "텍스트 삽입",
 }
 
-const Toolbox = observer(() => {
-  const { ToolboxStore, LayerStore, HeaderStore } = useStores();
-
-  const handleTool = (name: string) => {
-    ToolboxStore.selectedTool = name;
-    //TODO:  EditorContainer에 {name} Layer가 추가되는 기능
-  };
-
-  const handleActive = (type: string) => {
-    if (name === "이미지 삽입") {
-      console.log("dd");
+const Toolbox = () => {
+  const dispatch = useDispatch();
+  const layers: Layer[] = useSelector(
+    (state: RootState) => state.layerReducer.layers,
+  );
+  const nowShape: string = useSelector(
+    (state: RootState) => state.headerReducer.nowShape,
+  );
+  const handleTool = (name: string, e: any = null) => {
+    dispatch({
+      type: CHANGE_SELECTED_TOOL,
+      name: name,
+    });
+    if (name == ToolboxType.TEXT) {
+      handleText();
+    } else if (name == ToolboxType.IMAGE) {
+      handleImage(e);
     }
-    if (ToolboxStore.selectedTool == type) {
-      return true;
-    }
-
-    return false;
   };
 
   const handleImage = (e: any) => {
@@ -48,15 +50,57 @@ const Toolbox = observer(() => {
 
       // Image load 이벤트핸들러 등록
       img.onload = () => {
-        const [width, height] = resizeImage(img, HeaderStore.nowShape);
+        const [width, height] = resizeImage(img, nowShape);
         const [x, y] = getArtboardCenterPosition(width, height);
-        const imgLayer = new ImageLayer(x, y, width, height, 0, 10, img);
-        LayerStore.layers.push(imgLayer);
+        const imgLayer = new ImageLayer(
+          layers.length,
+          x,
+          y,
+          width,
+          height,
+          0,
+          layers.length + 10, // 0부터 레이어 번호를 매기면서 10부터 zIndex를 부여함
+          img,
+        );
+        dispatch({
+          type: ADD_LAYER,
+          layer: imgLayer,
+        });
+        dispatch({
+          type: SET_SELECTED,
+        });
       };
     };
 
     // FileReader가 데이터 읽기 시작 -> 데이터 다 읽으면 load이벤트 발생
     reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const handleText = () => {
+    const [width, height] = [200, 30];
+    const [x, y] = getArtboardCenterPosition(width, height);
+
+    const newTextLayer = new TextLayer(
+      layers.length,
+      x,
+      y,
+      width,
+      height,
+      0,
+      layers.length + 10,
+      { isBold: false, isItalic: false, isUnderline: false },
+      12,
+      "#000",
+      "Lorem Ipsum",
+    );
+    console.log("newTextLayer", newTextLayer);
+    dispatch({
+      type: ADD_LAYER,
+      layer: newTextLayer,
+    });
+    dispatch({
+      type: SET_SELECTED,
+    });
   };
 
   return (
@@ -65,36 +109,24 @@ const Toolbox = observer(() => {
         <ImageContentBox
           name={ToolboxType.IMAGE}
           icon={<BsFillImageFill size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
-          onChangeTool={(e: Event) => handleImage(e)}
-          isActive={handleActive(ToolboxType.IMAGE)}
+          onClickTool={handleTool}
         />
         <ToolboxContentBox
           name={ToolboxType.TEXT}
           icon={<MdMessage size="60%" color={"#888"} />}
-          onClickTool={(name: string) => handleTool(name)}
-          isActive={handleActive(ToolboxType.TEXT)}
+          onClickTool={handleTool}
         />
-        <ToolboxContentBox />
-      </ContentRow>
-      <ContentRow>
-        <ToolboxContentBox />
-        <ToolboxContentBox />
-        <ToolboxContentBox />
-      </ContentRow>
-      <ContentRow>
-        <ToolboxContentBox />
-        <ToolboxContentBox />
         <ToolboxContentBox />
       </ContentRow>
     </Container>
   );
-});
+};
 
 const Container = styled.aside`
   display: flex;
   flex-direction: column;
   background: #eee;
+  z-index: 1000;
 `;
 
 const ContentRow = styled.div`

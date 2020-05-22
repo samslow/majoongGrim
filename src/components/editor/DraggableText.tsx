@@ -1,28 +1,39 @@
-import React, { useCallback, useState, useEffect } from "react";
-import ImageLayer from "modules/layers/ImageLayer";
+import React, { useCallback, useState } from "react";
+import TextLayer from "modules/layers/TextLayer";
+import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { CHANGE_LAYER_LOCATION } from "store/layerReducer";
 
 interface ComponentProps {
-  layer: ImageLayer;
+  layer: TextLayer;
   onClick: Function;
 }
 
-const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
+const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
   const dispatch = useDispatch();
-  // action추가
-  const { id, x, y, width, height, zIndex, image } = layer;
-  // 이미지 좌표
+  const {
+    id,
+    x,
+    y,
+    width,
+    height,
+    zIndex,
+    fontType,
+    fontSize,
+    color,
+    content,
+  } = layer;
+  // 텍스트 좌표
   const [imgX, setImgX] = useState(x);
   const [imgY, setImgY] = useState(y);
-  // 드래그 시작시, 이미지 좌표
+  // 드래그 시작시, 텍스트 좌표
   const [firstImgX, setFirstImgX] = useState(0);
   const [firstImgY, setFirstImgY] = useState(0);
   // 드래그 시작시, e.client 좌표
   const [firstEventClientX, setFirstEventClientX] = useState(0);
   const [firstEventClientY, setFirstEventClientY] = useState(0);
 
-  // 드래그 스타트 (기존의 이미지좌표와 e.client좌표 저장)
+  // 드래그 스타트 (기존의 텍스트좌표와 e.client좌표 저장)
   const onDragStartImageHandler = useCallback(
     (e: React.DragEvent<HTMLImageElement>) => {
       onClick(id, imgX, imgY, width, height, false);
@@ -34,7 +45,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
     [imgX, imgY],
   );
 
-  // 드래그 도중 (기존의 이미지좌표의 e.client좌표와 현재 드래그 도중의 e.client좌표 차이만큼 이미지좌표에 더해서 저장)
+  // 드래그 도중 (기존의 텍스트좌표의 e.client좌표와 현재 드래그 도중의 e.client좌표 차이만큼 텍스트좌표에 더해서 저장)
   const onDragImageHandler = useCallback(
     (e: React.DragEvent<HTMLImageElement>) => {
       const xChange = e.clientX - firstEventClientX;
@@ -53,7 +64,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
     [],
   );
 
-  // 드래그 종료 (mobX layers 상태변경)
+  // 드래그 종료 (redux layers 상태변경)
   const onDragEndImageHandler = useCallback(() => {
     dispatch({
       type: CHANGE_LAYER_LOCATION,
@@ -65,7 +76,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
 
   const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    onClick(id, imgX, imgY, width, height, true, "image");
+    onClick(id, imgX, imgY, width, height, true, "text");
   };
 
   return (
@@ -83,11 +94,30 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
         left: imgX,
         top: imgY,
         zIndex: zIndex,
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      <img width={"100%"} height={"100%"} src={image.src} />
+      <Text fontType={fontType} fontSize={fontSize} color={color}>
+        {content}
+      </Text>
     </div>
   );
 };
+const Text = styled.p<TextProps>`
+  font-style: ${(props) => (props.fontType.isItalic ? "italic" : "normal")};
+  font-weight: ${(props) => (props.fontType.isBold ? "bold" : "normal")};
+  text-decoration: ${(props) =>
+    props.fontType.isUnderline ? "underline" : "none"};
+  font-size: ${(props) => props.fontSize}px;
+  color: ${(props) => props.color};
+  margin: 0;
+`;
 
-export default DraggableImage;
+interface TextProps {
+  fontType: { isBold: boolean; isItalic: boolean; isUnderline: boolean };
+  fontSize: number;
+  color: string;
+}
+
+export default DraggableText;

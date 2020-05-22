@@ -4,6 +4,7 @@ export default class ImageLayer extends Layer {
   image: HTMLImageElement;
 
   constructor(
+    id: number,
     x: number,
     y: number,
     width: number,
@@ -12,7 +13,7 @@ export default class ImageLayer extends Layer {
     angleDegree: number,
     image: HTMLImageElement,
   ) {
-    super(x, y, width, height, zIndex, angleDegree);
+    super(id, x, y, width, height, zIndex, angleDegree);
     this.image = image;
   }
 

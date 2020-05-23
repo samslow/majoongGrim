@@ -86,7 +86,7 @@ const Toolbox = () => {
       y,
       width,
       height,
-      0,
+      -45,
       layers.length + 10,
       "serif",
       { isBold: false, isItalic: false, isUnderline: false },

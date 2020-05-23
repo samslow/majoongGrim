@@ -23,6 +23,7 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
     fontSize,
     color,
     content,
+    angleDegree,
   } = layer;
   // 텍스트 좌표
   const [imgX, setImgX] = useState(x);
@@ -97,6 +98,7 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
         zIndex: zIndex,
         display: "flex",
         alignItems: "center",
+        transform: `rotate(${angleDegree}deg)`,
       }}
     >
       <Text

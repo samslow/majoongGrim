@@ -15,7 +15,12 @@ const InputSlider: React.FC<ComponentProps> = ({ angle, onChange }) => {
   };
   return (
     <Container>
-      <Slider type={"range"} value={value} onChange={(e) => handleChange(e)} />
+      <Slider
+        type={"range"}
+        value={value}
+        onChange={(e) => handleChange(e)}
+        max={360}
+      />
     </Container>
   );
 };

@@ -17,7 +17,6 @@ const AdjustContent = () => {
   const layer: Layer = layers[selectedId];
 
   const handleAngle = (angle: number) => {
-    console.log("angle", angle);
     dispatch({
       type: ADJUST_ANGLE,
       id: selectedId,

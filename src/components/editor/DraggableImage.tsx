@@ -97,12 +97,12 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
         transform: `rotate(${angleDegree}deg)`,
       }}
     >
-      <Image src={image.src} />
+      <Img src={image.src} />
     </div>
   );
 };
 
-const Image = styled.img`
+const Img = styled.img`
   width: 100%;
   height: 100%;
   src: ${(props) => props.src};

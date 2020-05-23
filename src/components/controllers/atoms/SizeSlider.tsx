@@ -17,7 +17,7 @@ const SizeSlider: React.FC<ComponentProps> = ({ value, onChange }) => {
         type={"range"}
         value={value}
         onChange={(e) => handleChange(e)}
-        max={480}
+        max={1000}
       />
     </Container>
   );

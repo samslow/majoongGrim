@@ -23,6 +23,7 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
     fontSize,
     color,
     content,
+    angleDegree,
   } = layer;
   // 텍스트 좌표
   const [imgX, setImgX] = useState(x);
@@ -37,6 +38,10 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
   // 드래그 스타트 (기존의 텍스트좌표와 e.client좌표 저장)
   const onDragStartImageHandler = useCallback(
     (e: React.DragEvent<HTMLImageElement>) => {
+      const img = new Image();
+      img.src =
+        "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=";
+      e.dataTransfer.setDragImage(img, 0, 0);
       onClick(id, imgX, imgY, width, height, false);
       setFirstEventClientX(e.clientX);
       setFirstEventClientY(e.clientY);
@@ -49,6 +54,10 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
   // 드래그 도중 (기존의 텍스트좌표의 e.client좌표와 현재 드래그 도중의 e.client좌표 차이만큼 텍스트좌표에 더해서 저장)
   const onDragImageHandler = useCallback(
     (e: React.DragEvent<HTMLImageElement>) => {
+      const img = new Image();
+      img.src =
+        "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=";
+      e.dataTransfer.setDragImage(img, 0, 0);
       const xChange = e.clientX - firstEventClientX;
       const yChange = e.clientY - firstEventClientY;
       setImgX(firstImgX + xChange);
@@ -97,6 +106,7 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
         zIndex: zIndex,
         display: "flex",
         alignItems: "center",
+        transform: `rotate(${angleDegree}deg)`,
       }}
     >
       <Text

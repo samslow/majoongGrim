@@ -77,8 +77,9 @@ const Toolbox = () => {
   };
 
   const handleText = () => {
-    const initialFontSize = 12;
-    const [width, height] = [initialFontSize * 10, initialFontSize];
+    const INITIAL_FONT_SIZE = 12;
+    const OFFSET = 10;
+    const [width, height] = [INITIAL_FONT_SIZE * OFFSET, INITIAL_FONT_SIZE];
     const [x, y] = getArtboardCenterPosition(width, height);
 
     const newTextLayer = new TextLayer(

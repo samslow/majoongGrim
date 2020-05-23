@@ -2,7 +2,7 @@ import Layer from "modules/layers/Layer";
 
 export default class TextLayer extends Layer {
   fontFamily: string;
-  fontType: string;
+  fontType: { isBold: boolean; isItalic: boolean; isUnderline: boolean };
   fontSize: number;
   color: string;
   content: string;
@@ -16,7 +16,7 @@ export default class TextLayer extends Layer {
     zIndex: number,
     angleDegree: number,
     fontFamily: string,
-    fontType: string, // bold, italic ...
+    fontType: { isBold: boolean; isItalic: boolean; isUnderline: boolean },
     fontSize: number,
     color: string,
     content: string,

@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdInbox } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 
 import LayerBox from "components/layers/LayerBox";
-import TextLayer from "modules/layers/TextLayer";
-import { useDispatch } from "react-redux";
-import { SET_ZINDEX, REMOVE_LAYER } from "store/layerReducer";
+import { SET_ZINDEX, REMOVE_LAYER, SET_SELECTED } from "store/layerReducer";
 import Layer from "modules/layers/Layer";
 import ImageLayer from "modules/layers/ImageLayer";
+import { RootState } from "store";
 
 interface LayerBoxesProps {
   layers: Layer[];
@@ -15,17 +15,20 @@ interface LayerBoxesProps {
 
 const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
   const dispatch = useDispatch();
-  // const [layerStack, setLayerStack] = useState<ImageLayer[]>([]);
+  const [ordered, setOrdered] = useState<Layer[]>([]);
+  const selectedId = useSelector(
+    (state: RootState) => state.layerReducer.selectedId,
+  );
+
   useEffect(() => {
-    // let orderedLayers: ImageLayer[] = [];
-    // if (layers.length > 0) {
-    //   orderedLayers = layers.slice().sort((a, b) => {
-    //     return b.zIndex - a.zIndex;
-    //   });
-    // }
-    // setLayerStack(orderedLayers);
-    // console.log("orderedLayers", orderedLayers);
-    console.log("render LayerBoxes");
+    if (layers.length > 0) {
+      let orderedLayers = layers.slice().sort((a, b) => {
+        return b.zIndex - a.zIndex;
+      });
+      setOrdered(orderedLayers);
+    } else {
+      setOrdered([]);
+    }
   }, [layers]);
 
   const handleVerticalMove = (id: number, type: string) => {
@@ -42,11 +45,16 @@ const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
       type: REMOVE_LAYER,
       id: id,
     });
+    if (selectedId == id) {
+      dispatch({
+        type: SET_SELECTED,
+      });
+    }
   };
 
   const layerList =
-    layers.length > 0 ? (
-      layers.map((layer: Layer) => {
+    ordered.length > 0 ? (
+      ordered.map((layer: Layer) => {
         const layerType =
           layer instanceof ImageLayer === true ? "Image " : "Text ";
 

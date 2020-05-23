@@ -6,22 +6,16 @@ interface ComponentProps {
   name?: string;
   icon?: any;
   onClickTool: Function;
-  onChangeTool: Function;
-  isActive?: boolean;
 }
 
 const ImageContentBox: React.FC<ComponentProps> = ({
   name = "",
   icon = <IoIosDocument size="60%" color={"#DDD"} />,
   onClickTool,
-  onChangeTool,
-  isActive,
 }) => {
   return (
-    <ContentBox
-      onClick={() => name.length && onClickTool && onClickTool(name)}
-      isActive={isActive || false}
-    >
+    // <ContentBox onClick={() => name.length && onClickTool && onClickTool(name)}>
+    <ContentBox>
       <FileLabel
         style={{ width: "100%", height: "100%" }}
         htmlFor="imageLoader"
@@ -35,7 +29,7 @@ const ImageContentBox: React.FC<ComponentProps> = ({
         accept="image/png,image/jpg,image/jpeg"
         hidden
         onChange={(e: any) => {
-          onChangeTool(e);
+          onClickTool(name, e);
           e.target.value = ``;
         }}
       />
@@ -43,11 +37,7 @@ const ImageContentBox: React.FC<ComponentProps> = ({
   );
 };
 
-interface StyledProps {
-  isActive: boolean;
-}
-
-const ContentBox = styled.button<StyledProps>`
+const ContentBox = styled.button`
   position: relative;
   display: flex;
   flex: 1;
@@ -55,7 +45,6 @@ const ContentBox = styled.button<StyledProps>`
   justify-content: center;
   align-items: center;
   border: 1px solid;
-  background: ${(props) => (props.isActive ? "#666" : "transparent")};
   border-color: #8888;
 
   &:hover {

@@ -18,9 +18,7 @@ const LayerBox: React.FC<ComponentProps> = ({
   return (
     <Container>
       <LayerContent>
-        <LayerName>
-          {name} zindex:{zIndex}
-        </LayerName>
+        <LayerName>{name}</LayerName>
         <RemoveButton onClick={() => onRemove()}>
           <FaTrashAlt size={15} color={"#aaa"} />
         </RemoveButton>

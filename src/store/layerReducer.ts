@@ -18,6 +18,7 @@ export const ADJUST_FONTTYPE = "ADJUST_FONTTYPE" as const;
 export const ADJUST_FONTSIZE = "ADJUST_FONTSIZE" as const;
 export const ADJUST_FONTCONTENT = "ADJUST_FONTCONTENT" as const;
 export const ADJUST_ANGLE = "ADJUST_ANGLE" as const;
+export const ADJUST_SIZE = "ADJUST_SIZE" as const;
 
 export const initialState: reduxState = {
   layers: [],
@@ -157,6 +158,19 @@ export default (state = initialState, action: any) => {
         .indexOf(action.id);
       const target = state.layers[layerIndex];
       target.angleDegree = action.angle;
+
+      return {
+        ...state,
+        layers: [...state.layers],
+      };
+    }
+    case ADJUST_SIZE: {
+      const layerIndex = state.layers
+        .map((layer) => layer.id)
+        .indexOf(action.id);
+      const target = state.layers[layerIndex];
+      target.height = target.height + action.size - target.width;
+      target.width = action.size;
 
       return {
         ...state,

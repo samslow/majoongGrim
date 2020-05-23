@@ -11,7 +11,7 @@ interface ComponentProps {
 const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
   const dispatch = useDispatch();
   // action추가
-  const { id, x, y, width, height, zIndex, image } = layer;
+  const { id, x, y, width, height, zIndex, image, angleDegree } = layer;
   // 이미지 좌표
   const [imgX, setImgX] = useState(x);
   const [imgY, setImgY] = useState(y);
@@ -83,6 +83,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
         left: imgX,
         top: imgY,
         zIndex: zIndex,
+        transform: `rotate(${angleDegree}deg)`,
       }}
     >
       <img width={"100%"} height={"100%"} src={image.src} />

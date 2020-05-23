@@ -58,7 +58,7 @@ const Toolbox = () => {
           y,
           width,
           height,
-          0,
+          45,
           layers.length + 10, // 0부터 레이어 번호를 매기면서 10부터 zIndex를 부여함
           img,
         );

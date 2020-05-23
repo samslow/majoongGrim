@@ -57,11 +57,11 @@ const HeaderButtons: React.FC<ComponentProps> = ({
     for (let i = 0; i < sortedLayers.length; i++) {
       if (sortedLayers[i] instanceof ImageLayer) {
         const target = sortedLayers[i] as ImageLayer;
-        const canvasCenterX = target.x - ARTBOARD_X + target.width / 2;
-        const canvasCenterY = target.y - ARTBOARD_Y + target.height / 2;
-        ctx.translate(canvasCenterX, canvasCenterY);
+        const layerCenterX = target.x - ARTBOARD_X + target.width / 2;
+        const layerCenterY = target.y - ARTBOARD_Y + target.height / 2;
+        ctx.translate(layerCenterX, layerCenterY);
         ctx.rotate((target.angleDegree * Math.PI) / 180);
-        ctx.translate(-canvasCenterX, -canvasCenterY);
+        ctx.translate(-layerCenterX, -layerCenterY);
         // 2. 이미지 그리기
         ctx.drawImage(
           target.image,
@@ -74,16 +74,16 @@ const HeaderButtons: React.FC<ComponentProps> = ({
           target.width,
           target.height,
         );
-        ctx.translate(canvasCenterX, canvasCenterY);
+        ctx.translate(layerCenterX, layerCenterY);
         ctx.rotate(-(target.angleDegree * Math.PI) / 180);
-        ctx.translate(-canvasCenterX, -canvasCenterY);
+        ctx.translate(-layerCenterX, -layerCenterY);
       } else if (sortedLayers[i] instanceof TextLayer) {
         const target = sortedLayers[i] as TextLayer;
-        const canvasCenterX = target.x - ARTBOARD_X + target.width / 2;
-        const canvasCenterY = target.y - ARTBOARD_Y + target.height / 2;
-        ctx.translate(canvasCenterX, canvasCenterY);
+        const layerCenterX = target.x - ARTBOARD_X + target.width / 2;
+        const layerCenterY = target.y - ARTBOARD_Y + target.height / 2;
+        ctx.translate(layerCenterX, layerCenterY);
         ctx.rotate((target.angleDegree * Math.PI) / 180);
-        ctx.translate(-canvasCenterX, -canvasCenterY);
+        ctx.translate(-layerCenterX, -layerCenterY);
         ctx.font = `${target.fontSize}px ${target.fontFamily}`;
         ctx.fillStyle = "black";
         ctx.textBaseline = "top";
@@ -93,9 +93,9 @@ const HeaderButtons: React.FC<ComponentProps> = ({
           target.x - ARTBOARD_X,
           target.y - ARTBOARD_Y,
         );
-        ctx.translate(canvasCenterX, canvasCenterY);
+        ctx.translate(layerCenterX, layerCenterY);
         ctx.rotate(-(target.angleDegree * Math.PI) / 180);
-        ctx.translate(-canvasCenterX, -canvasCenterY);
+        ctx.translate(-layerCenterX, -layerCenterY);
       }
     }
     // 3. 그린 canvas정보를 URL 형태로 href 속성으로 전달

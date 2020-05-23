@@ -118,6 +118,7 @@ const InputBox = styled.div`
   justify-content: space-around;
   align-items: center;
   margin: 5px 0;
+  height: 20px;
 `;
 
 const ButtonBox = styled.div`

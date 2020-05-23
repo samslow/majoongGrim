@@ -2,16 +2,11 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
-import ButtonContent from "components/controllers/ButtonContent";
 import ContentsGroup from "components/controllers/ContentsGroup";
 import InputContent from "components/controllers/InputContent";
 import { RootState } from "store";
 import TextLayer from "modules/layers/TextLayer";
-import {
-  ADJUST_FONTTYPE,
-  ADJUST_FONTSIZE,
-  ADJUST_FONTCONTENT,
-} from "store/layerReducer";
+import { ADJUST_FONTSIZE, ADJUST_FONTCONTENT } from "store/layerReducer";
 
 const TextController = () => {
   const dispatch = useDispatch();
@@ -20,10 +15,6 @@ const TextController = () => {
   );
   const layers = useSelector((state: RootState) => state.layerReducer.layers);
   const targetLayer: TextLayer = layers[selectedId];
-
-  useEffect(() => {
-    console.log("targetLayer", targetLayer);
-  }, [targetLayer]);
 
   const handleSize = (size: number) => {
     dispatch({

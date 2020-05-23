@@ -9,22 +9,21 @@ interface ComponentProps {
 const InputText: React.FC<ComponentProps> = ({ type, value }) => {
   return (
     <InputTextContainer>
-      <Label>{type}</Label>
+      <Label>{type}:</Label>
       <SizeInput type={"number"} value={value} />
+      <span>px</span>
     </InputTextContainer>
   );
 };
 
 const InputTextContainer = styled.div`
-  width: 50%;
   display: inline-block;
 `;
 const Label = styled.label`
-  width: 30%;
   padding-right: 5px;
 `;
 const SizeInput = styled.input`
-  width: 60%;
+  width: 30%;
 `;
 
 export default InputText;

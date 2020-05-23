@@ -1,6 +1,8 @@
 import React, { useCallback, useState, useEffect } from "react";
 import ImageLayer from "modules/layers/ImageLayer";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
+
 import { CHANGE_LAYER_LOCATION } from "store/layerReducer";
 
 interface ComponentProps {
@@ -11,10 +13,11 @@ interface ComponentProps {
 const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
   const dispatch = useDispatch();
   // action추가
-  const { id, x, y, width, height, zIndex, image } = layer;
-  // 이미지 좌표
+  const { id, x, y, width, height, zIndex, image, angleDegree } = layer;
+  // 이미지 좌표, 각도
   const [imgX, setImgX] = useState(x);
   const [imgY, setImgY] = useState(y);
+  const [angle, setAngle] = useState(angleDegree);
   // 드래그 시작시, 이미지 좌표
   const [firstImgX, setFirstImgX] = useState(0);
   const [firstImgY, setFirstImgY] = useState(0);
@@ -85,9 +88,15 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
         zIndex: zIndex,
       }}
     >
-      <img width={"100%"} height={"100%"} src={image.src} />
+      <Image src={image.src} />
     </div>
   );
 };
+
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  src: ${(props) => props.src};
+`;
 
 export default DraggableImage;

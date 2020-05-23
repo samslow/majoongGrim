@@ -4,17 +4,11 @@ import { FaTrashAlt } from "react-icons/fa";
 
 interface ComponentProps {
   name: string;
-  zIndex: number;
   onMove: (type: string) => void;
   onRemove: VoidFunction;
 }
 
-const LayerBox: React.FC<ComponentProps> = ({
-  name,
-  zIndex,
-  onMove,
-  onRemove,
-}) => {
+const LayerBox: React.FC<ComponentProps> = ({ name, onMove, onRemove }) => {
   return (
     <Container>
       <LayerContent>

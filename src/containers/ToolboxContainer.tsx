@@ -92,7 +92,7 @@ const Toolbox = () => {
       { isBold: false, isItalic: false, isUnderline: false },
       12,
       "#000",
-      "Lorem Ipsum",
+      "텍스트를 입력하세요",
     );
     console.log("newTextLayer", newTextLayer);
     dispatch({

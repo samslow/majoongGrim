@@ -58,7 +58,7 @@ const Toolbox = () => {
           y,
           width,
           height,
-          45,
+          0,
           layers.length + 10, // 0부터 레이어 번호를 매기면서 10부터 zIndex를 부여함
           img,
         );
@@ -86,7 +86,7 @@ const Toolbox = () => {
       y,
       width,
       height,
-      -45,
+      0,
       layers.length + 10,
       "serif",
       { isBold: false, isItalic: false, isUnderline: false },

@@ -54,12 +54,4 @@ const Container = styled.div`
   display: flex;
 `;
 
-const Devider = styled.hr`
-  width: 2px;
-  height: 50%;
-  background-color: #8884;
-  margin: auto 0;
-  border: 0;
-`;
-
 export default TextController;

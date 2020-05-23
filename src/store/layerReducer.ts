@@ -83,6 +83,7 @@ export default (state = initialState, action: any) => {
       return {
         ...state,
         layers: [...state.layers, action.layer],
+        selectedId: action.layer.id,
       };
     }
     case "SET_SELECTED": {

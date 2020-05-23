@@ -12,7 +12,7 @@ import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
 import { RootState } from "store";
 import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
-import { SET_SELECTED, ADD_LAYER } from "store/layerReducer";
+import { ADD_LAYER } from "store/layerReducer";
 import Layer from "modules/layers/Layer";
 
 export enum ToolboxType {
@@ -66,9 +66,6 @@ const Toolbox = () => {
           type: ADD_LAYER,
           layer: imgLayer,
         });
-        dispatch({
-          type: SET_SELECTED,
-        });
       };
     };
 
@@ -98,9 +95,7 @@ const Toolbox = () => {
     dispatch({
       type: ADD_LAYER,
       layer: newTextLayer,
-    });
-    dispatch({
-      type: SET_SELECTED,
+      id: newTextLayer.id,
     });
   };
 

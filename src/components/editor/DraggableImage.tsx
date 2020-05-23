@@ -17,7 +17,6 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
   // 이미지 좌표, 각도
   const [imgX, setImgX] = useState(x);
   const [imgY, setImgY] = useState(y);
-  const [angle, setAngle] = useState(angleDegree);
   // 드래그 시작시, 이미지 좌표
   const [firstImgX, setFirstImgX] = useState(0);
   const [firstImgY, setFirstImgY] = useState(0);
@@ -32,7 +31,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
       img.src =
         "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=";
       e.dataTransfer.setDragImage(img, 0, 0);
-      onClick(id, imgX, imgY, width, height, false);
+      onClick(id, imgX, imgY, width, height, angleDegree, false);
       setFirstEventClientX(e.clientX);
       setFirstEventClientY(e.clientY);
       setFirstImgX(imgX);
@@ -76,7 +75,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
 
   const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    onClick(id, imgX, imgY, width, height, true, "image");
+    onClick(id, imgX, imgY, width, height, angleDegree, true, "image");
   };
 
   return (

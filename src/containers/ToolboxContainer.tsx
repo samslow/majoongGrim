@@ -94,6 +94,7 @@ const Toolbox = () => {
       height,
       0,
       layers.length + 10,
+      "serif",
       "normal",
       12,
       "#000",

@@ -18,6 +18,7 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
     width,
     height,
     zIndex,
+    fontFamily,
     fontType,
     fontSize,
     color,
@@ -96,21 +97,30 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
         alignItems: "center",
       }}
     >
-      <Text fontType={fontType} fontSize={fontSize} color={color}>
+      <Text
+        fontFamily={fontFamily}
+        fontType={fontType}
+        fontSize={fontSize}
+        color={color}
+      >
         {content}
       </Text>
     </div>
   );
 };
 const Text = styled.p<TextProps>`
+  position: absolute;
+  font-family: ${(props) => props.fontFamily};
   font-style: ${(props) => (props.fontType == "italic" ? "italic" : "normal")};
   font-weight: ${(props) => (props.fontType == "bold" ? "bold" : "normal")};
-  font-size: ${(props) => props.fontSize};
+  font-size: ${(props) => props.fontSize + "px"};
   color: ${(props) => props.color};
   margin: 0;
+  top: 0;
 `;
 
 interface TextProps {
+  fontFamily: string;
   fontType: string;
   fontSize: number;
   color: string;

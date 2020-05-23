@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 interface ComponentProps {
-  angle: number;
-  onChange: (angle: number) => void;
+  value: number;
+  onChange: Function;
 }
 
-const InputSlider: React.FC<ComponentProps> = ({ angle, onChange }) => {
-  const [value, setValue] = useState(angle);
+const SizeSlider: React.FC<ComponentProps> = ({ value, onChange }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const angle = parseInt(e.target.value);
-    onChange(angle);
-    setValue(angle);
+    const val = parseInt(e.target.value);
+    onChange(val);
   };
   return (
     <Container>
@@ -19,7 +17,7 @@ const InputSlider: React.FC<ComponentProps> = ({ angle, onChange }) => {
         type={"range"}
         value={value}
         onChange={(e) => handleChange(e)}
-        max={360}
+        max={480}
       />
     </Container>
   );
@@ -33,4 +31,4 @@ const Slider = styled.input`
   width: 90%;
 `;
 
-export default InputSlider;
+export default SizeSlider;

@@ -6,6 +6,7 @@ import InputText from "components/controllers/atoms/InputText";
 import Slider from "components/controllers/atoms/InputSlider";
 import { RootState } from "store";
 import Layer from "modules/layers/Layer";
+import { ADJUST_ANGLE } from "store/layerReducer";
 
 const AdjustContent = () => {
   const dispatch = useDispatch();
@@ -14,24 +15,29 @@ const AdjustContent = () => {
   );
   const layers = useSelector((state: RootState) => state.layerReducer.layers);
   const layer: Layer = layers[selectedId];
-  const [size, setSize] = useState({
-    width: layer.width,
-    height: layer.height,
-  });
+
+  const handleAngle = (angle: number) => {
+    console.log("angle", angle);
+    dispatch({
+      type: ADJUST_ANGLE,
+      id: selectedId,
+      angle: angle,
+    });
+  };
 
   return (
     <Container>
       <AdjustBox>
         <Label>Size</Label>
         <ContentBox>
-          <InputText type={"w"} value={size.width} />
-          <InputText type={"h"} value={size.height} />
+          {/* <InputText type={"w"} value={layer.width} />
+          <InputText type={"h"} value={layer.height} /> */}
         </ContentBox>
       </AdjustBox>
       <AdjustBox>
         <Label>Rotation</Label>
         <ContentBox>
-          <Slider />
+          <Slider angle={layer.angleDegree} onChange={handleAngle} />
         </ContentBox>
       </AdjustBox>
     </Container>

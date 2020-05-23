@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
-import InputText from "components/controllers/atoms/InputText";
-import Slider from "components/controllers/atoms/InputSlider";
+import SizeSlider from "components/controllers/atoms/SizeSlider";
+import AngleSlider from "components/controllers/atoms/AngleSlider";
 import { RootState } from "store";
 import Layer from "modules/layers/Layer";
-import { ADJUST_ANGLE } from "store/layerReducer";
+import { ADJUST_ANGLE, ADJUST_SIZE } from "store/layerReducer";
 
 const AdjustContent = () => {
   const dispatch = useDispatch();
@@ -23,20 +23,26 @@ const AdjustContent = () => {
       angle: angle,
     });
   };
+  const handleSize = (size: number) => {
+    dispatch({
+      type: ADJUST_SIZE,
+      id: selectedId,
+      size: size,
+    });
+  };
 
   return (
     <Container>
       <AdjustBox>
         <Label>Size</Label>
         <ContentBox>
-          {/* <InputText type={"w"} value={layer.width} />
-          <InputText type={"h"} value={layer.height} /> */}
+          <SizeSlider value={layer.width} onChange={handleSize} />
         </ContentBox>
       </AdjustBox>
       <AdjustBox>
         <Label>Rotation</Label>
         <ContentBox>
-          <Slider angle={layer.angleDegree} onChange={handleAngle} />
+          <AngleSlider value={layer.angleDegree} onChange={handleAngle} />
         </ContentBox>
       </AdjustBox>
     </Container>

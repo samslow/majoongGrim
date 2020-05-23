@@ -6,6 +6,7 @@ import ContentsGroup from "components/controllers/ContentsGroup";
 import InputContent from "components/controllers/InputContent";
 import { RootState } from "store";
 import TextLayer from "modules/layers/TextLayer";
+import AdjustContent from "components/controllers/AdjustContent";
 import { ADJUST_FONTSIZE, ADJUST_FONTCONTENT } from "store/layerReducer";
 
 const TextController = () => {
@@ -42,6 +43,9 @@ const TextController = () => {
           onChangeSize={handleSize}
           onChangeContent={handleContent}
         />
+      </ContentsGroup>
+      <ContentsGroup subject={"Adjust"}>
+        <AdjustContent rotation />
       </ContentsGroup>
     </Container>
   );

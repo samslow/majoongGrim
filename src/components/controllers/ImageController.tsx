@@ -8,7 +8,7 @@ const ImageController = () => {
   return (
     <Container>
       <ContentsGroup subject={"Adjust"}>
-        <AdjustContent />
+        <AdjustContent size rotation />
       </ContentsGroup>
     </Container>
   );

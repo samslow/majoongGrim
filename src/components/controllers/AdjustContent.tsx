@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,7 +8,12 @@ import { RootState } from "store";
 import Layer from "modules/layers/Layer";
 import { ADJUST_ANGLE, ADJUST_SIZE } from "store/layerReducer";
 
-const AdjustContent = () => {
+interface ComponentProps {
+  size?: boolean;
+  rotation?: boolean;
+}
+
+const AdjustContent: React.FC<ComponentProps> = ({ size, rotation }) => {
   const dispatch = useDispatch();
   const selectedId = useSelector(
     (state: RootState) => state.layerReducer.selectedId,
@@ -33,18 +38,22 @@ const AdjustContent = () => {
 
   return (
     <Container>
-      <AdjustBox>
-        <Label>Size</Label>
-        <ContentBox>
-          <SizeSlider value={layer.width} onChange={handleSize} />
-        </ContentBox>
-      </AdjustBox>
-      <AdjustBox>
-        <Label>Rotation</Label>
-        <ContentBox>
-          <AngleSlider value={layer.angleDegree} onChange={handleAngle} />
-        </ContentBox>
-      </AdjustBox>
+      {size && (
+        <AdjustBox>
+          <Label>Size</Label>
+          <ContentBox>
+            <SizeSlider value={layer.width} onChange={handleSize} />
+          </ContentBox>
+        </AdjustBox>
+      )}
+      {rotation && (
+        <AdjustBox>
+          <Label>Rotation</Label>
+          <ContentBox>
+            <AngleSlider value={layer.angleDegree} onChange={handleAngle} />
+          </ContentBox>
+        </AdjustBox>
+      )}
     </Container>
   );
 };
@@ -65,6 +74,7 @@ const AdjustBox = styled.div`
 const Label = styled.label`
   width: 30%;
   text-align: center;
+  color: #888;
 `;
 
 const ContentBox = styled.div`

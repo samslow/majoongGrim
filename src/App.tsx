@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 
 import Home from "pages/Home";
 import configureStore from "store/configureStore";
+import "App.css";
 
 const store = configureStore();
 

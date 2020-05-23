@@ -88,7 +88,7 @@ const Toolbox = () => {
       height,
       0,
       layers.length + 10,
-      "serif",
+      "나눔바른고딕",
       { isBold: false, isItalic: false, isUnderline: false },
       12,
       "#000",

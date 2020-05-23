@@ -16,6 +16,7 @@ export const SET_SELECTED = "SET_SELECTED" as const;
 export const ADJUST_FONTTYPE = "ADJUST_FONTTYPE" as const;
 export const ADJUST_FONTSIZE = "ADJUST_FONTSIZE" as const;
 export const ADJUST_FONTCONTENT = "ADJUST_FONTCONTENT" as const;
+export const ADJUST_FONTFAMILY = "ADJUST_FONTFAMILY" as const;
 export const DESELECT = -1 as const;
 
 export const initialState: reduxState = {
@@ -144,6 +145,17 @@ export default (state = initialState, action: any) => {
       const target = state.layers[layerIndex] as TextLayer;
       target.content = action.content;
 
+      return {
+        ...state,
+        layers: [...state.layers],
+      };
+    }
+    case "ADJUST_FONTFAMILY": {
+      const layerIndex = state.layers
+        .map((layer) => layer.id)
+        .indexOf(action.id);
+      const target = state.layers[layerIndex] as TextLayer;
+      target.fontFamily = action.fontFamily;
       return {
         ...state,
         layers: [...state.layers],

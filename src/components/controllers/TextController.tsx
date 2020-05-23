@@ -16,6 +16,7 @@ import {
   ADJUST_FONTTYPE,
   ADJUST_FONTSIZE,
   ADJUST_FONTCONTENT,
+  ADJUST_FONTFAMILY,
 } from "store/layerReducer";
 
 const TextController = () => {
@@ -54,6 +55,14 @@ const TextController = () => {
     });
   };
 
+  const handleFontFamily = (fontFamily: string) => {
+    dispatch({
+      type: ADJUST_FONTFAMILY,
+      id: selectedId,
+      fontFamily: fontFamily,
+    });
+  };
+
   return (
     <Container>
       <ContentsGroup subject={"Style"}>
@@ -78,9 +87,11 @@ const TextController = () => {
         <InputContent
           fontSize={targetLayer.fontSize}
           input={targetLayer.content}
-          fonts={["Option 1", "Option 2", "Option 3"]}
+          fonts={["나눔바른고딕", "조선궁서체", "TT투게더"]}
+          nowFontFamily={targetLayer.fontFamily}
           onChangeSize={handleSize}
           onChangeContent={handleContent}
+          onChangeFontFamily={handleFontFamily}
         />
       </ContentsGroup>
     </Container>

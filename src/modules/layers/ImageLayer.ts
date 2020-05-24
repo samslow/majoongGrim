@@ -41,7 +41,7 @@ export default class ImageLayer extends Layer {
     );
   }
 
-  // 레이어 타입에 따른 설정 메소드
+  // 레이어 타입에 따른 설정 메소드 (이미지레이어의 경우는 해당사항 없음)
   setType(
     ctx: CanvasRenderingContext2D,
     ARTBOARD_X: number,

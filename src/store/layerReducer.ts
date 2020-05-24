@@ -34,9 +34,7 @@ export default (state = initialState, action: any) => {
         .map((layer) => layer.id)
         .indexOf(action.id);
       const target = state.layers[layerIndex];
-      target.x = action.x;
-      target.y = action.y;
-
+      target.move(action.x, action.y);
       state.layers[layerIndex] = target;
 
       return {

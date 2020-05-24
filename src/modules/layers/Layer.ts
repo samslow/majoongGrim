@@ -25,8 +25,9 @@ export default class Layer {
     this.zIndex = zIndex;
   }
 
-  move() {
-    // 기능 구현
+  move(x: number, y: number) {
+    this.x = x;
+    this.y = y;
   }
 
   rotate() {

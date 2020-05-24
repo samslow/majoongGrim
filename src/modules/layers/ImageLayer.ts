@@ -17,8 +17,9 @@ export default class ImageLayer extends Layer {
     this.image = image;
   }
 
-  move() {
-    // 기능 구현
+  move(x: number, y: number) {
+    this.x = x;
+    this.y = y;
   }
 
   rotate() {

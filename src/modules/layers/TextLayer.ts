@@ -30,8 +30,9 @@ export default class TextLayer extends Layer {
     this.content = content;
   }
 
-  move() {
-    // 기능 구현
+  move(x: number, y: number) {
+    this.x = x;
+    this.y = y;
   }
 
   rotate() {

@@ -84,7 +84,10 @@ const HeaderButtons: React.FC<ComponentProps> = ({
         ctx.translate(layerCenterX, layerCenterY);
         ctx.rotate((target.angleDegree * Math.PI) / 180);
         ctx.translate(-layerCenterX, -layerCenterY);
-        ctx.font = `${target.fontSize}px ${target.fontFamily}`;
+        console.log(target.fontType.isBold);
+        ctx.font = `${target.fontType.isBold ? "bold" : ""} ${
+          target.fontType.isItalic ? "italic" : ""
+        } ${target.fontSize}px ${target.fontFamily}`;
         ctx.fillStyle = "black";
         ctx.textBaseline = "top";
         // 2. 텍스트 그리기

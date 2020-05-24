@@ -32,12 +32,8 @@ const InputContent: React.FC<ComponentProps> = ({
 
   const Options = () => {
     const fontList = fonts.map((item, index) => {
-      return fontFamily === item ? (
-        <Option key={index} value={item} selected>
-          {item}
-        </Option>
-      ) : (
-        <Option key={index} value={item}>
+      return (
+        <Option key={index} value={item} selected={fontFamily === item}>
           {item}
         </Option>
       );

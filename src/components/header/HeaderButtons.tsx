@@ -6,6 +6,7 @@ import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
 import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
 import Layer from "modules/layers/Layer";
+import { getTextLayerWidth } from "modules/functions/getTextLayerWidth";
 
 const VERTICAL_SHAPE = "VERTICAL_SHAPE";
 const HORIZONTAL_SHAPE = "HORIZONTAL_SHAPE";
@@ -88,6 +89,13 @@ const HeaderButtons: React.FC<ComponentProps> = ({
         ctx.font = `${target.fontType.isBold ? "bold" : ""} ${
           target.fontType.isItalic ? "italic" : ""
         } ${target.fontSize}px ${target.fontFamily}`;
+        target.fontType.isUnderline &&
+          ctx.fillRect(
+            target.x - ARTBOARD_X,
+            target.y - ARTBOARD_Y + target.height,
+            getTextLayerWidth(target.id),
+            1,
+          );
         ctx.fillStyle = "black";
         ctx.textBaseline = "top";
         // 2. 텍스트 그리기
@@ -96,6 +104,7 @@ const HeaderButtons: React.FC<ComponentProps> = ({
           target.x - ARTBOARD_X,
           target.y - ARTBOARD_Y,
         );
+
         ctx.translate(layerCenterX, layerCenterY);
         ctx.rotate(-(target.angleDegree * Math.PI) / 180);
         ctx.translate(-layerCenterX, -layerCenterY);

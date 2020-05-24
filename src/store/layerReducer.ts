@@ -130,7 +130,6 @@ export default (state = initialState, action: any) => {
       };
     }
     case ADJUST_FONTSIZE: {
-      const OFFSET = 10;
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);

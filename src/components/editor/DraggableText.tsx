@@ -110,6 +110,7 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
       }}
     >
       <Text
+        id={`text${id}`}
         fontFamily={fontFamily}
         fontType={fontType}
         fontSize={fontSize}

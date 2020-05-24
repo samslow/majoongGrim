@@ -1,8 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
+import ContentsGroup from "components/controllers/ContentsGroup";
+import AdjustContent from "components/controllers/AdjustContent";
+
 const ImageController = () => {
-  return <Container>You can change selected image</Container>;
+  return (
+    <Container>
+      <ContentsGroup subject={"Adjust"}>
+        <AdjustContent size rotation />
+      </ContentsGroup>
+    </Container>
+  );
 };
 
 const Container = styled.div`

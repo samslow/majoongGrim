@@ -13,11 +13,13 @@ export const REMOVE_LAYER = "REMOVE_LAYER" as const;
 export const ADD_LAYER = "ADD_LAYER" as const;
 export const GET_SORTED_LAYERS = "GET_SORTED_LAYERS" as const;
 export const SET_SELECTED = "SET_SELECTED" as const;
+export const DESELECT = -1 as const;
 export const ADJUST_FONTTYPE = "ADJUST_FONTTYPE" as const;
 export const ADJUST_FONTSIZE = "ADJUST_FONTSIZE" as const;
 export const ADJUST_FONTCONTENT = "ADJUST_FONTCONTENT" as const;
 export const ADJUST_FONTFAMILY = "ADJUST_FONTFAMILY" as const;
-export const DESELECT = -1 as const;
+export const ADJUST_ANGLE = "ADJUST_ANGLE" as const;
+export const ADJUST_SIZE = "ADJUST_SIZE" as const;
 
 export const initialState: reduxState = {
   layers: [],
@@ -26,7 +28,7 @@ export const initialState: reduxState = {
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case "CHANGE_LAYER_LOCATION": {
+    case CHANGE_LAYER_LOCATION: {
       console.log(action.id, action.x, action.y);
       const layerIndex = state.layers
         .map((layer) => layer.id)
@@ -42,7 +44,7 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case "SET_ZINDEX": {
+    case SET_ZINDEX: {
       const targetLayer = state.layers.filter(
         (layer) => layer.id === action.id,
       )[0];
@@ -68,7 +70,7 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case "REMOVE_LAYER": {
+    case REMOVE_LAYER: {
       const removeIndex = state.layers
         .map((layer) => {
           return layer.id;
@@ -80,13 +82,14 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case "ADD_LAYER": {
+    case ADD_LAYER: {
       return {
         ...state,
         layers: [...state.layers, action.layer],
+        selectedId: action.layer.id,
       };
     }
-    case "SET_SELECTED": {
+    case SET_SELECTED: {
       let id;
       if (action.id == DESELECT) {
         // 레이어 지정 취소 커맨드(-1)의 경우
@@ -106,7 +109,7 @@ export default (state = initialState, action: any) => {
         selectedId: id,
       };
     }
-    case "ADJUST_FONTTYPE": {
+    case ADJUST_FONTTYPE: {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
@@ -126,7 +129,7 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case "ADJUST_FONTSIZE": {
+    case ADJUST_FONTSIZE: {
       const OFFSET = 10;
       const layerIndex = state.layers
         .map((layer) => layer.id)
@@ -142,7 +145,7 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case "ADJUST_FONTCONTENT": {
+    case ADJUST_FONTCONTENT: {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
@@ -156,12 +159,37 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case "ADJUST_FONTFAMILY": {
+    case ADJUST_FONTFAMILY: {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
       const target = state.layers[layerIndex] as TextLayer;
       target.fontFamily = action.fontFamily;
+      return {
+        ...state,
+        layers: [...state.layers],
+      };
+    }
+    case ADJUST_ANGLE: {
+      const layerIndex = state.layers
+        .map((layer) => layer.id)
+        .indexOf(action.id);
+      const target = state.layers[layerIndex];
+      target.angleDegree = action.angle;
+
+      return {
+        ...state,
+        layers: [...state.layers],
+      };
+    }
+    case ADJUST_SIZE: {
+      const layerIndex = state.layers
+        .map((layer) => layer.id)
+        .indexOf(action.id);
+      const target = state.layers[layerIndex];
+      target.height = target.height + action.size - target.width;
+      target.width = action.size;
+
       return {
         ...state,
         layers: [...state.layers],

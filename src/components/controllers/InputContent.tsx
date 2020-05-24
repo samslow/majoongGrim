@@ -1,5 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
+import {
+  AiOutlineItalic,
+  AiOutlineBold,
+  AiOutlineUnderline,
+} from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+
+import ButtonContent from "components/controllers/ButtonContent";
+import { ADJUST_FONTTYPE } from "store/layerReducer";
+import { RootState } from "store";
 
 interface ComponentProps {
   input: string;
@@ -20,6 +30,7 @@ const InputContent: React.FC<ComponentProps> = ({
   onChangeContent,
   onChangeFontFamily,
 }) => {
+  const dispatch = useDispatch();
   const [size, setSize] = useState(fontSize);
   const [text, setContent] = useState(input);
   const [fontFamily, setFontFamily] = useState(nowFontFamily);
@@ -30,6 +41,9 @@ const InputContent: React.FC<ComponentProps> = ({
     setFontFamily(nowFontFamily);
   }, [fontSize, input, nowFontFamily]);
 
+  const selectedId = useSelector(
+    (state: RootState) => state.layerReducer.selectedId,
+  );
   const Options = () => {
     const fontList = fonts.map((item, index) => {
       return (
@@ -57,6 +71,13 @@ const InputContent: React.FC<ComponentProps> = ({
     setFontFamily(e.target.value);
     onChangeFontFamily(e.target.value);
   };
+  const handleStyle = (style: string) => {
+    dispatch({
+      type: ADJUST_FONTTYPE,
+      id: selectedId,
+      fontType: style,
+    });
+  };
 
   return (
     <Container>
@@ -74,6 +95,26 @@ const InputContent: React.FC<ComponentProps> = ({
           <Options />
         </InputSelect>
       </InputBox>
+      <InputBox>
+        <Label>Style</Label>
+        <ButtonBox>
+          <ButtonContent
+            icon={<AiOutlineBold size={"100%"} />}
+            label={"Bold"}
+            onClick={handleStyle}
+          />
+          <ButtonContent
+            icon={<AiOutlineItalic size={"100%"} />}
+            label={"Italic"}
+            onClick={handleStyle}
+          />
+          <ButtonContent
+            icon={<AiOutlineUnderline size={"100%"} />}
+            label={"Underline"}
+            onClick={handleStyle}
+          />
+        </ButtonBox>
+      </InputBox>
     </Container>
   );
 };
@@ -86,16 +127,22 @@ const Container = styled.div`
 const InputBox = styled.div`
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   margin: 5px 0;
+  height: 20px;
+`;
+
+const ButtonBox = styled.div`
+  width: 52%;
 `;
 
 const InputText = styled.input`
   width: 50%;
+  padding: 3px;
 `;
 
 const InputSelect = styled.select`
-  width: 50%;
+  width: 52%;
 `;
 
 const Option = styled.option``;

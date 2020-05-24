@@ -1,6 +1,8 @@
 import React, { useCallback, useState, useEffect } from "react";
 import ImageLayer from "modules/layers/ImageLayer";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
+
 import { CHANGE_LAYER_LOCATION } from "store/layerReducer";
 
 interface ComponentProps {
@@ -11,8 +13,8 @@ interface ComponentProps {
 const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
   const dispatch = useDispatch();
   // action추가
-  const { id, x, y, width, height, zIndex, image } = layer;
-  // 이미지 좌표
+  const { id, x, y, width, height, zIndex, image, angleDegree } = layer;
+  // 이미지 좌표, 각도
   const [imgX, setImgX] = useState(x);
   const [imgY, setImgY] = useState(y);
   // 드래그 시작시, 이미지 좌표
@@ -25,7 +27,11 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
   // 드래그 스타트 (기존의 이미지좌표와 e.client좌표 저장)
   const onDragStartImageHandler = useCallback(
     (e: React.DragEvent<HTMLImageElement>) => {
-      onClick(id, imgX, imgY, width, height, false);
+      const img = new Image();
+      img.src =
+        "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=";
+      e.dataTransfer.setDragImage(img, 0, 0);
+      onClick(id, imgX, imgY, width, height, angleDegree, false);
       setFirstEventClientX(e.clientX);
       setFirstEventClientY(e.clientY);
       setFirstImgX(imgX);
@@ -37,6 +43,10 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
   // 드래그 도중 (기존의 이미지좌표의 e.client좌표와 현재 드래그 도중의 e.client좌표 차이만큼 이미지좌표에 더해서 저장)
   const onDragImageHandler = useCallback(
     (e: React.DragEvent<HTMLImageElement>) => {
+      const img = new Image();
+      img.src =
+        "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=";
+      e.dataTransfer.setDragImage(img, 0, 0);
       const xChange = e.clientX - firstEventClientX;
       const yChange = e.clientY - firstEventClientY;
       setImgX(firstImgX + xChange);
@@ -65,7 +75,7 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
 
   const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    onClick(id, imgX, imgY, width, height, true, "image");
+    onClick(id, imgX, imgY, width, height, angleDegree, true, "image");
   };
 
   return (
@@ -83,11 +93,18 @@ const DraggableImage: React.FC<ComponentProps> = ({ layer, onClick }) => {
         left: imgX,
         top: imgY,
         zIndex: zIndex,
+        transform: `rotate(${angleDegree}deg)`,
       }}
     >
-      <img width={"100%"} height={"100%"} src={image.src} />
+      <Img src={image.src} />
     </div>
   );
 };
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  src: ${(props) => props.src};
+`;
 
 export default DraggableImage;

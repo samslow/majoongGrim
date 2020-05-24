@@ -21,6 +21,7 @@ interface SelectedBox {
   y: number;
   width: number;
   height: number;
+  angleDegree: number;
 }
 
 // 초기 선택박스 정보
@@ -29,6 +30,7 @@ const initialSelectedBox = {
   y: 0,
   width: 0,
   height: 0,
+  angleDegree: 0,
 };
 
 const EditorContainer = () => {
@@ -54,6 +56,7 @@ const EditorContainer = () => {
         y: layerInfo.y,
         width: layerInfo.width,
         height: layerInfo.height,
+        angleDegree: layerInfo.angleDegree,
       };
       setSelected(true);
       setSelectedLayerInfo(newSelectedBox);
@@ -77,6 +80,7 @@ const EditorContainer = () => {
       imgY: number,
       width: number,
       height: number,
+      angleDegree: number,
       isSelected: boolean,
       type?: string,
     ) => {
@@ -86,6 +90,7 @@ const EditorContainer = () => {
         y: imgY,
         width: width,
         height: height,
+        angleDegree: angleDegree,
       };
       setSelectedLayerInfo(newSelectedBox);
 
@@ -153,6 +158,7 @@ const EditorContainer = () => {
             left: selectedLayerInfo.x - DISTANCE_BORDER,
             top: selectedLayerInfo.y - DISTANCE_BORDER,
             zIndex: 9,
+            transform: `rotate(${selectedLayerInfo.angleDegree}deg)`,
           }}
         />
       )}

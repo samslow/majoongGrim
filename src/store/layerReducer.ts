@@ -170,7 +170,7 @@ export default (state = initialState, action: any) => {
         .map((layer) => layer.id)
         .indexOf(action.id);
       const target = state.layers[layerIndex];
-      target.angleDegree = action.angle;
+      target.rotate(action.angle);
 
       return {
         ...state,

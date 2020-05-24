@@ -30,8 +30,8 @@ export default class Layer {
     this.y = y;
   }
 
-  rotate() {
-    // 기능 구현
+  rotate(angleDegree: number) {
+    this.angleDegree = angleDegree;
   }
 
   // 캔버스에 레이어를 그리는 메소드

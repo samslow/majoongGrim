@@ -121,13 +121,8 @@ const HeaderButtons: React.FC<ComponentProps> = ({
 };
 
 const ButtonContainer = styled.div`
-  position: absolute;
-  right: 0;
-  display: flex;
-  padding: 0px 30px 0px 30px;
-
+  cursor: pointer;
   & > button {
-    cursor: pointer;
     width: 70px;
     height: 30px;
     font-size: 12px;

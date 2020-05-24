@@ -62,7 +62,6 @@ const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
           <LayerBox
             key={layer.id}
             name={layerType + layer.id}
-            zIndex={layer.zIndex}
             onMove={(type) => handleVerticalMove(layer.id, type)}
             onRemove={() => handleRemoveLayer(layer.id)}
           />

@@ -42,7 +42,7 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
       img.src =
         "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=";
       e.dataTransfer.setDragImage(img, 0, 0);
-      onClick(id, imgX, imgY, width, height, false);
+      onClick(id, imgX, imgY, width, height, angleDegree, false);
       setFirstEventClientX(e.clientX);
       setFirstEventClientY(e.clientY);
       setFirstImgX(imgX);
@@ -86,7 +86,7 @@ const DraggableText: React.FC<ComponentProps> = ({ layer, onClick }) => {
 
   const onClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    onClick(id, imgX, imgY, width, height, true, "text");
+    onClick(id, imgX, imgY, width, height, angleDegree, true, "text");
   };
 
   return (

@@ -18,12 +18,11 @@ export default class ImageLayer extends Layer {
   }
 
   move(x: number, y: number) {
-    this.x = x;
-    this.y = y;
+    super.move(x, y);
   }
 
   rotate(angleDegree: number) {
-    this.angleDegree = angleDegree;
+    super.rotate(angleDegree);
   }
 
   // 캔버스에 레이어를 그리는 메소드

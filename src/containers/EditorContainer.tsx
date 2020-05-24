@@ -11,6 +11,7 @@ import { RootState } from "store";
 import Layer from "modules/layers/Layer";
 import { SET_SELECTED, DESELECT } from "store/layerReducer";
 import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
+import Theme from "modules/theme";
 
 // 레이어와 선택박스 거리
 const DISTANCE_BORDER = 4;
@@ -151,7 +152,7 @@ const EditorContainer = () => {
         <div
           style={{
             position: "fixed",
-            border: "4px dashed red",
+            border: "2px dashed red",
             boxSizing: "border-box",
             width: selectedLayerInfo.width + DISTANCE_BORDER * 2,
             height: selectedLayerInfo.height + DISTANCE_BORDER * 2,
@@ -169,7 +170,7 @@ const EditorContainer = () => {
 
 const Container = styled.div`
   position: relative;
-  background: grey;
+  background: ${Theme.lightDark};
   flex: 3;
 `;
 

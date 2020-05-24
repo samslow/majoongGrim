@@ -4,10 +4,7 @@ import { useDispatch } from "react-redux";
 
 import HeaderButtons from "components/header/HeaderButtons";
 import { CHANGE_SHAPE } from "store/headerReducer";
-
-const VERTICAL_TEXT = "세로형";
-const HORIZONTAL_TEXT = "가로형";
-const DOWNLOAD_TEXT = "다운로드";
+import Theme from "modules/theme";
 
 const HeaderContainer = () => {
   const dispatch = useDispatch();
@@ -24,9 +21,6 @@ const HeaderContainer = () => {
         <Logo src={"logo.png"} />
       </LogoContainer>
       <HeaderButtons
-        verticalText={VERTICAL_TEXT}
-        horizontalText={HORIZONTAL_TEXT}
-        downloadText={DOWNLOAD_TEXT}
         onClickShape={(name: string) => {
           handleShapeButton(name);
         }}
@@ -42,6 +36,7 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 0 1em;
   z-index: 1000;
+  background-color: ${Theme.dark};
 `;
 
 const Logo = styled.img`

@@ -12,6 +12,7 @@ import {
   ADJUST_FONTCONTENT,
   ADJUST_FONTFAMILY,
 } from "store/layerReducer";
+import Theme from "modules/theme";
 
 const TextController = () => {
   const dispatch = useDispatch();
@@ -66,8 +67,9 @@ const TextController = () => {
 };
 
 const Container = styled.div`
+  background-color: ${Theme.lightDark};
+  border: 1px solid ${Theme.border};
   padding: 0 1em;
-  background-color: #fff;
   flex: 1;
   display: flex;
 `;

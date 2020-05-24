@@ -8,6 +8,7 @@ import { SET_ZINDEX, REMOVE_LAYER, SET_SELECTED } from "store/layerReducer";
 import Layer from "modules/layers/Layer";
 import ImageLayer from "modules/layers/ImageLayer";
 import { RootState } from "store";
+import Theme from "modules/theme";
 
 interface LayerBoxesProps {
   layers: Layer[];
@@ -83,7 +84,7 @@ const DefaultLayers = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: #999;
+  color: ${Theme.caption};
   height: 100%;
 `;
 

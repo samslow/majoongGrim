@@ -10,7 +10,7 @@ export const initialState: reduxState = {
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case "CHANGE_SHAPE": {
+    case CHANGE_SHAPE: {
       return {
         ...state,
         nowShape: action.nowShape,

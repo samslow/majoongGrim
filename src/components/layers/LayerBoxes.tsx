@@ -54,28 +54,34 @@ const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
   };
 
   const layerList =
-    ordered.length > 0 ? (
-      ordered.map((layer: Layer) => {
-        const layerType =
-          layer instanceof ImageLayer === true ? "Image " : "Text ";
+    ordered.length > 0
+      ? ordered.map((layer: Layer) => {
+          const layerType =
+            layer instanceof ImageLayer === true ? "Image " : "Text ";
 
-        return (
-          <LayerBox
-            key={layer.id}
-            name={layerType + layer.id}
-            onMove={(type) => handleVerticalMove(layer.id, type)}
-            onRemove={() => handleRemoveLayer(layer.id)}
-          />
-        );
-      })
-    ) : (
-      <DefaultLayers>
-        <MdInbox size={"50%"} color={"#ccc"} />
-        Try adding layers from above
-      </DefaultLayers>
-    );
+          return (
+            <LayerBox
+              key={layer.id}
+              name={layerType + layer.id}
+              onMove={(type) => handleVerticalMove(layer.id, type)}
+              onRemove={() => handleRemoveLayer(layer.id)}
+            />
+          );
+        })
+      : null;
 
-  return <>{layerList}</>;
+  return (
+    <>
+      {layerList ? (
+        <>{layerList}</>
+      ) : (
+        <DefaultLayers>
+          <MdInbox size={"50%"} color={Theme.icon} />
+          Try adding layers from above
+        </DefaultLayers>
+      )}
+    </>
+  );
 };
 
 const DefaultLayers = styled.div`

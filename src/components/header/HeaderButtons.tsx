@@ -1,28 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import Dropdown from "react-bootstrap/Dropdown";
+import Button from "react-bootstrap/Button";
+
 import { RootState } from "store";
 import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
 import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
 import Layer from "modules/layers/Layer";
+import { AiOutlineDownload } from "react-icons/ai";
+import { BsPlusCircle } from "react-icons/bs";
+import Theme from "modules/theme";
 
 const VERTICAL_SHAPE = "VERTICAL_SHAPE";
 const HORIZONTAL_SHAPE = "HORIZONTAL_SHAPE";
 
 interface ComponentProps {
-  verticalText: string;
-  horizontalText: string;
-  downloadText: string;
   onClickShape: Function;
 }
 
-const HeaderButtons: React.FC<ComponentProps> = ({
-  verticalText,
-  horizontalText,
-  downloadText,
-  onClickShape,
-}) => {
+const HeaderButtons: React.FC<ComponentProps> = ({ onClickShape }) => {
   const layers: Layer[] = useSelector(
     (state: RootState) => state.layerReducer.layers,
   );
@@ -102,37 +100,50 @@ const HeaderButtons: React.FC<ComponentProps> = ({
     // click event handler -> href 순서로 진행됨.
     e.target.href = canvas.toDataURL();
   };
-
   return (
     <ButtonContainer>
-      <button onClick={() => onClickShape(VERTICAL_SHAPE)}>
-        {verticalText}
-      </button>
-      <button onClick={() => onClickShape(HORIZONTAL_SHAPE)}>
-        {horizontalText}
-      </button>
-      <button>
-        <a onClick={makeCanvas} href="/" download="마중그림썸네일.png">
-          {downloadText}
+      <Dropdown style={{ zIndex: 1001, marginRight: "1em" }}>
+        <Dropdown.Toggle
+          variant="outline-dark"
+          id="dropdown-basic"
+          style={{ background: Theme.primary }}
+        >
+          <Title>
+            <BsPlusCircle style={{ marginRight: "5px" }} />
+            New
+          </Title>
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={() => onClickShape(VERTICAL_SHAPE)}>
+            세로형
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => onClickShape(HORIZONTAL_SHAPE)}>
+            가로형
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      <Button variant="outline-dark" style={{ background: Theme.primary }}>
+        <a onClick={makeCanvas} href="/" download="Majoong_Thumbnail.png">
+          <Title style={{ margin: "auto" }}>
+            <AiOutlineDownload />
+          </Title>
         </a>
-      </button>
+      </Button>
     </ButtonContainer>
   );
 };
 
 const ButtonContainer = styled.div`
-  cursor: pointer;
-  & > button {
-    width: 70px;
-    height: 30px;
-    font-size: 12px;
-    margin: 0px 5px 0px 5px;
-    border-radius: 3px;
-  }
-  & > button > a {
-    text-decoration: none;
-    color: initial;
-  }
+  display: flex;
+  flex-direction: row;
+`;
+
+const Title = styled.span`
+  font-weight: bold;
+  margin-right: 5px;
+  color: #fff;
+  vertical-align: text-bottom;
 `;
 
 export default HeaderButtons;

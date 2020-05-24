@@ -5,4 +5,5 @@ export default {
   caption: "#888",
   border: "#999",
   icon: "#AAA",
+  text: "#fff",
 };

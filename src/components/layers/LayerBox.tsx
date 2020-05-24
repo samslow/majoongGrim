@@ -51,6 +51,7 @@ const LayerContent = styled.div`
 const LayerName = styled.p`
   margin: 0;
   font-size: 20px;
+  color: ${Theme.text};
 `;
 
 const RemoveButton = styled.button`

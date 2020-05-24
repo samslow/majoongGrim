@@ -1,32 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 
 interface ComponentProps {
   input: string;
   fontSize: number;
   fonts: string[];
+  nowFontFamily: string;
   onChangeSize: Function;
   onChangeContent: Function;
+  onChangeFontFamily: Function;
 }
 
 const InputContent: React.FC<ComponentProps> = ({
   input,
   fontSize,
   fonts,
+  nowFontFamily,
   onChangeSize,
   onChangeContent,
+  onChangeFontFamily,
 }) => {
   const [size, setSize] = useState(fontSize);
   const [text, setContent] = useState(input);
+  const [fontFamily, setFontFamily] = useState(nowFontFamily);
+
   useEffect(() => {
     setSize(fontSize);
     setContent(input);
-  }, [fontSize, input]);
+    setFontFamily(nowFontFamily);
+  }, [fontSize, input, nowFontFamily]);
 
   const Options = () => {
     const fontList = fonts.map((item, index) => {
       return (
-        <Option key={index} value={item}>
+        <Option key={index} value={item} selected={fontFamily === item}>
           {item}
         </Option>
       );
@@ -46,6 +53,11 @@ const InputContent: React.FC<ComponentProps> = ({
     onChangeContent(e.target.value);
   };
 
+  const handleFontFamily = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFontFamily(e.target.value);
+    onChangeFontFamily(e.target.value);
+  };
+
   return (
     <Container>
       <InputBox>
@@ -58,7 +70,7 @@ const InputContent: React.FC<ComponentProps> = ({
       </InputBox>
       <InputBox>
         <Label>Font</Label>
-        <InputSelect>
+        <InputSelect onChange={handleFontFamily}>
           <Options />
         </InputSelect>
       </InputBox>

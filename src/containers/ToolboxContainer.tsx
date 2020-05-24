@@ -77,7 +77,9 @@ const Toolbox = () => {
   };
 
   const handleText = () => {
-    const [width, height] = [200, 30];
+    const INITIAL_FONT_SIZE = 12;
+    const OFFSET = 10;
+    const [width, height] = [INITIAL_FONT_SIZE * OFFSET, INITIAL_FONT_SIZE];
     const [x, y] = getArtboardCenterPosition(width, height);
 
     const newTextLayer = new TextLayer(
@@ -88,11 +90,11 @@ const Toolbox = () => {
       height,
       0,
       layers.length + 10,
-      "serif",
+      "나눔바른고딕",
       { isBold: false, isItalic: false, isUnderline: false },
       12,
       "#000",
-      "Lorem Ipsum",
+      "텍스트를 입력하세요",
     );
     console.log("newTextLayer", newTextLayer);
     dispatch({

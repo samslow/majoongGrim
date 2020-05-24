@@ -13,7 +13,7 @@ import { SET_SELECTED, DESELECT } from "store/layerReducer";
 import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
 
 // 레이어와 선택박스 거리
-const DISTANCE_BORDER = 10;
+const DISTANCE_BORDER = 4;
 
 // 선택박스 정보
 interface SelectedBox {

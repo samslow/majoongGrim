@@ -11,8 +11,8 @@ import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPo
 import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
 import { RootState } from "store";
-import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
-import { Actions } from "store/layerReducer";
+import { ToolboxActions } from "store/toolboxReducer";
+import { LayerActions } from "store/layerReducer";
 import Layer from "modules/layers/Layer";
 import Theme from "modules/theme";
 
@@ -31,7 +31,7 @@ const Toolbox = () => {
   );
   const handleTool = (name: string, e: any = null) => {
     dispatch({
-      type: CHANGE_SELECTED_TOOL,
+      type: ToolboxActions.CHANGE_SELECTED_TOOL,
       name: name,
     });
     if (name == ToolboxType.TEXT) {
@@ -64,7 +64,7 @@ const Toolbox = () => {
           img,
         );
         dispatch({
-          type: Actions.ADD_LAYER,
+          type: LayerActions.ADD_LAYER,
           layer: imgLayer,
         });
       };
@@ -96,7 +96,7 @@ const Toolbox = () => {
     );
 
     dispatch({
-      type: Actions.ADD_LAYER,
+      type: LayerActions.ADD_LAYER,
       layer: newTextLayer,
       id: newTextLayer.id,
     });

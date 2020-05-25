@@ -9,8 +9,8 @@ import DraggableImage from "components/editor/DraggableImage";
 import DraggableText from "components/editor/DraggableText";
 import { RootState } from "store";
 import Layer from "modules/layers/Layer";
-import { Actions } from "store/layerReducer";
-import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
+import { LayerActions } from "store/layerReducer";
+import { ToolboxActions } from "store/toolboxReducer";
 import Theme from "modules/theme";
 
 // 레이어와 선택박스 거리
@@ -97,14 +97,14 @@ const EditorContainer = () => {
 
       if (selectedId != id) {
         dispatch({
-          type: Actions.SET_SELECTED,
+          type: LayerActions.SET_SELECTED,
           id: id,
         });
       }
       if (type && controllerType != type) {
         const typeName = type == "text" ? "텍스트 삽입" : "이미지 삽입";
         dispatch({
-          type: CHANGE_SELECTED_TOOL,
+          type: ToolboxActions.CHANGE_SELECTED_TOOL,
           name: typeName,
         });
       }
@@ -115,11 +115,11 @@ const EditorContainer = () => {
   const onClickEditorHandler = useCallback(() => {
     setSelected(false);
     dispatch({
-      type: Actions.SET_SELECTED,
-      id: Actions.DESELECT,
+      type: LayerActions.SET_SELECTED,
+      id: LayerActions.DESELECT,
     });
     dispatch({
-      type: CHANGE_SELECTED_TOOL,
+      type: ToolboxActions.CHANGE_SELECTED_TOOL,
       name: "",
     });
   }, []);

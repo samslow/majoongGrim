@@ -6,7 +6,7 @@ import SizeSlider from "components/controllers/atoms/SizeSlider";
 import AngleSlider from "components/controllers/atoms/AngleSlider";
 import { RootState } from "store";
 import Layer from "modules/layers/Layer";
-import { Actions } from "store/layerReducer";
+import { LayerActions } from "store/layerReducer";
 
 interface ComponentProps {
   size?: boolean;
@@ -23,14 +23,14 @@ const AdjustContent: React.FC<ComponentProps> = ({ size, rotation }) => {
 
   const handleAngle = (angle: number) => {
     dispatch({
-      type: Actions.ADJUST_ANGLE,
+      type: LayerActions.ADJUST_ANGLE,
       id: selectedId,
       angle: angle,
     });
   };
   const handleSize = (size: number) => {
     dispatch({
-      type: Actions.ADJUST_SIZE,
+      type: LayerActions.ADJUST_SIZE,
       id: selectedId,
       size: size,
     });

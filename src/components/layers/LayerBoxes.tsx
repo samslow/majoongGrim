@@ -4,7 +4,7 @@ import { MdInbox } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
 import LayerBox from "components/layers/LayerBox";
-import { Actions } from "store/layerReducer";
+import { LayerActions } from "store/layerReducer";
 import Layer from "modules/layers/Layer";
 import ImageLayer from "modules/layers/ImageLayer";
 import { RootState } from "store";
@@ -34,7 +34,7 @@ const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
 
   const handleVerticalMove = (id: number, type: string) => {
     dispatch({
-      type: Actions.SET_ZINDEX,
+      type: LayerActions.SET_ZINDEX,
       id: id,
       _type: type,
     });
@@ -43,12 +43,12 @@ const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
   const handleRemoveLayer = (id: number) => {
     console.log(`${id} layer removed!`);
     dispatch({
-      type: Actions.REMOVE_LAYER,
+      type: LayerActions.REMOVE_LAYER,
       id: id,
     });
     if (selectedId == id) {
       dispatch({
-        type: Actions.SET_SELECTED,
+        type: LayerActions.SET_SELECTED,
       });
     }
   };

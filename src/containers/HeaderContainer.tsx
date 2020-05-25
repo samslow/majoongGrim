@@ -3,14 +3,14 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
 import HeaderButtons from "components/header/HeaderButtons";
-import { Actions } from "store/headerReducer";
+import { HeaderActions } from "store/headerReducer";
 import Theme from "modules/theme";
 
 const HeaderContainer = () => {
   const dispatch = useDispatch();
   const handleShapeButton = (name: string) => {
     dispatch({
-      type: Actions.CHANGE_SHAPE,
+      type: HeaderActions.CHANGE_SHAPE,
       nowShape: name,
     });
   };

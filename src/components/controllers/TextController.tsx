@@ -7,7 +7,7 @@ import InputContent from "components/controllers/InputContent";
 import { RootState } from "store";
 import TextLayer from "modules/layers/TextLayer";
 import AdjustContent from "components/controllers/AdjustContent";
-import { Actions } from "store/layerReducer";
+import { LayerActions } from "store/layerReducer";
 import Theme from "modules/theme";
 
 const TextController = () => {
@@ -20,7 +20,7 @@ const TextController = () => {
 
   const handleSize = (size: number) => {
     dispatch({
-      type: Actions.ADJUST_FONTSIZE,
+      type: LayerActions.ADJUST_FONTSIZE,
       id: selectedId,
       fontSize: size,
     });
@@ -28,7 +28,7 @@ const TextController = () => {
 
   const handleContent = (content: string) => {
     dispatch({
-      type: Actions.ADJUST_FONTCONTENT,
+      type: LayerActions.ADJUST_FONTCONTENT,
       id: selectedId,
       content: content,
     });
@@ -36,7 +36,7 @@ const TextController = () => {
 
   const handleFontFamily = (fontFamily: string) => {
     dispatch({
-      type: Actions.ADJUST_FONTFAMILY,
+      type: LayerActions.ADJUST_FONTFAMILY,
       id: selectedId,
       fontFamily: fontFamily,
     });

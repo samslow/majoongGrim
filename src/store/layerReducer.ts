@@ -7,7 +7,7 @@ type reduxState = {
   selectedId: number | null;
 };
 
-export enum Actions {
+export enum LayerActions {
   CHANGE_LAYER_LOCATION = "CHANGE_LAYER_LOCATION",
   SET_ZINDEX = "SET_ZINDEX",
   REMOVE_LAYER = "REMOVE_LAYER",
@@ -30,7 +30,7 @@ export const initialState: reduxState = {
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case Actions.CHANGE_LAYER_LOCATION: {
+    case LayerActions.CHANGE_LAYER_LOCATION: {
       console.log(action.id, action.x, action.y);
       const layerIndex = state.layers
         .map((layer) => layer.id)
@@ -44,7 +44,7 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case Actions.SET_ZINDEX: {
+    case LayerActions.SET_ZINDEX: {
       const target = state.layers.filter((layer) => layer.id === action.id)[0];
       const upLayer = state.layers.filter(
         (layer) => layer.zIndex === state.layers[target.id].zIndex + 1,
@@ -68,7 +68,7 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case Actions.REMOVE_LAYER: {
+    case LayerActions.REMOVE_LAYER: {
       const removeIndex = state.layers
         .map((layer) => {
           return layer.id;
@@ -80,16 +80,16 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case Actions.ADD_LAYER: {
+    case LayerActions.ADD_LAYER: {
       return {
         ...state,
         layers: [...state.layers, action.layer],
         selectedId: action.layer.id,
       };
     }
-    case Actions.SET_SELECTED: {
+    case LayerActions.SET_SELECTED: {
       let id;
-      if (action.id == Actions.DESELECT) {
+      if (action.id == LayerActions.DESELECT) {
         // 레이어 지정 취소 커맨드(-1)의 경우
         id = null;
       } else if (action.id != null) {
@@ -107,7 +107,7 @@ export default (state = initialState, action: any) => {
         selectedId: id,
       };
     }
-    case Actions.ADJUST_FONTTYPE: {
+    case LayerActions.ADJUST_FONTTYPE: {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
@@ -127,7 +127,7 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case Actions.ADJUST_FONTSIZE: {
+    case LayerActions.ADJUST_FONTSIZE: {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
@@ -142,7 +142,7 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case Actions.ADJUST_FONTCONTENT: {
+    case LayerActions.ADJUST_FONTCONTENT: {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
@@ -156,7 +156,7 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case Actions.ADJUST_FONTFAMILY: {
+    case LayerActions.ADJUST_FONTFAMILY: {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
@@ -167,7 +167,7 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case Actions.ADJUST_ANGLE: {
+    case LayerActions.ADJUST_ANGLE: {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
@@ -179,7 +179,7 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case Actions.ADJUST_SIZE: {
+    case LayerActions.ADJUST_SIZE: {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);

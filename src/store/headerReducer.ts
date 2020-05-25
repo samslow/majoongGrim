@@ -2,7 +2,7 @@ type reduxState = {
   nowShape: string;
 };
 
-export enum Actions {
+export enum HeaderActions {
   CHANGE_SHAPE = "CHANGE_SHAPE",
 }
 
@@ -12,7 +12,7 @@ export const initialState: reduxState = {
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case Actions.CHANGE_SHAPE: {
+    case HeaderActions.CHANGE_SHAPE: {
       return {
         ...state,
         nowShape: action.nowShape,

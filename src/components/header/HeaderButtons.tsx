@@ -62,7 +62,6 @@ const HeaderButtons: React.FC<ComponentProps> = ({
       ctx.translate(layerCenterX, layerCenterY);
       ctx.rotate((target.angleDegree * Math.PI) / 180);
       ctx.translate(-layerCenterX, -layerCenterY);
-      target.setType(ctx, ARTBOARD_X, ARTBOARD_Y);
       target.draw(ctx, ARTBOARD_X, ARTBOARD_Y);
       ctx.translate(layerCenterX, layerCenterY);
       ctx.rotate(-(target.angleDegree * Math.PI) / 180);

@@ -32,15 +32,6 @@ export default class TextLayer extends Layer {
 
   // 캔버스에 레이어를 그리는 메소드
   draw(ctx: CanvasRenderingContext2D, ARTBOARD_X: number, ARTBOARD_Y: number) {
-    ctx.fillText(this.content, this.x - ARTBOARD_X, this.y - ARTBOARD_Y);
-  }
-
-  // 레이어 타입에 따른 설정 메소드
-  setType(
-    ctx: CanvasRenderingContext2D,
-    ARTBOARD_X: number,
-    ARTBOARD_Y: number,
-  ) {
     ctx.fillStyle = "black";
     ctx.textBaseline = "top";
     ctx.font = `${this.fontType.isBold ? "bold" : ""} ${
@@ -53,5 +44,6 @@ export default class TextLayer extends Layer {
         getTextLayerWidth(this.id),
         1,
       );
+    ctx.fillText(this.content, this.x - ARTBOARD_X, this.y - ARTBOARD_Y);
   }
 }

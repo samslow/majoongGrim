@@ -22,9 +22,7 @@ const ContentsGroupContainer = styled.section`
 `;
 
 const ContentsRow = styled.div`
-  display: flex;
-  height: 100px;
-  justify-content: space-around;
+  height: 150px;
   align-items: center;
 `;
 

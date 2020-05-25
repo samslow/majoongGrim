@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import styled from "styled-components";
 import { MdMessage } from "react-icons/md";
 import { BsFillImageFill } from "react-icons/bs";
@@ -11,9 +11,10 @@ import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPo
 import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
 import { RootState } from "store";
-import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
-import { SET_SELECTED, ADD_LAYER } from "store/layerReducer";
+import { ToolboxActions } from "store/toolboxReducer";
+import { LayerActions } from "store/layerReducer";
 import Layer from "modules/layers/Layer";
+import Theme from "modules/theme";
 
 export enum ToolboxType {
   IMAGE = "이미지 삽입",
@@ -30,7 +31,7 @@ const Toolbox = () => {
   );
   const handleTool = (name: string, e: any = null) => {
     dispatch({
-      type: CHANGE_SELECTED_TOOL,
+      type: ToolboxActions.CHANGE_SELECTED_TOOL,
       name: name,
     });
     if (name == ToolboxType.TEXT) {
@@ -63,11 +64,8 @@ const Toolbox = () => {
           img,
         );
         dispatch({
-          type: ADD_LAYER,
+          type: LayerActions.ADD_LAYER,
           layer: imgLayer,
-        });
-        dispatch({
-          type: SET_SELECTED,
         });
       };
     };
@@ -77,7 +75,9 @@ const Toolbox = () => {
   };
 
   const handleText = () => {
-    const [width, height] = [200, 30];
+    const INITIAL_FONT_SIZE = 12;
+    const OFFSET = 10;
+    const [width, height] = [INITIAL_FONT_SIZE * OFFSET, INITIAL_FONT_SIZE];
     const [x, y] = getArtboardCenterPosition(width, height);
 
     const newTextLayer = new TextLayer(
@@ -88,18 +88,17 @@ const Toolbox = () => {
       height,
       0,
       layers.length + 10,
+      "나눔바른고딕",
       { isBold: false, isItalic: false, isUnderline: false },
       12,
       "#000",
-      "Lorem Ipsum",
+      "텍스트를 입력하세요",
     );
-    console.log("newTextLayer", newTextLayer);
+
     dispatch({
-      type: ADD_LAYER,
+      type: LayerActions.ADD_LAYER,
       layer: newTextLayer,
-    });
-    dispatch({
-      type: SET_SELECTED,
+      id: newTextLayer.id,
     });
   };
 
@@ -108,12 +107,12 @@ const Toolbox = () => {
       <ContentRow>
         <ImageContentBox
           name={ToolboxType.IMAGE}
-          icon={<BsFillImageFill size="60%" color={"#888"} />}
+          icon={<BsFillImageFill size="60%" color={Theme.icon} />}
           onClickTool={handleTool}
         />
         <ToolboxContentBox
           name={ToolboxType.TEXT}
-          icon={<MdMessage size="60%" color={"#888"} />}
+          icon={<MdMessage size="60%" color={Theme.icon} />}
           onClickTool={handleTool}
         />
         <ToolboxContentBox />
@@ -125,8 +124,9 @@ const Toolbox = () => {
 const Container = styled.aside`
   display: flex;
   flex-direction: column;
-  background: #eee;
+  background: ${Theme.dark};
   z-index: 1000;
+  border-bottom: 1px solid ${Theme.border};
 `;
 
 const ContentRow = styled.div`

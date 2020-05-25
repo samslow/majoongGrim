@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Theme from "modules/theme";
 
 interface ButtonContentProps {
   icon: JSX.Element;
@@ -15,30 +16,22 @@ const ButtonContent: React.FC<ButtonContentProps> = ({
   return (
     <Button onClick={() => onClick(label)}>
       <IconContainer>{icon}</IconContainer>
-      <Label>{label}</Label>
     </Button>
   );
 };
 
 const Button = styled.button`
-  flex: 1;
-  margin: 0 0.5em;
-  width: 1em;
-  height: 6em;
-  padding: 5px;
-  background-color: transparent;
   outline: none;
-  display: inline-block;
-  align-items: center;
+  margin: 0 0.5em 0 0;
+  width: 30px;
+  height: 30px;
+  padding: 1px;
+  background-color: ${Theme.dark};
+  border: 2px solid ${Theme.border};
 `;
 
 const IconContainer = styled.div`
-  width: 100%;
-  height: 70%;
-`;
-
-const Label = styled.label`
-  align-self: center;
+  margin: auto;
 `;
 
 export default ButtonContent;

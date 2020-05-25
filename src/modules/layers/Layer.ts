@@ -25,11 +25,15 @@ export default class Layer {
     this.zIndex = zIndex;
   }
 
-  move() {
-    // 기능 구현
+  move(x: number, y: number) {
+    this.x = x;
+    this.y = y;
   }
 
-  rotate() {
-    // 기능 구현
+  rotate(angleDegree: number) {
+    this.angleDegree = angleDegree;
   }
+
+  // 캔버스에 레이어를 그리는 메소드
+  draw(ctx: CanvasRenderingContext2D, ARTBOARD_X: number, ARTBOARD_Y: number) {}
 }

@@ -7,6 +7,7 @@ import ImageController from "components/controllers/ImageController";
 import DefaultController from "components/controllers/DefaultController";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
+import Theme from "modules/theme";
 
 interface SwitchProps {
   type: string;
@@ -49,7 +50,7 @@ const ControllerContainer = () => {
 };
 
 const Container = styled.div`
-  background: #666;
+  background: ${Theme.dark};
   flex: 1;
   display: flex;
   padding: 1em;

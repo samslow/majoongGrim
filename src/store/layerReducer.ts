@@ -7,16 +7,21 @@ type reduxState = {
   selectedId: number | null;
 };
 
-export const CHANGE_LAYER_LOCATION = "CHANGE_LAYER_LOCATION" as const;
-export const SET_ZINDEX = "SET_ZINDEX" as const;
-export const REMOVE_LAYER = "REMOVE_LAYER" as const;
-export const ADD_LAYER = "ADD_LAYER" as const;
-export const GET_SORTED_LAYERS = "GET_SORTED_LAYERS" as const;
-export const SET_SELECTED = "SET_SELECTED" as const;
-export const ADJUST_FONTTYPE = "ADJUST_FONTTYPE" as const;
-export const ADJUST_FONTSIZE = "ADJUST_FONTSIZE" as const;
-export const ADJUST_FONTCONTENT = "ADJUST_FONTCONTENT" as const;
-export const DESELECT = -1 as const;
+export enum LayerActions {
+  CHANGE_LAYER_LOCATION = "CHANGE_LAYER_LOCATION",
+  SET_ZINDEX = "SET_ZINDEX",
+  REMOVE_LAYER = "REMOVE_LAYER",
+  ADD_LAYER = "ADD_LAYER",
+  GET_SORTED_LAYERS = "GET_SORTED_LAYERS",
+  SET_SELECTED = "SET_SELECTED",
+  DESELECT = -1,
+  ADJUST_FONTTYPE = "ADJUST_FONTTYPE",
+  ADJUST_FONTSIZE = "ADJUST_FONTSIZE",
+  ADJUST_FONTCONTENT = "ADJUST_FONTCONTENT",
+  ADJUST_FONTFAMILY = "ADJUST_FONTFAMILY",
+  ADJUST_ANGLE = "ADJUST_ANGLE",
+  ADJUST_SIZE = "ADJUST_SIZE",
+}
 
 export const initialState: reduxState = {
   layers: [],
@@ -25,15 +30,13 @@ export const initialState: reduxState = {
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case "CHANGE_LAYER_LOCATION": {
+    case LayerActions.CHANGE_LAYER_LOCATION: {
       console.log(action.id, action.x, action.y);
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
       const target = state.layers[layerIndex];
-      target.x = action.x;
-      target.y = action.y;
-
+      target.move(action.x, action.y);
       state.layers[layerIndex] = target;
 
       return {
@@ -41,21 +44,19 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case "SET_ZINDEX": {
-      const targetLayer = state.layers.filter(
-        (layer) => layer.id === action.id,
-      )[0];
+    case LayerActions.SET_ZINDEX: {
+      const target = state.layers.filter((layer) => layer.id === action.id)[0];
       const upLayer = state.layers.filter(
-        (layer) => layer.zIndex === state.layers[targetLayer.id].zIndex + 1,
+        (layer) => layer.zIndex === state.layers[target.id].zIndex + 1,
       )[0];
       const downLayer = state.layers.filter(
-        (layer) => layer.zIndex === state.layers[targetLayer.id].zIndex - 1,
+        (layer) => layer.zIndex === state.layers[target.id].zIndex - 1,
       )[0];
 
       if (action._type == "up" && upLayer) {
-        state.layers = swapZindex(state.layers, targetLayer.id, upLayer.id);
+        state.layers = swapZindex(state.layers, target.id, upLayer.id);
       } else if (action._type == "down" && downLayer) {
-        state.layers = swapZindex(state.layers, targetLayer.id, downLayer.id);
+        state.layers = swapZindex(state.layers, target.id, downLayer.id);
       } else {
         console.log(
           `${action.id} layer have reach ${action._type} zIndex limit`,
@@ -67,7 +68,7 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case "REMOVE_LAYER": {
+    case LayerActions.REMOVE_LAYER: {
       const removeIndex = state.layers
         .map((layer) => {
           return layer.id;
@@ -79,15 +80,16 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case "ADD_LAYER": {
+    case LayerActions.ADD_LAYER: {
       return {
         ...state,
         layers: [...state.layers, action.layer],
+        selectedId: action.layer.id,
       };
     }
-    case "SET_SELECTED": {
+    case LayerActions.SET_SELECTED: {
       let id;
-      if (action.id == DESELECT) {
+      if (action.id == LayerActions.DESELECT) {
         // 레이어 지정 취소 커맨드(-1)의 경우
         id = null;
       } else if (action.id != null) {
@@ -105,7 +107,7 @@ export default (state = initialState, action: any) => {
         selectedId: id,
       };
     }
-    case "ADJUST_FONTTYPE": {
+    case LayerActions.ADJUST_FONTTYPE: {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
@@ -125,24 +127,65 @@ export default (state = initialState, action: any) => {
         layers: [...state.layers],
       };
     }
-    case "ADJUST_FONTSIZE": {
+    case LayerActions.ADJUST_FONTSIZE: {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
       const target = state.layers[layerIndex] as TextLayer;
-      target.fontSize = action.fontSize;
+      const FONT_SIZE = action.fontSize;
+      target.fontSize = FONT_SIZE;
+      target.height = action.fontSize;
+      target.width = target.content.length * FONT_SIZE;
 
       return {
         ...state,
         layers: [...state.layers],
       };
     }
-    case "ADJUST_FONTCONTENT": {
+    case LayerActions.ADJUST_FONTCONTENT: {
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
       const target = state.layers[layerIndex] as TextLayer;
+      const FONT_SIZE = target.fontSize;
       target.content = action.content;
+      target.width = action.content.length * FONT_SIZE;
+
+      return {
+        ...state,
+        layers: [...state.layers],
+      };
+    }
+    case LayerActions.ADJUST_FONTFAMILY: {
+      const layerIndex = state.layers
+        .map((layer) => layer.id)
+        .indexOf(action.id);
+      const target = state.layers[layerIndex] as TextLayer;
+      target.fontFamily = action.fontFamily;
+      return {
+        ...state,
+        layers: [...state.layers],
+      };
+    }
+    case LayerActions.ADJUST_ANGLE: {
+      const layerIndex = state.layers
+        .map((layer) => layer.id)
+        .indexOf(action.id);
+      const target = state.layers[layerIndex];
+      target.rotate(action.angle);
+
+      return {
+        ...state,
+        layers: [...state.layers],
+      };
+    }
+    case LayerActions.ADJUST_SIZE: {
+      const layerIndex = state.layers
+        .map((layer) => layer.id)
+        .indexOf(action.id);
+      const target = state.layers[layerIndex];
+      target.height = target.height + action.size - target.width;
+      target.width = action.size;
 
       return {
         ...state,

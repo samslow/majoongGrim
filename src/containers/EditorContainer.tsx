@@ -9,11 +9,12 @@ import DraggableImage from "components/editor/DraggableImage";
 import DraggableText from "components/editor/DraggableText";
 import { RootState } from "store";
 import Layer from "modules/layers/Layer";
-import { SET_SELECTED, DESELECT } from "store/layerReducer";
-import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
+import { LayerActions } from "store/layerReducer";
+import { ToolboxActions } from "store/toolboxReducer";
+import Theme from "modules/theme";
 
 // 레이어와 선택박스 거리
-const DISTANCE_BORDER = 10;
+const DISTANCE_BORDER = 4;
 
 // 선택박스 정보
 interface SelectedBox {
@@ -21,6 +22,7 @@ interface SelectedBox {
   y: number;
   width: number;
   height: number;
+  angleDegree: number;
 }
 
 // 초기 선택박스 정보
@@ -29,6 +31,7 @@ const initialSelectedBox = {
   y: 0,
   width: 0,
   height: 0,
+  angleDegree: 0,
 };
 
 const EditorContainer = () => {
@@ -54,6 +57,7 @@ const EditorContainer = () => {
         y: layerInfo.y,
         width: layerInfo.width,
         height: layerInfo.height,
+        angleDegree: layerInfo.angleDegree,
       };
       setSelected(true);
       setSelectedLayerInfo(newSelectedBox);
@@ -77,6 +81,7 @@ const EditorContainer = () => {
       imgY: number,
       width: number,
       height: number,
+      angleDegree: number,
       isSelected: boolean,
       type?: string,
     ) => {
@@ -86,19 +91,20 @@ const EditorContainer = () => {
         y: imgY,
         width: width,
         height: height,
+        angleDegree: angleDegree,
       };
       setSelectedLayerInfo(newSelectedBox);
 
       if (selectedId != id) {
         dispatch({
-          type: SET_SELECTED,
+          type: LayerActions.SET_SELECTED,
           id: id,
         });
       }
       if (type && controllerType != type) {
         const typeName = type == "text" ? "텍스트 삽입" : "이미지 삽입";
         dispatch({
-          type: CHANGE_SELECTED_TOOL,
+          type: ToolboxActions.CHANGE_SELECTED_TOOL,
           name: typeName,
         });
       }
@@ -109,11 +115,11 @@ const EditorContainer = () => {
   const onClickEditorHandler = useCallback(() => {
     setSelected(false);
     dispatch({
-      type: SET_SELECTED,
-      id: DESELECT,
+      type: LayerActions.SET_SELECTED,
+      id: LayerActions.DESELECT,
     });
     dispatch({
-      type: CHANGE_SELECTED_TOOL,
+      type: ToolboxActions.CHANGE_SELECTED_TOOL,
       name: "",
     });
   }, []);
@@ -146,13 +152,14 @@ const EditorContainer = () => {
         <div
           style={{
             position: "fixed",
-            border: "4px dashed red",
+            border: "2px dashed red",
             boxSizing: "border-box",
             width: selectedLayerInfo.width + DISTANCE_BORDER * 2,
             height: selectedLayerInfo.height + DISTANCE_BORDER * 2,
             left: selectedLayerInfo.x - DISTANCE_BORDER,
             top: selectedLayerInfo.y - DISTANCE_BORDER,
             zIndex: 9,
+            transform: `rotate(${selectedLayerInfo.angleDegree}deg)`,
           }}
         />
       )}
@@ -163,7 +170,7 @@ const EditorContainer = () => {
 
 const Container = styled.div`
   position: relative;
-  background: grey;
+  background: ${Theme.lightDark};
   flex: 3;
 `;
 

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { IoIosDocument } from "react-icons/io";
+import Theme from "modules/theme";
 
 interface ComponentProps {
   name?: string;
@@ -10,16 +11,12 @@ interface ComponentProps {
 
 const ImageContentBox: React.FC<ComponentProps> = ({
   name = "",
-  icon = <IoIosDocument size="60%" color={"#DDD"} />,
+  icon,
   onClickTool,
 }) => {
   return (
-    // <ContentBox onClick={() => name.length && onClickTool && onClickTool(name)}>
     <ContentBox>
-      <FileLabel
-        style={{ width: "100%", height: "100%" }}
-        htmlFor="imageLoader"
-      />
+      <FileLabel htmlFor="imageLoader" />
       <ContentIcon>{icon}</ContentIcon>
       <ContentName>{name}</ContentName>
       <input
@@ -45,13 +42,11 @@ const ContentBox = styled.button`
   justify-content: center;
   align-items: center;
   border: 1px solid;
-  border-color: #8888;
+  border: 0;
+  background-color: transparent;
 
   &:hover {
     background: #bbb;
-  }
-  &:active {
-    background: #666;
   }
   &:focus {
     outline: none;
@@ -60,15 +55,13 @@ const ContentBox = styled.button`
 
 const ContentIcon = styled.div`
   display: flex;
-  flex: 3;
   justify-content: center;
   align-items: center;
 `;
 
 const ContentName = styled.div`
-  display: flex;
-  flex: 1;
-  font-size: 1em;
+  font-size: 12px;
+  color: ${Theme.caption};
 `;
 
 const FileLabel = styled.label`

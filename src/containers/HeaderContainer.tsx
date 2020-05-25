@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import HeaderButtons from "components/header/HeaderButtons";
 import { HeaderActions } from "store/headerReducer";
 import Theme from "modules/theme";
+import { version } from "../../package.json";
 
 const HeaderContainer = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const HeaderContainer = () => {
     <Container>
       <LogoContainer>
         <Logo src={"logo.png"} />
+        <VersionTag>v {version}</VersionTag>
       </LogoContainer>
       <HeaderButtons
         onClickShape={(name: string) => {
@@ -46,6 +48,13 @@ const LogoContainer = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+`;
+
+const VersionTag = styled.p`
+  color: ${Theme.text};
+  margin: 0;
+  margin-left: 1em;
+  font-size: 10px;
 `;
 
 export default HeaderContainer;

@@ -1,6 +1,7 @@
 {
   "name": "majoong-grimor",
-  "version": "0.1.0",
+  "homepage": "https://2020-naver-campus-hackday.github.io/majoongGrimor/",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -29,7 +30,9 @@
     "start": "cross-env NODE_PATH=src/ react-app-rewired start",
     "build": "cross-env NODE_PATH=src/ react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "predeploy": "cross-env NODE_PATH=src/ react-app-rewired build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,6 +51,7 @@
   },
   "devDependencies": {
     "customize-cra": "^0.9.1",
+    "gh-pages": "^2.2.0",
     "react-app-rewired": "^2.1.6"
   }
 }

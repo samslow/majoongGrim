@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { CHANGE_LAYER_LOCATION } from "store/layerReducer";
+import { Actions } from "store/layerReducer";
 import Layer from "modules/layers/Layer";
 
 const useDrag = (layer: Layer, onClick: Function) => {
@@ -65,7 +65,7 @@ const useDrag = (layer: Layer, onClick: Function) => {
   // 드래그 종료 (mobX layers 상태변경)
   const onDragEndImageHandler = useCallback(() => {
     dispatch({
-      type: CHANGE_LAYER_LOCATION,
+      type: Actions.CHANGE_LAYER_LOCATION,
       id: id,
       x: imgX,
       y: imgY,

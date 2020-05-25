@@ -12,7 +12,7 @@ import ImageLayer from "modules/layers/ImageLayer";
 import TextLayer from "modules/layers/TextLayer";
 import { RootState } from "store";
 import { CHANGE_SELECTED_TOOL } from "store/toolboxReducer";
-import { ADD_LAYER } from "store/layerReducer";
+import { Actions } from "store/layerReducer";
 import Layer from "modules/layers/Layer";
 import Theme from "modules/theme";
 
@@ -64,7 +64,7 @@ const Toolbox = () => {
           img,
         );
         dispatch({
-          type: ADD_LAYER,
+          type: Actions.ADD_LAYER,
           layer: imgLayer,
         });
       };
@@ -96,7 +96,7 @@ const Toolbox = () => {
     );
 
     dispatch({
-      type: ADD_LAYER,
+      type: Actions.ADD_LAYER,
       layer: newTextLayer,
       id: newTextLayer.id,
     });

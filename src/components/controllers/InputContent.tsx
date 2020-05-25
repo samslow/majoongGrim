@@ -8,7 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import ButtonContent from "components/controllers/ButtonContent";
-import { ADJUST_FONTTYPE } from "store/layerReducer";
+import { Actions } from "store/layerReducer";
 import { RootState } from "store";
 import Theme from "modules/theme";
 
@@ -74,7 +74,7 @@ const InputContent: React.FC<ComponentProps> = ({
   };
   const handleStyle = (style: string) => {
     dispatch({
-      type: ADJUST_FONTTYPE,
+      type: Actions.ADJUST_FONTTYPE,
       id: selectedId,
       fontType: style,
     });

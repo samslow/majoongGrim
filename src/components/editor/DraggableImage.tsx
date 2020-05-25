@@ -1,9 +1,7 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React from "react";
 import ImageLayer from "modules/layers/ImageLayer";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { CHANGE_LAYER_LOCATION } from "store/layerReducer";
 import useDrag from "hooks/useDrag";
 
 interface ComponentProps {

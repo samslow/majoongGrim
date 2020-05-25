@@ -1,31 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import Title from "components/header/Title";
-import HeaderButtons from "components/header/HeaderButtons";
 import { useDispatch } from "react-redux";
-import { CHANGE_SHAPE } from "store/headerReducer";
 
-const APP_TITLE_TEXT = "마중그림";
-const VERTICAL_TEXT = "세로형";
-const HORIZONTAL_TEXT = "가로형";
-const DOWNLOAD_TEXT = "다운로드";
+import HeaderButtons from "components/header/HeaderButtons";
+import { HeaderActions } from "store/headerReducer";
+import Theme from "modules/theme";
 
 const HeaderContainer = () => {
   const dispatch = useDispatch();
   const handleShapeButton = (name: string) => {
     dispatch({
-      type: CHANGE_SHAPE,
+      type: HeaderActions.CHANGE_SHAPE,
       nowShape: name,
     });
   };
 
   return (
     <Container>
-      <Title appTitleText={APP_TITLE_TEXT} />
+      <LogoContainer>
+        <Logo src={"logo.png"} />
+      </LogoContainer>
       <HeaderButtons
-        verticalText={VERTICAL_TEXT}
-        horizontalText={HORIZONTAL_TEXT}
-        downloadText={DOWNLOAD_TEXT}
         onClickShape={(name: string) => {
           handleShapeButton(name);
         }}
@@ -35,12 +30,22 @@ const HeaderContainer = () => {
 };
 
 const Container = styled.div`
-  position: relative;
-  width: 100vw;
   height: 60px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 1em;
   z-index: 1000;
+  background-color: ${Theme.dark};
+`;
+
+const Logo = styled.img`
+  height: 70%;
+`;
+const LogoContainer = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 export default HeaderContainer;

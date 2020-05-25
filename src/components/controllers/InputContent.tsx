@@ -8,8 +8,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import ButtonContent from "components/controllers/ButtonContent";
-import { ADJUST_FONTTYPE } from "store/layerReducer";
+import { LayerActions } from "store/layerReducer";
 import { RootState } from "store";
+import Theme from "modules/theme";
 
 interface ComponentProps {
   input: string;
@@ -73,7 +74,7 @@ const InputContent: React.FC<ComponentProps> = ({
   };
   const handleStyle = (style: string) => {
     dispatch({
-      type: ADJUST_FONTTYPE,
+      type: LayerActions.ADJUST_FONTTYPE,
       id: selectedId,
       fontType: style,
     });
@@ -99,17 +100,17 @@ const InputContent: React.FC<ComponentProps> = ({
         <Label>Style</Label>
         <ButtonBox>
           <ButtonContent
-            icon={<AiOutlineBold size={"100%"} />}
+            icon={<AiOutlineBold color={"white"} />}
             label={"Bold"}
             onClick={handleStyle}
           />
           <ButtonContent
-            icon={<AiOutlineItalic size={"100%"} />}
+            icon={<AiOutlineItalic color={"white"} />}
             label={"Italic"}
             onClick={handleStyle}
           />
           <ButtonContent
-            icon={<AiOutlineUnderline size={"100%"} />}
+            icon={<AiOutlineUnderline color={"white"} />}
             label={"Underline"}
             onClick={handleStyle}
           />
@@ -128,7 +129,7 @@ const InputBox = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 5px 0;
+  margin: 7px 0;
   height: 20px;
 `;
 
@@ -139,10 +140,16 @@ const ButtonBox = styled.div`
 const InputText = styled.input`
   width: 50%;
   padding: 3px;
+  background-color: ${Theme.dark};
+  color: #fff;
+  border: 1px solid ${Theme.border};
+  font-size: 12px;
 `;
 
 const InputSelect = styled.select`
   width: 52%;
+  background-color: ${Theme.dark};
+  color: #fff;
 `;
 
 const Option = styled.option``;

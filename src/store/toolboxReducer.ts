@@ -2,7 +2,9 @@ type reduxState = {
   selectedTool: string;
 };
 
-export const CHANGE_SELECTED_TOOL = "CHANGE_SELECTED_TOOL" as const;
+export enum ToolboxActions {
+  CHANGE_SELECTED_TOOL = "CHANGE_SELECTED_TOOL",
+}
 
 export const initialState: reduxState = {
   selectedTool: "", // "이미지 삽입" or "텍스트 삽입"
@@ -10,7 +12,7 @@ export const initialState: reduxState = {
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case "CHANGE_SELECTED_TOOL": {
+    case ToolboxActions.CHANGE_SELECTED_TOOL: {
       return { selectedTool: action.name };
     }
     default: {

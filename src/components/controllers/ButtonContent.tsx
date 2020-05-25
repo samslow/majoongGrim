@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Theme from "modules/theme";
 
 interface ButtonContentProps {
   icon: JSX.Element;
@@ -25,12 +26,11 @@ const Button = styled.button`
   width: 30px;
   height: 30px;
   padding: 1px;
-  background-color: transparent;
+  background-color: ${Theme.dark};
+  border: 2px solid ${Theme.border};
 `;
 
 const IconContainer = styled.div`
-  width: 20px;
-  height: 20px;
   margin: auto;
 `;
 

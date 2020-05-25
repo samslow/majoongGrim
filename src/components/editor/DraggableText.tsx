@@ -1,8 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import TextLayer from "modules/layers/TextLayer";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { CHANGE_LAYER_LOCATION } from "store/layerReducer";
 import useDrag from "hooks/useDrag";
 
 interface ComponentProps {

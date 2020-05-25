@@ -5,6 +5,7 @@ import EditorContainer from "containers/EditorContainer";
 import ControllerContainer from "containers/ControllerContainer";
 import ToolboxContainer from "containers/ToolboxContainer";
 import LayerContainer from "containers/LayerContainer";
+import Theme from "modules/theme";
 
 const Home = () => {
   return (
@@ -27,6 +28,7 @@ const Home = () => {
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
+  background-color: ${Theme.dark};
 `;
 
 const Content = styled.div`
@@ -45,6 +47,8 @@ const RightContent = styled.div`
   display: flex;
   flex-direction: column;
   width: 300px; /* 툴박스는 고정 크기 */
+  border-left: 1px solid ${Theme.border};
+  border-top: 1px solid ${Theme.border};
 `;
 
 export default Home;

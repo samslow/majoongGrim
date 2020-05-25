@@ -4,10 +4,11 @@ import { MdInbox } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
 import LayerBox from "components/layers/LayerBox";
-import { SET_ZINDEX, REMOVE_LAYER, SET_SELECTED } from "store/layerReducer";
+import { LayerActions } from "store/layerReducer";
 import Layer from "modules/layers/Layer";
 import ImageLayer from "modules/layers/ImageLayer";
 import { RootState } from "store";
+import Theme from "modules/theme";
 
 interface LayerBoxesProps {
   layers: Layer[];
@@ -33,7 +34,7 @@ const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
 
   const handleVerticalMove = (id: number, type: string) => {
     dispatch({
-      type: SET_ZINDEX,
+      type: LayerActions.SET_ZINDEX,
       id: id,
       _type: type,
     });
@@ -42,39 +43,45 @@ const LayerBoxes: React.FC<LayerBoxesProps> = ({ layers }) => {
   const handleRemoveLayer = (id: number) => {
     console.log(`${id} layer removed!`);
     dispatch({
-      type: REMOVE_LAYER,
+      type: LayerActions.REMOVE_LAYER,
       id: id,
     });
     if (selectedId == id) {
       dispatch({
-        type: SET_SELECTED,
+        type: LayerActions.SET_SELECTED,
       });
     }
   };
 
   const layerList =
-    ordered.length > 0 ? (
-      ordered.map((layer: Layer) => {
-        const layerType =
-          layer instanceof ImageLayer === true ? "Image " : "Text ";
+    ordered.length > 0
+      ? ordered.map((layer: Layer) => {
+          const layerType =
+            layer instanceof ImageLayer === true ? "Image " : "Text ";
 
-        return (
-          <LayerBox
-            key={layer.id}
-            name={layerType + layer.id}
-            onMove={(type) => handleVerticalMove(layer.id, type)}
-            onRemove={() => handleRemoveLayer(layer.id)}
-          />
-        );
-      })
-    ) : (
-      <DefaultLayers>
-        <MdInbox size={"50%"} color={"#ccc"} />
-        Try adding layers from above
-      </DefaultLayers>
-    );
+          return (
+            <LayerBox
+              key={layer.id}
+              name={layerType + layer.id}
+              onMove={(type) => handleVerticalMove(layer.id, type)}
+              onRemove={() => handleRemoveLayer(layer.id)}
+            />
+          );
+        })
+      : null;
 
-  return <>{layerList}</>;
+  return (
+    <>
+      {layerList ? (
+        <>{layerList}</>
+      ) : (
+        <DefaultLayers>
+          <MdInbox size={"50%"} color={Theme.icon} />
+          Try adding layers from above
+        </DefaultLayers>
+      )}
+    </>
+  );
 };
 
 const DefaultLayers = styled.div`
@@ -83,7 +90,7 @@ const DefaultLayers = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: #999;
+  color: ${Theme.caption};
   height: 100%;
 `;
 

@@ -6,9 +6,9 @@ name: MJ_CI/DE
 # events but only for the master branch
 on:
   push:
-    branches: []
+    branches: [ master ]
   pull_request:
-    branches: []
+    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -33,6 +33,5 @@ jobs:
     - name: Install dependencies
       run: yarn install --pure-lockfile
 
-      # Runs a set of commands using the runners shell
-      - name: CI
-        run: yarn run deploy
+    - name: Copy build to docs
+      run: yarn run deploy

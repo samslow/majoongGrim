@@ -31,7 +31,7 @@ jobs:
           ${{ runner.OS }}-build-${{ runner.OS }}-
           
     - name: Install dependencies
-      run: yarn install --prod --pure-lockfile
+      run: yarn install --pure-lockfile
 
     # Runs a set of commands using the runners shell
     - name: CI

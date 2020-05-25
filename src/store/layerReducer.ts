@@ -34,9 +34,7 @@ export default (state = initialState, action: any) => {
         .map((layer) => layer.id)
         .indexOf(action.id);
       const target = state.layers[layerIndex];
-      target.x = action.x;
-      target.y = action.y;
-
+      target.move(action.x, action.y);
       state.layers[layerIndex] = target;
 
       return {
@@ -45,20 +43,18 @@ export default (state = initialState, action: any) => {
       };
     }
     case SET_ZINDEX: {
-      const targetLayer = state.layers.filter(
-        (layer) => layer.id === action.id,
-      )[0];
+      const target = state.layers.filter((layer) => layer.id === action.id)[0];
       const upLayer = state.layers.filter(
-        (layer) => layer.zIndex === state.layers[targetLayer.id].zIndex + 1,
+        (layer) => layer.zIndex === state.layers[target.id].zIndex + 1,
       )[0];
       const downLayer = state.layers.filter(
-        (layer) => layer.zIndex === state.layers[targetLayer.id].zIndex - 1,
+        (layer) => layer.zIndex === state.layers[target.id].zIndex - 1,
       )[0];
 
       if (action._type == "up" && upLayer) {
-        state.layers = swapZindex(state.layers, targetLayer.id, upLayer.id);
+        state.layers = swapZindex(state.layers, target.id, upLayer.id);
       } else if (action._type == "down" && downLayer) {
-        state.layers = swapZindex(state.layers, targetLayer.id, downLayer.id);
+        state.layers = swapZindex(state.layers, target.id, downLayer.id);
       } else {
         console.log(
           `${action.id} layer have reach ${action._type} zIndex limit`,
@@ -130,7 +126,6 @@ export default (state = initialState, action: any) => {
       };
     }
     case ADJUST_FONTSIZE: {
-      const OFFSET = 10;
       const layerIndex = state.layers
         .map((layer) => layer.id)
         .indexOf(action.id);
@@ -175,7 +170,7 @@ export default (state = initialState, action: any) => {
         .map((layer) => layer.id)
         .indexOf(action.id);
       const target = state.layers[layerIndex];
-      target.angleDegree = action.angle;
+      target.rotate(action.angle);
 
       return {
         ...state,

@@ -184,8 +184,10 @@ export default (state = initialState, action: any) => {
         .map((layer) => layer.id)
         .indexOf(action.id);
       const target = state.layers[layerIndex];
-      target.height = target.height + action.size - target.width;
-      target.width = action.size;
+      if (action.size > 0) {
+        target.height *= action.size / target.width;
+        target.width = action.size;
+      }
 
       return {
         ...state,

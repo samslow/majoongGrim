@@ -23,6 +23,7 @@ const LayerContainer = () => {
 
 const Container = styled.div`
   flex: 2;
+  height: 80%;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -44,6 +45,7 @@ const LayerGroup = styled.div`
   border: 1px solid #999;
   width: 100%;
   height: 100%;
+  overflow: scroll;
 `;
 
 export default LayerContainer;

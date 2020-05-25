@@ -6,7 +6,6 @@ import Button from "react-bootstrap/Button";
 
 import { RootState } from "store";
 import ImageLayer from "modules/layers/ImageLayer";
-import TextLayer from "modules/layers/TextLayer";
 import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
 import Layer from "modules/layers/Layer";
 import { AiOutlineDownload } from "react-icons/ai";
@@ -53,48 +52,16 @@ const HeaderButtons: React.FC<ComponentProps> = ({ onClickShape }) => {
       return a.zIndex - b.zIndex;
     });
     for (let i = 0; i < sortedLayers.length; i++) {
-      if (sortedLayers[i] instanceof ImageLayer) {
-        const target = sortedLayers[i] as ImageLayer;
-        const layerCenterX = target.x - ARTBOARD_X + target.width / 2;
-        const layerCenterY = target.y - ARTBOARD_Y + target.height / 2;
-        ctx.translate(layerCenterX, layerCenterY);
-        ctx.rotate((target.angleDegree * Math.PI) / 180);
-        ctx.translate(-layerCenterX, -layerCenterY);
-        // 2. 이미지 그리기
-        ctx.drawImage(
-          target.image,
-          0,
-          0,
-          target.image.width,
-          target.image.height,
-          target.x - ARTBOARD_X,
-          target.y - ARTBOARD_Y,
-          target.width,
-          target.height,
-        );
-        ctx.translate(layerCenterX, layerCenterY);
-        ctx.rotate(-(target.angleDegree * Math.PI) / 180);
-        ctx.translate(-layerCenterX, -layerCenterY);
-      } else if (sortedLayers[i] instanceof TextLayer) {
-        const target = sortedLayers[i] as TextLayer;
-        const layerCenterX = target.x - ARTBOARD_X + target.width / 2;
-        const layerCenterY = target.y - ARTBOARD_Y + target.height / 2;
-        ctx.translate(layerCenterX, layerCenterY);
-        ctx.rotate((target.angleDegree * Math.PI) / 180);
-        ctx.translate(-layerCenterX, -layerCenterY);
-        ctx.font = `${target.fontSize}px ${target.fontFamily}`;
-        ctx.fillStyle = "black";
-        ctx.textBaseline = "top";
-        // 2. 텍스트 그리기
-        ctx.fillText(
-          target.content,
-          target.x - ARTBOARD_X,
-          target.y - ARTBOARD_Y,
-        );
-        ctx.translate(layerCenterX, layerCenterY);
-        ctx.rotate(-(target.angleDegree * Math.PI) / 180);
-        ctx.translate(-layerCenterX, -layerCenterY);
-      }
+      const target = sortedLayers[i] as ImageLayer;
+      const layerCenterX = target.x - ARTBOARD_X + target.width / 2;
+      const layerCenterY = target.y - ARTBOARD_Y + target.height / 2;
+      ctx.translate(layerCenterX, layerCenterY);
+      ctx.rotate((target.angleDegree * Math.PI) / 180);
+      ctx.translate(-layerCenterX, -layerCenterY);
+      target.draw(ctx, ARTBOARD_X, ARTBOARD_Y);
+      ctx.translate(layerCenterX, layerCenterY);
+      ctx.rotate(-(target.angleDegree * Math.PI) / 180);
+      ctx.translate(-layerCenterX, -layerCenterY);
     }
     // 3. 그린 canvas정보를 URL 형태로 href 속성으로 전달
     // click event handler -> href 순서로 진행됨.

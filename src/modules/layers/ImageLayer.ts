@@ -17,14 +17,6 @@ export default class ImageLayer extends Layer {
     this.image = image;
   }
 
-  move(x: number, y: number) {
-    super.move(x, y);
-  }
-
-  rotate(angleDegree: number) {
-    super.rotate(angleDegree);
-  }
-
   // 캔버스에 레이어를 그리는 메소드
   draw(ctx: CanvasRenderingContext2D, ARTBOARD_X: number, ARTBOARD_Y: number) {
     ctx.drawImage(

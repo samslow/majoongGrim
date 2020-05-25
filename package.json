@@ -31,7 +31,7 @@
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "predeploy": "cross-env NODE_PATH=src/ react-app-rewired build",
-    "deploy": "cp -r build/ docs/"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "customize-cra": "^0.9.1",
+    "gh-pages": "^2.2.0",
     "react-app-rewired": "^2.1.6"
   }
 }

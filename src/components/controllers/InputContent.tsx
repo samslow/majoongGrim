@@ -48,7 +48,7 @@ const InputContent: React.FC<ComponentProps> = ({
   const Options = () => {
     const fontList = fonts.map((item, index) => {
       return (
-        <Option key={index} value={item} selected={fontFamily === item}>
+        <Option key={index} value={item}>
           {item}
         </Option>
       );
@@ -92,7 +92,7 @@ const InputContent: React.FC<ComponentProps> = ({
       </InputBox>
       <InputBox>
         <Label>Font</Label>
-        <InputSelect onChange={handleFontFamily}>
+        <InputSelect onChange={handleFontFamily} defaultValue={fontFamily[0]}>
           <Options />
         </InputSelect>
       </InputBox>

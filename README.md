@@ -3,9 +3,13 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 [![Typed with TypeScript](https://badgen.net/badge/icon/Typed?icon=typescript&label&labelColor=555555&color=blue)](https://github.com/microsoft/TypeScript)
 
-![](./images/readmeLogo.png)
+<div align="center">
+  <img src="./images/readmeLogo.png" alt="majoong-logo" width="50%" />
+</div>
 
-영상 플랫폼이나 웹툰 플랫폼 등에서 특정 작품을 볼지 말지 결정하는것은 썸네일이 모든것을 결정한다고 해도 과언이 아닙니다. 이런 썸네일을 보다 빠르고 획일화하여 만들 수 있다면 어떨까요?
+영상 플랫폼이나 웹툰 플랫폼 등에서 특정 작품을 볼지 말지 결정하는것은 썸네일이 모든것을 결정한다고 해도 과언이 아닙니다.
+
+이런 썸네일을 보다 빠르고 획일화하여 만들 수 있다면 어떨까요?
 
 마중그림은 웹 에디터로 누구나 사용 할 수 있는 썸네일 제작 툴을 만듭니다.
 
@@ -13,7 +17,7 @@
 
 - 개발기간 : 2020/5/7 ~ 2020/5/26
 
-- [Demo Page](<[https://2020-naver-campus-hackday.github.io/majoongGrimor/](https://2020-naver-campus-hackday.github.io/majoongGrimor/)>)
+- [Demo Page](https://2020-naver-campus-hackday.github.io/majoongGrimor/](https://2020-naver-campus-hackday.github.io/majoongGrimor/)
 
 ## 👀 Preview
 
@@ -81,18 +85,18 @@ store/
 1.  Github Project를 사용해 매주 스크럼을 통해 금주 작업량을 정의하고 목표 설정 및 개발진행상황을 공유
     **총 2번의 스크럼**
 
-        ![](./images/workprocess1.png)
+![](./images/workprocess1.png)
 
 2.  추가해야할 기능이나 버그 등은 Github Issue에 기록
     **총 43개의 issues**
 
-        ![](./images/workprocess2.png)
+![](./images/workprocess2.png)
 
 3.  Issue를 assign 하여 가져간 후 작업을 마치고 PR(pull requests)
     **총 29개의 PR** - PR Code Review가 끝나면 develop 브랜치에 merge
     **총 260개의 commit**
 
-        ![](./images/workprocess3.png)
+![](./images/workprocess3.png)
 
 - 프로젝트 진행 중, 필요에 따라 오프라인 회의(강남 Toz), 화상 회의(Google Meet)도 진행
 

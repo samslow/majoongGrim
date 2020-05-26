@@ -13,10 +13,6 @@
 
 - [Demo Page](https://2020-naver-campus-hackday.github.io/majoongGrimor/)
 
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/26738367/82937739-a003c300-9fcb-11ea-89ff-62aa94472a58.png" />
-</div>
-
 ## 👀 Preview
 
 ![](./images/readmeTitle.png)

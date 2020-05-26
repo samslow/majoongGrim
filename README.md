@@ -89,7 +89,8 @@ store/
   <img src="./images/workprocess2.png" alt="majoong-logo" width="480px" />
 
 3.  Issue를 assign 하여 가져간 후 작업을 마치고 PR(pull requests)
-    **총 29개의 PR** - PR Code Review가 끝나면 develop 브랜치에 merge
+    **총 29개의 PR**
+    PR Code Review가 끝나면 develop 브랜치에 merge
     **총 260개의 commit**
 
   <img src="./images/workprocess3.png" alt="majoong-logo" width="480px" />

@@ -1,17 +1,15 @@
-# 🎨 마중그림 | Majoong Grimor
-
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
-[![Typed with TypeScript](https://badgen.net/badge/icon/Typed?icon=typescript&label&labelColor=555555&color=blue)](https://github.com/microsoft/TypeScript)
-
 <div align="center">
   <img src="./images/readmeLogo.png" alt="majoong-logo" width="50%" />
+  <h1>🎨 마중그림 | Majoong Grimor</h1>
+  <img src="https://img.shields.io/badge/PRs-welcome-green" />
+  <img src="https://badgen.net/badge/icon/Typed?icon=typescript&label&labelColor=555555&color=blue" />
 </div>
 
 영상 플랫폼이나 웹툰 플랫폼 등에서 특정 작품을 볼지 말지 결정하는것은 썸네일이 모든것을 결정한다고 해도 과언이 아닙니다. 이런 썸네일을 보다 빠르고 획일화하여 만들 수 있다면 어떨까요? 마중그림은 웹 에디터로 누구나 사용 할 수 있는 썸네일 제작 툴을 만듭니다.
 
-- [2020 NAVER HACKDAY 네이버 웹툰 썸네일 저작도구](https://github.com/2020-NAVER-CAMPUS-HACKDAY/common/issues/13)
-
 - 개발기간 : 2020/5/7 ~ 2020/5/26
+
+- [2020 NAVER HACKDAY 네이버 웹툰 썸네일 저작도구](https://github.com/2020-NAVER-CAMPUS-HACKDAY/common/issues/13)
 
 - [Demo Page](https://2020-naver-campus-hackday.github.io/majoongGrimor/)
 
@@ -81,12 +79,12 @@ store/
 1.  Github Project를 사용해 매주 스크럼을 통해 금주 작업량을 정의하고 목표 설정 및 개발진행상황을 공유
     **총 2번의 스크럼**
 
-  <img src="./images/workprocess1.png" alt="majoong-logo" width="480px" />
+  <img src="./images/workprocess1.png" width="100%" />
 
 2.  추가해야할 기능이나 버그 등은 Github Issue에 기록
     **총 43개의 issues**
 
-  <img src="./images/workprocess2.png" alt="majoong-logo" width="480px" />
+  <img src="./images/workprocess2.png" width="100%" />
 
 3.  Issue를 assign 하여 가져간 후 작업을 마치고 PR(pull requests)
     **총 29개의 PR**
@@ -94,7 +92,7 @@ store/
     PR Code Review가 끝나면 develop 브랜치에 merge
     **총 260개의 commit**
 
-  <img src="./images/workprocess3.png" alt="majoong-logo" width="480px" />
+  <img src="./images/workprocess3.png" width="100%" />
 
 - 프로젝트 진행 중, 필요에 따라 오프라인 회의(강남 Toz), 화상 회의(Google Meet)도 진행
 

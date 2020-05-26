@@ -81,18 +81,18 @@ store/
 1.  Github Project를 사용해 매주 스크럼을 통해 금주 작업량을 정의하고 목표 설정 및 개발진행상황을 공유
     **총 2번의 스크럼**
 
-  <img src="./images/workprocess1.png" alt="majoong-logo" width="400px" />
+  <img src="./images/workprocess1.png" alt="majoong-logo" width="480px" />
 
 2.  추가해야할 기능이나 버그 등은 Github Issue에 기록
     **총 43개의 issues**
 
-  <img src="./images/workprocess2.png" alt="majoong-logo" width="400px" />
+  <img src="./images/workprocess2.png" alt="majoong-logo" width="480px" />
 
 3.  Issue를 assign 하여 가져간 후 작업을 마치고 PR(pull requests)
     **총 29개의 PR** - PR Code Review가 끝나면 develop 브랜치에 merge
     **총 260개의 commit**
 
-  <img src="./images/workprocess3.png" alt="majoong-logo" width="400px" />
+  <img src="./images/workprocess3.png" alt="majoong-logo" width="480px" />
 
 - 프로젝트 진행 중, 필요에 따라 오프라인 회의(강남 Toz), 화상 회의(Google Meet)도 진행
 

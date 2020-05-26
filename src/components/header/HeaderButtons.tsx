@@ -3,9 +3,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
-
 import { RootState } from "store";
-import ImageLayer from "modules/layers/ImageLayer";
 import { getArtboardCenterPosition } from "modules/functions/getArtboardCenterPosition";
 import Layer from "modules/layers/Layer";
 import { AiOutlineDownload } from "react-icons/ai";
@@ -44,7 +42,7 @@ const HeaderButtons: React.FC<ComponentProps> = ({ onClickShape }) => {
       CANVAS_WIDTH,
       CANVAS_HEIGHT,
     );
-    // 1. canvas를 흰바탕으로 칠해줌
+    // canvas를 흰바탕으로 칠해줌
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     // canvas를 그릴때, layers를 모두 불러와 z-index를 오름차순으로 정렬 (가장 밑부분 레이어부터 그리기!)
@@ -52,7 +50,7 @@ const HeaderButtons: React.FC<ComponentProps> = ({ onClickShape }) => {
       return a.zIndex - b.zIndex;
     });
     for (let i = 0; i < sortedLayers.length; i++) {
-      const target = sortedLayers[i] as ImageLayer;
+      const target = sortedLayers[i];
       const layerCenterX = target.x - ARTBOARD_X + target.width / 2;
       const layerCenterY = target.y - ARTBOARD_Y + target.height / 2;
       ctx.translate(layerCenterX, layerCenterY);
@@ -63,7 +61,7 @@ const HeaderButtons: React.FC<ComponentProps> = ({ onClickShape }) => {
       ctx.rotate(-(target.angleDegree * Math.PI) / 180);
       ctx.translate(-layerCenterX, -layerCenterY);
     }
-    // 3. 그린 canvas정보를 URL 형태로 href 속성으로 전달
+    // 그린 canvas정보를 URL 형태로 href 속성으로 전달
     // click event handler -> href 순서로 진행됨.
     e.currentTarget.href = canvas.toDataURL();
   };

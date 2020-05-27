@@ -42,7 +42,7 @@ $ yarn deploy
 
 ## 📁 File Structure
 
-- **Container + Pressenter Pattern**
+- **Container + Presenter Pattern**
 
   Container에는 stateful한 pure component로 주로 API request로 가져온 값이나 변하는 값에 대한 내용을 넣고 Presenter에는 stateless한 pure component로 만들어 앱의 기능을 Atomic하고 이해하기 쉽게 구성하며 재사용성을 높일 수 있음
 

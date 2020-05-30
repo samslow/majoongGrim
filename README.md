@@ -13,6 +13,8 @@
 
 - [Demo Page](https://2020-naver-campus-hackday.github.io/majoongGrimor/)
 
+- [발표 자료](https://docs.google.com/presentation/d/1SAKp6rJ6o6W8cyM1qfoZps2m1HmtpJR84WhS3-omqb4/edit?usp=sharing)
+
 ## 👀 Preview
 
 ![](./images/readmeTitle.png)

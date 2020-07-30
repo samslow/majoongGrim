@@ -11,7 +11,7 @@
 
 - [2020 NAVER HACKDAY 네이버 웹툰 썸네일 저작도구](https://github.com/2020-NAVER-CAMPUS-HACKDAY/common/issues/13)
 
-- [Demo Page](https://2020-naver-campus-hackday.github.io/majoongGrimor/)
+- [Demo Page](https://samslow.github.io/majoongGrimor/)
 
 - [팀 발표 자료](https://docs.google.com/presentation/d/1SAKp6rJ6o6W8cyM1qfoZps2m1HmtpJR84WhS3-omqb4/edit?usp=sharing) | [개인 발표 자료](https://drive.google.com/open?id=1FcXKAiulSnacN8cnGwVhULjTqFK7VuBj)
 
@@ -96,21 +96,3 @@ store/
     **총 260개의 commit**
 
   <img src="./images/workprocess3.png" width="100%" />
-
-- 프로젝트 진행 중, 필요에 따라 오프라인 회의(강남 Toz), 화상 회의(Google Meet)도 진행
-
-## 🌟 Feature
-
-| 필수 구현 기능              | 추가 구현 기능                         |
-| --------------------------- | -------------------------------------- |
-| 가로형과 세로형 캔버스 생성 | 레이어 zIndex 변경                     |
-| 로컬 이미지 업로드          | 레이어 삭제                            |
-| 레이어 선택 및 드래그       | 텍스트 스타일(Bold, Italic, Underline) |
-| 웹 폰트 적용                |                                        |
-| 완료된 이미지 다운로드      |                                        |
-| 레이어 리사이즈, 회전       |                                        |
-
-## 👨‍💻 Contributor
-
-- 멘토 | [김태훈](https://github.com/kishu), [문주영](https://github.com/codemilli)
-- 멘티 | [서현석](https://github.com/samslow), [김태은](https://github.com/taenykim)

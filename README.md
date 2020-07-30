@@ -11,7 +11,7 @@
 
 - [2020 NAVER HACKDAY 네이버 웹툰 썸네일 저작도구](https://github.com/2020-NAVER-CAMPUS-HACKDAY/common/issues/13)
 
-- [Demo Page](https://samslow.github.io/majoongGrimor/)
+- [Demo Page](https://samslow.github.io/majoongGrim/)
 
 - [팀 발표 자료](https://docs.google.com/presentation/d/1SAKp6rJ6o6W8cyM1qfoZps2m1HmtpJR84WhS3-omqb4/edit?usp=sharing) | [개인 발표 자료](https://drive.google.com/open?id=1FcXKAiulSnacN8cnGwVhULjTqFK7VuBj)
 
